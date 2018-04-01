@@ -23,15 +23,12 @@ public class CategoriaResource {
 	
 	@RequestMapping(value="/{Id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer Id) {
-//System.out.println("metodo find --> Id="+Id);
 		Categoria obj = service.buscar(Id);
-//System.out.println("metodo find depois instanciar obj --> obj.getNome="+obj.getNome());
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
-//System.out.println("Antes chamada insert --> obj.getNome="+obj.getNome());
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

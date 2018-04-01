@@ -17,14 +17,11 @@ public class CategoriaService {
 	
 	public Categoria buscar(Integer Id) {
 		Optional<Categoria> obj = repo.findById(Id);
-//System.out.println("Id a buscar="+Id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + Id + ", Tipo: " + Categoria.class.getName()));
 	}	
 	
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
-//System.out.println("obj.getNome="+obj.getNome());
 		return repo.save(obj);
-		//return repo.saveAll(Arrays.asList(obj));
 	}
 }
