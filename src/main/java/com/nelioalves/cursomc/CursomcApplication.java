@@ -75,6 +75,7 @@ public class CursomcApplication implements CommandLineRunner {
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
 		categoriaRepo.saveAll(Arrays.asList(cat1, cat2));
+//System.out.println("cat1.getNome="+cat1.getNome());
 		produtoRepo.saveAll(Arrays.asList(p1, p2, p3));
 
 		//Estado+Cidade
