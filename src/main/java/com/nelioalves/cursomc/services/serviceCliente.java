@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.domainCliente;
-import com.nelioalves.cursomc.repositories.ClienteRepository;
+import com.nelioalves.cursomc.repositories.repositoryCliente;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class ClienteService {
+public class serviceCliente {
 
 	@Autowired
-	private ClienteRepository repo;
+	private repositoryCliente repo;
 	
 	public domainCliente service_find(Integer Id) {
 		Optional<domainCliente> obj = repo.findById(Id);

@@ -15,14 +15,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nelioalves.cursomc.domain.domainCategoria;
 import com.nelioalves.cursomc.dto.CategoriaDTO;
-import com.nelioalves.cursomc.services.CategoriaService;
+import com.nelioalves.cursomc.services.serviceCategoriaService;
 
 @RestController
 @RequestMapping(value="/categorias")
-public class CategoriaResource {
+public class REST_CategoriaResource {
 
 	@Autowired
-	public CategoriaService serviceCategoria;
+	public serviceCategoriaService serviceCategoria;
 	
 	@RequestMapping(value="/{Id}", method=RequestMethod.GET)
 	public ResponseEntity<domainCategoria> resource_find(@PathVariable Integer Id) {

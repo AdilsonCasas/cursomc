@@ -21,37 +21,37 @@ import com.nelioalves.cursomc.domain.domainPedido;
 import com.nelioalves.cursomc.domain.domainProduto;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
-import com.nelioalves.cursomc.repositories.CategoriaRepository;
-import com.nelioalves.cursomc.repositories.CidadeRepository;
-import com.nelioalves.cursomc.repositories.ClienteRepository;
-import com.nelioalves.cursomc.repositories.EnderecoRepository;
-import com.nelioalves.cursomc.repositories.EstadoRepository;
-import com.nelioalves.cursomc.repositories.ItemPedidoRepository;
-import com.nelioalves.cursomc.repositories.PagamentoRepository;
-import com.nelioalves.cursomc.repositories.PedidoRepository;
-import com.nelioalves.cursomc.repositories.ProdutoRepository;
+import com.nelioalves.cursomc.repositories.repositoryCategoria;
+import com.nelioalves.cursomc.repositories.repositoryCidade;
+import com.nelioalves.cursomc.repositories.repositoryCliente;
+import com.nelioalves.cursomc.repositories.repositoryEndereco;
+import com.nelioalves.cursomc.repositories.repositoryEstado;
+import com.nelioalves.cursomc.repositories.repositoryItemPedido;
+import com.nelioalves.cursomc.repositories.repositoryPagamento;
+import com.nelioalves.cursomc.repositories.repositoryPedido;
+import com.nelioalves.cursomc.repositories.repositoryProduto;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
-	private CategoriaRepository categoriaRepo;
+	private repositoryCategoria categoriaRepo;
 	@Autowired
-	private ProdutoRepository produtoRepo;
+	private repositoryProduto produtoRepo;
 	@Autowired
-	private EstadoRepository estadoRepo;
+	private repositoryEstado estadoRepo;
 	@Autowired
-	private CidadeRepository cidadeRepo;
+	private repositoryCidade cidadeRepo;
 	@Autowired
-	private ClienteRepository clienteRepo;
+	private repositoryCliente clienteRepo;
 	@Autowired
-	private EnderecoRepository enderecoRepo;
+	private repositoryEndereco enderecoRepo;
 	@Autowired
-	private PedidoRepository pedidoRepo;
+	private repositoryPedido pedidoRepo;
 	@Autowired
-	private PagamentoRepository pagamentoRepo;
+	private repositoryPagamento pagamentoRepo;
 	@Autowired
-	private ItemPedidoRepository itemPedidoRepo;
+	private repositoryItemPedido itemPedidoRepo;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -63,19 +63,19 @@ public class CursomcApplication implements CommandLineRunner {
 		domainCategoria cat1 = new domainCategoria(null, "Informática");
 		domainCategoria cat2 = new domainCategoria(null, "Escritório");
 		
-		domainProduto p1 = new domainProduto(null, "Computador", 2000.00);
-		domainProduto p2 = new domainProduto(null, "Impressora",  800.00);
-		domainProduto p3 = new domainProduto(null, "Mouse",        80.00);
+		domainProduto prod1 = new domainProduto(null, "Computador", 2000.00);
+		domainProduto prod2 = new domainProduto(null, "Impressora",  800.00);
+		domainProduto prod3 = new domainProduto(null, "Mouse",        80.00);
 		
-		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2));
+		cat1.getProdutos().addAll(Arrays.asList(prod1,prod2,prod3));
+		cat2.getProdutos().addAll(Arrays.asList(prod2));
 		
-		p1.getCategorias().addAll(Arrays.asList(cat1));
-		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
-		p3.getCategorias().addAll(Arrays.asList(cat1));
+		prod1.getCategorias().addAll(Arrays.asList(cat1));
+		prod2.getCategorias().addAll(Arrays.asList(cat1,cat2));
+		prod3.getCategorias().addAll(Arrays.asList(cat1));
 		
 		categoriaRepo.saveAll(Arrays.asList(cat1, cat2));
-		produtoRepo.saveAll(Arrays.asList(p1, p2, p3));
+		produtoRepo.saveAll(Arrays.asList(prod1, prod2, prod3));
 
 		//Estado+Cidade
 	
@@ -119,17 +119,17 @@ public class CursomcApplication implements CommandLineRunner {
 		pedidoRepo.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoRepo.saveAll(Arrays.asList(pagto1,pagto2));
 		
-		domainItemPedido ip1 = new domainItemPedido(ped1, p1, 0.00, 1, 2000.00);
-		domainItemPedido ip2 = new domainItemPedido(ped1, p3, 0.00, 2, 80.00);
-		domainItemPedido ip3 = new domainItemPedido(ped2, p2, 100.00, 1, 800.00);
+		domainItemPedido itemPed1 = new domainItemPedido(ped1, prod1, 0.00, 1, 2000.00);
+		domainItemPedido itemPed2 = new domainItemPedido(ped1, prod3, 0.00, 2, 80.00);
+		domainItemPedido itemPed3 = new domainItemPedido(ped2, prod2, 100.00, 1, 800.00);
 		
-		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
-		ped2.getItens().addAll(Arrays.asList(ip3));
+		ped1.getItens().addAll(Arrays.asList(itemPed1,itemPed2));
+		ped2.getItens().addAll(Arrays.asList(itemPed3));
 		
-		p1.getItens().addAll(Arrays.asList(ip1));
-		p2.getItens().addAll(Arrays.asList(ip3));
-		p3.getItens().addAll(Arrays.asList(ip2));
+		prod1.getItens().addAll(Arrays.asList(itemPed1));
+		prod2.getItens().addAll(Arrays.asList(itemPed3));
+		prod3.getItens().addAll(Arrays.asList(itemPed2));
 		
-		itemPedidoRepo.saveAll(Arrays.asList(ip1,ip2,ip3));
+		itemPedidoRepo.saveAll(Arrays.asList(itemPed1,itemPed2,itemPed3));
 	}
 }

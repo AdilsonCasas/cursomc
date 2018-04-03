@@ -8,15 +8,15 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.domainCategoria;
-import com.nelioalves.cursomc.repositories.CategoriaRepository;
+import com.nelioalves.cursomc.repositories.repositoryCategoria;
 import com.nelioalves.cursomc.services.exceptions.DataIntegrityException;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class CategoriaService {
+public class serviceCategoriaService {
 
 	@Autowired
-	private CategoriaRepository repo;
+	private repositoryCategoria repo;
 	
 	public domainCategoria service_find(Integer Id) {
 		Optional<domainCategoria> obj = repo.findById(Id);

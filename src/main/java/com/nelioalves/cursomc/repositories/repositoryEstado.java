@@ -3,9 +3,9 @@ package com.nelioalves.cursomc.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.nelioalves.cursomc.domain.domainProduto;
+import com.nelioalves.cursomc.domain.domainEstado;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<domainProduto, Integer> {
+public interface repositoryEstado extends JpaRepository<domainEstado, Integer> {
 
 }
