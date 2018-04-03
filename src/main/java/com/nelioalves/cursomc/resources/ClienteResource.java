@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nelioalves.cursomc.domain.Cliente;
+import com.nelioalves.cursomc.domain.domainCliente;
 import com.nelioalves.cursomc.services.ClienteService;
 
 @RestController
@@ -15,12 +15,12 @@ import com.nelioalves.cursomc.services.ClienteService;
 public class ClienteResource {
 
 	@Autowired
-	public ClienteService service;
+	public ClienteService serviceCliente;
 	
 	@RequestMapping(value="/{Id}", method=RequestMethod.GET)
-	public ResponseEntity<Cliente> find(@PathVariable Integer Id) {
+	public ResponseEntity<domainCliente> resource_find(@PathVariable Integer Id) {
 		
-		Cliente obj = service.find(Id);
+		domainCliente obj = serviceCliente.service_find(Id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

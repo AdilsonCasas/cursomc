@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Endereco implements Serializable {
+public class domainEndereco implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -28,18 +28,18 @@ public class Endereco implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
-	private Cliente cliente;
+	private domainCliente cliente;
 
 	@ManyToOne
 	@JoinColumn(name="cidade_id")
-	private Cidade cidade;
+	private domainCidade cidade;
 	
-	public Endereco() {
+	public domainEndereco() {
 	}
 
-	public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
+	public domainEndereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, domainCliente cliente, domainCidade cidade) {
 		super();
-		Id = id;
+		this.Id = id;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
@@ -50,15 +50,15 @@ public class Endereco implements Serializable {
 	}
 
 	public Integer getId() {
-		return Id;
+		return this.Id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.Id = id;
 	}
 
 	public String getLogradouro() {
-		return logradouro;
+		return this.logradouro;
 	}
 
 	public void setLogradouro(String logradouro) {
@@ -66,7 +66,7 @@ public class Endereco implements Serializable {
 	}
 
 	public String getNumero() {
-		return numero;
+		return this.numero;
 	}
 
 	public void setNumero(String numero) {
@@ -74,7 +74,7 @@ public class Endereco implements Serializable {
 	}
 
 	public String getComplemento() {
-		return complemento;
+		return this.complemento;
 	}
 
 	public void setComplemento(String complemento) {
@@ -82,7 +82,7 @@ public class Endereco implements Serializable {
 	}
 
 	public String getBairro() {
-		return bairro;
+		return this.bairro;
 	}
 
 	public void setBairro(String bairro) {
@@ -90,26 +90,26 @@ public class Endereco implements Serializable {
 	}
 
 	public String getCep() {
-		return cep;
+		return this.cep;
 	}
 
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public domainCliente getCliente() {
+		return this.cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(domainCliente cliente) {
 		this.cliente = cliente;
 	}
 
-	public Cidade getCidade() {
-		return cidade;
+	public domainCidade getCidade() {
+		return this.cidade;
 	}
 
-	public void setCidade(Cidade cidade) {
+	public void setCidade(domainCidade cidade) {
 		this.cidade = cidade;
 	}
 
@@ -117,7 +117,7 @@ public class Endereco implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((this.Id == null) ? 0 : this.Id.hashCode());
 		return result;
 	}
 
@@ -129,11 +129,11 @@ public class Endereco implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Endereco other = (Endereco) obj;
-		if (Id == null) {
+		domainEndereco other = (domainEndereco) obj;
+		if (this.Id == null) {
 			if (other.Id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!this.Id.equals(other.Id))
 			return false;
 		return true;
 	}

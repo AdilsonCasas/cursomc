@@ -2,7 +2,7 @@ package com.nelioalves.cursomc.dto;
 
 import java.io.Serializable;
 
-import com.nelioalves.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.domain.domainCategoria;
 
 public class CategoriaDTO implements Serializable {
 
@@ -14,21 +14,21 @@ public class CategoriaDTO implements Serializable {
 	public CategoriaDTO() {
 	}
 	
-	public CategoriaDTO(Categoria obj) {
+	public CategoriaDTO(domainCategoria obj) {
 		this.Id = obj.getId();
 		this.nome = obj.getNome();
 	}
 
 	public Integer getId() {
-		return Id;
+		return this.Id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.Id = id;
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {

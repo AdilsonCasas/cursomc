@@ -15,7 +15,7 @@ import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Pagamento implements Serializable {
+public abstract class domainPagamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,39 +27,39 @@ public abstract class Pagamento implements Serializable {
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId
-	private Pedido pedido;
+	private domainPedido pedido;
 	
-	public Pagamento() {
+	public domainPagamento() {
 	}
 
-	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
+	public domainPagamento(Integer id, EstadoPagamento estado, domainPedido pedido) {
 		super();
-		Id = id;
+		this.Id = id;
 		this.estado = estado.getCod();
 		this.pedido = pedido;
 	}
 
 	public Integer getId() {
-		return Id;
+		return this.Id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.Id = id;
 	}
 
 	public EstadoPagamento getEstado() {
-		return EstadoPagamento.toEnum(estado);
+		return EstadoPagamento.toEnum(this.estado);
 	}
 
 	public void setEstado(EstadoPagamento estado) {
 		this.estado = estado.getCod();
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public domainPedido getPedido() {
+		return this.pedido;
 	}
 
-	public void setPedido(Pedido pedido) {
+	public void setPedido(domainPedido pedido) {
 		this.pedido = pedido;
 	}
 
@@ -67,7 +67,7 @@ public abstract class Pagamento implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((this.Id == null) ? 0 : this.Id.hashCode());
 		return result;
 	}
 
@@ -79,11 +79,11 @@ public abstract class Pagamento implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pagamento other = (Pagamento) obj;
-		if (Id == null) {
+		domainPagamento other = (domainPagamento) obj;
+		if (this.Id == null) {
 			if (other.Id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!this.Id.equals(other.Id))
 			return false;
 		return true;
 	}

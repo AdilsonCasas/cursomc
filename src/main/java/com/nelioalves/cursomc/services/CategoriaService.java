@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.nelioalves.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.domain.domainCategoria;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.services.exceptions.DataIntegrityException;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
@@ -18,23 +18,23 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repo;
 	
-	public Categoria find(Integer Id) {
-		Optional<Categoria> obj = repo.findById(Id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + Id + ", Tipo: " + Categoria.class.getName()));
+	public domainCategoria service_find(Integer Id) {
+		Optional<domainCategoria> obj = repo.findById(Id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + Id + ", Tipo: " + domainCategoria.class.getName()));
 	}	
 	
-	public Categoria insert(Categoria obj) {
+	public domainCategoria service_insert(domainCategoria obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 	
-	public Categoria update(Categoria obj) {
-		find(obj.getId());
+	public domainCategoria service_update(domainCategoria obj) {
+		service_find(obj.getId());
 		return repo.save(obj);
 	}
 	
-	public void delete(Integer Id) {
-		find(Id);
+	public void service_delete(Integer Id) {
+		service_find(Id);
 		try {
 			repo.deleteById(Id);
 		}
@@ -43,7 +43,7 @@ public class CategoriaService {
 		}
 	}
 	
-	public List<Categoria> MyDef_findAll() {
+	public List<domainCategoria> service_findAll() {
 		return repo.findAll();
 	}
 	

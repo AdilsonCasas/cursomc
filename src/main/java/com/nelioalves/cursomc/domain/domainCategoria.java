@@ -1,67 +1,66 @@
 package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class Cidade implements Serializable {
+public class domainCategoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer Id;
-	private String nome;
+	private String  nome;
 	
-	@ManyToOne
-	@JoinColumn(name="estado_id")
-	private Estado estado;
+	@ManyToMany(mappedBy="categorias")
+	private List<domainProduto> produtos = new ArrayList<>();
 	
-	public Cidade() {	
+	public domainCategoria () {
 	}
 
-	public Cidade(Integer id, String nome, Estado estado) {
+	public domainCategoria(Integer id, String nome) {
 		super();
-		Id = id;
+		this.Id = id;
 		this.nome = nome;
-		this.estado = estado;
 	}
 
 	public Integer getId() {
-		return Id;
+		return this.Id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.Id = id;
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public List<domainProduto> getProdutos() {
+		return this.produtos;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setProdutos(List<domainProduto> produtos) {
+		this.produtos = produtos;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((this.Id == null) ? 0 : this.Id.hashCode());
 		return result;
 	}
 
@@ -73,12 +72,13 @@ public class Cidade implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cidade other = (Cidade) obj;
-		if (Id == null) {
+		domainCategoria other = (domainCategoria) obj;
+		if (this.Id == null) {
 			if (other.Id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!this.Id.equals(other.Id))
 			return false;
 		return true;
 	}
+
 }

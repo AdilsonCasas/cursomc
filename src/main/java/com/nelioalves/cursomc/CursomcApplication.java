@@ -8,17 +8,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.nelioalves.cursomc.domain.Categoria;
-import com.nelioalves.cursomc.domain.Cidade;
-import com.nelioalves.cursomc.domain.Cliente;
-import com.nelioalves.cursomc.domain.Endereco;
-import com.nelioalves.cursomc.domain.Estado;
-import com.nelioalves.cursomc.domain.ItemPedido;
-import com.nelioalves.cursomc.domain.Pagamento;
-import com.nelioalves.cursomc.domain.PagamentoComBoleto;
-import com.nelioalves.cursomc.domain.PagamentoComCartao;
-import com.nelioalves.cursomc.domain.Pedido;
-import com.nelioalves.cursomc.domain.Produto;
+import com.nelioalves.cursomc.domain.domainCategoria;
+import com.nelioalves.cursomc.domain.domainCidade;
+import com.nelioalves.cursomc.domain.domainCliente;
+import com.nelioalves.cursomc.domain.domainEndereco;
+import com.nelioalves.cursomc.domain.domainEstado;
+import com.nelioalves.cursomc.domain.domainItemPedido;
+import com.nelioalves.cursomc.domain.domainPagamento;
+import com.nelioalves.cursomc.domain.domainPagamentoComBoleto;
+import com.nelioalves.cursomc.domain.domainPagamentoComCartao;
+import com.nelioalves.cursomc.domain.domainPedido;
+import com.nelioalves.cursomc.domain.domainProduto;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
@@ -60,12 +60,12 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// Categoria+Produto
-		Categoria cat1 = new Categoria(null, "Informática");
-		Categoria cat2 = new Categoria(null, "Escritório");
+		domainCategoria cat1 = new domainCategoria(null, "Informática");
+		domainCategoria cat2 = new domainCategoria(null, "Escritório");
 		
-		Produto p1 = new Produto(null, "Computador", 2000.00);
-		Produto p2 = new Produto(null, "Impressora",  800.00);
-		Produto p3 = new Produto(null, "Mouse",        80.00);
+		domainProduto p1 = new domainProduto(null, "Computador", 2000.00);
+		domainProduto p2 = new domainProduto(null, "Impressora",  800.00);
+		domainProduto p3 = new domainProduto(null, "Mouse",        80.00);
 		
 		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
@@ -75,17 +75,16 @@ public class CursomcApplication implements CommandLineRunner {
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
 		categoriaRepo.saveAll(Arrays.asList(cat1, cat2));
-//System.out.println("cat1.getNome="+cat1.getNome());
 		produtoRepo.saveAll(Arrays.asList(p1, p2, p3));
 
 		//Estado+Cidade
 	
-		Estado est1 = new Estado(null,"Minas Gerais");
-		Estado est2 = new Estado(null,"São Paulo");
+		domainEstado est1 = new domainEstado(null,"Minas Gerais");
+		domainEstado est2 = new domainEstado(null,"São Paulo");
 		
-		Cidade c1 = new Cidade(null, "Uberlândia", est1);
-		Cidade c2 = new Cidade(null, "São Paulo", est2);
-		Cidade c3 = new Cidade(null, "Campinas", est2);
+		domainCidade c1 = new domainCidade(null, "Uberlândia", est1);
+		domainCidade c2 = new domainCidade(null, "São Paulo", est2);
+		domainCidade c3 = new domainCidade(null, "Campinas", est2);
 		
 		est1.getCidades().addAll(Arrays.asList(c1));
 		est2.getCidades().addAll(Arrays.asList(c2,c3));
@@ -93,12 +92,12 @@ public class CursomcApplication implements CommandLineRunner {
 		estadoRepo.saveAll(Arrays.asList(est1, est2));
 		cidadeRepo.saveAll(Arrays.asList(c1, c2, c3));
 		
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		domainCliente cli1 = new domainCliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 		
 		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
 		
-		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Ap 303", "Jardins", "38220830", cli1, c1);
-		Endereco e2 = new Endereco(null, "Av. Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		domainEndereco e1 = new domainEndereco(null, "Rua Flores", "300", "Ap 303", "Jardins", "38220830", cli1, c1);
+		domainEndereco e2 = new domainEndereco(null, "Av. Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
 		
@@ -106,13 +105,13 @@ public class CursomcApplication implements CommandLineRunner {
 		enderecoRepo.saveAll(Arrays.asList(e1,e2));
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		Pedido ped1 = new Pedido(null, simpleDateFormat.parse("30/09/2017 10:32"),cli1, e1);
-		Pedido ped2 = new Pedido(null, simpleDateFormat.parse("10/10/2017 19:35"),cli1, e2);
+		domainPedido ped1 = new domainPedido(null, simpleDateFormat.parse("30/09/2017 10:32"),cli1, e1);
+		domainPedido ped2 = new domainPedido(null, simpleDateFormat.parse("10/10/2017 19:35"),cli1, e2);
 		
-		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		domainPagamento pagto1 = new domainPagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
 		
-		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, simpleDateFormat.parse("20/10/2017 00:99"), null);
+		domainPagamento pagto2 = new domainPagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, simpleDateFormat.parse("20/10/2017 00:99"), null);
 		ped2.setPagamento(pagto2);
 		
 		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
@@ -120,9 +119,9 @@ public class CursomcApplication implements CommandLineRunner {
 		pedidoRepo.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoRepo.saveAll(Arrays.asList(pagto1,pagto2));
 		
-		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
-		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
-		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		domainItemPedido ip1 = new domainItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		domainItemPedido ip2 = new domainItemPedido(ped1, p3, 0.00, 2, 80.00);
+		domainItemPedido ip3 = new domainItemPedido(ped2, p2, 100.00, 1, 800.00);
 		
 		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
 		ped2.getItens().addAll(Arrays.asList(ip3));

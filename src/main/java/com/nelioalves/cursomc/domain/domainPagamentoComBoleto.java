@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
-public class PagamentoComBoleto extends Pagamento {
+public class domainPagamentoComBoleto extends domainPagamento {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -17,17 +17,17 @@ public class PagamentoComBoleto extends Pagamento {
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataPagamento;
 
-	public PagamentoComBoleto() {
+	public domainPagamentoComBoleto() {
 	}
 
-	public PagamentoComBoleto(Integer id, EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
+	public domainPagamentoComBoleto(Integer id, EstadoPagamento estado, domainPedido pedido, Date dataVencimento, Date dataPagamento) {
 		super(id, estado, pedido);
 		this.dataPagamento = dataPagamento;
 		this.dataVencimento = dataVencimento;
 	}
 
 	public Date getDataVencimento() {
-		return dataVencimento;
+		return this.dataVencimento;
 	}
 
 	public void setDataVencimento(Date dataVencimento) {
@@ -35,7 +35,7 @@ public class PagamentoComBoleto extends Pagamento {
 	}
 
 	public Date getDataPagamento() {
-		return dataPagamento;
+		return this.dataPagamento;
 	}
 
 	public void setDataPagamento(Date dataPagamento) {

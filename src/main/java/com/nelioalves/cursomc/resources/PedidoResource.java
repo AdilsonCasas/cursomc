@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nelioalves.cursomc.domain.Pedido;
+import com.nelioalves.cursomc.domain.domainPedido;
 import com.nelioalves.cursomc.services.PedidoService;
 
 @RestController
@@ -15,12 +15,11 @@ import com.nelioalves.cursomc.services.PedidoService;
 public class PedidoResource {
 
 	@Autowired
-	public PedidoService service;
+	public PedidoService servicePedido;
 	
 	@RequestMapping(value="/{Id}", method=RequestMethod.GET)
-	public ResponseEntity<Pedido> find(@PathVariable Integer Id) {
-		
-		Pedido obj = service.find(Id);
+	public ResponseEntity<domainPedido> resource_find(@PathVariable Integer Id) {
+		domainPedido obj = servicePedido.service_find(Id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
 
 @Entity
-public class Cliente implements Serializable {
+public class domainCliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class Cliente implements Serializable {
 	private Integer tipoCliente;
 	
 	@OneToMany(mappedBy="cliente")
-	private List<Endereco> enderecos = new ArrayList<>();
+	private List<domainEndereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
@@ -39,30 +39,30 @@ public class Cliente implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
-	private List<Pedido> pedidos = new ArrayList<>();
+	private List<domainPedido> pedidos = new ArrayList<>();
 	
-	public Cliente() {
+	public domainCliente() {
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+	public domainCliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
 		super();
-		Id = id;
+		this.Id = id;
 		this.nome = nome;
 		this.email = email;
-		CpfOuCnpj = cpfOuCnpj;
+		this.CpfOuCnpj = cpfOuCnpj;
 		this.tipoCliente = tipoCliente.getCod();
 	}
 
 	public Integer getId() {
-		return Id;
+		return this.Id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.Id = id;
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -70,7 +70,7 @@ public class Cliente implements Serializable {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -78,42 +78,42 @@ public class Cliente implements Serializable {
 	}
 
 	public String getCpfOuCnpj() {
-		return CpfOuCnpj;
+		return this.CpfOuCnpj;
 	}
 
 	public void setCpfOuCnpj(String cpfOuCnpj) {
-		CpfOuCnpj = cpfOuCnpj;
+		this.CpfOuCnpj = cpfOuCnpj;
 	}
 
 	public TipoCliente getTipoCliente() {
-		return TipoCliente.toEnum(tipoCliente);
+		return TipoCliente.toEnum(this.tipoCliente);
 	}
 
 	public void setTipoCliente(TipoCliente tipoCliente) {
 		this.tipoCliente = tipoCliente.getCod();
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public List<domainEndereco> getEnderecos() {
+		return this.enderecos;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
+	public void setEnderecos(List<domainEndereco> enderecos) {
 		this.enderecos = enderecos;
 	}
 
 	public Set<String> getTelefones() {
-		return telefones;
+		return this.telefones;
 	}
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public List<domainPedido> getPedidos() {
+		return this.pedidos;
 	}
 
-	public void setPedidos(List<Pedido> pedidos) {
+	public void setPedidos(List<domainPedido> pedidos) {
 		this.pedidos = pedidos;
 	}
 
@@ -121,7 +121,7 @@ public class Cliente implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((this.Id == null) ? 0 : this.Id.hashCode());
 		return result;
 	}
 
@@ -133,11 +133,11 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
-		if (Id == null) {
+		domainCliente other = (domainCliente) obj;
+		if (this.Id == null) {
 			if (other.Id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!this.Id.equals(other.Id))
 			return false;
 		return true;
 	}

@@ -8,59 +8,62 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Categoria implements Serializable {
+public class domainEstado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer Id;
-	private String  nome;
+	private String nome;
 	
-	@ManyToMany(mappedBy="categorias")
-	private List<Produto> produtos = new ArrayList<>();
+	@JsonIgnore
+	@OneToMany(mappedBy="estado")
+	private List<domainCidade> cidades = new ArrayList<>();
 	
-	public Categoria () {
+	public domainEstado() {
 	}
 
-	public Categoria(Integer id, String nome) {
+	public domainEstado(Integer id, String nome) {
 		super();
-		Id = id;
+		this.Id = id;
 		this.nome = nome;
 	}
 
 	public Integer getId() {
-		return Id;
+		return this.Id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.Id = id;
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public List<domainCidade> getCidades() {
+		return this.cidades;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setCidades(List<domainCidade> cidades) {
+		this.cidades = cidades;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((this.Id == null) ? 0 : this.Id.hashCode());
 		return result;
 	}
 
@@ -72,11 +75,11 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
-		if (Id == null) {
+		domainEstado other = (domainEstado) obj;
+		if (this.Id == null) {
 			if (other.Id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!this.Id.equals(other.Id))
 			return false;
 		return true;
 	}

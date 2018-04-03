@@ -15,11 +15,11 @@ public enum EstadoPagamento {
 	}
 	
 	public int getCod() {
-		return cod;
+		return this.cod;
 	}
 	
 	public String getDescricao() {
-		return descricao;
+		return this.descricao;
 	}
 	
 	public static EstadoPagamento toEnum(Integer cod) {

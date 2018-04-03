@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Pedido implements Serializable {
+public class domainPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,23 +30,23 @@ public class Pedido implements Serializable {
 	private Date instante;
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
-	private Pagamento pagamento;
+	private domainPagamento pagamento;
 	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
-	private Cliente cliente;
+	private domainCliente cliente;
 	
 	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")
-	private Endereco enderecoDeEntrega;
+	private domainEndereco enderecoDeEntrega;
 	
 	@OneToMany(mappedBy="Id.pedido")
-	private Set<ItemPedido> itens = new HashSet<>();
+	private Set<domainItemPedido> itens = new HashSet<>();
 
-	public Pedido() {
+	public domainPedido() {
 	}
 
-	public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+	public domainPedido(Integer id, Date instante, domainCliente cliente, domainEndereco enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.instante = instante;
@@ -55,7 +55,7 @@ public class Pedido implements Serializable {
 	}
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
@@ -63,42 +63,42 @@ public class Pedido implements Serializable {
 	}
 
 	public Date getInstante() {
-		return instante;
+		return this.instante;
 	}
 
 	public void setInstante(Date instante) {
 		this.instante = instante;
 	}
 
-	public Pagamento getPagamento() {
-		return pagamento;
+	public domainPagamento getPagamento() {
+		return this.pagamento;
 	}
 
-	public void setPagamento(Pagamento pagamento) {
+	public void setPagamento(domainPagamento pagamento) {
 		this.pagamento = pagamento;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public domainCliente getCliente() {
+		return this.cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(domainCliente cliente) {
 		this.cliente = cliente;
 	}
 
-	public Endereco getEnderecoDeEntrega() {
-		return enderecoDeEntrega;
+	public domainEndereco getEnderecoDeEntrega() {
+		return this.enderecoDeEntrega;
 	}
 
-	public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
+	public void setEnderecoDeEntrega(domainEndereco enderecoDeEntrega) {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
-	public Set<ItemPedido> getItens() {
-		return itens;
+	public Set<domainItemPedido> getItens() {
+		return this.itens;
 	}
 
-	public void setItens(Set<ItemPedido> itens) {
+	public void setItens(Set<domainItemPedido> itens) {
 		this.itens = itens;
 	}
 
@@ -106,7 +106,7 @@ public class Pedido implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		return result;
 	}
 
@@ -118,11 +118,11 @@ public class Pedido implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pedido other = (Pedido) obj;
-		if (id == null) {
+		domainPedido other = (domainPedido) obj;
+		if (this.id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!this.id.equals(other.id))
 			return false;
 		return true;
 	}

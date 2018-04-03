@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Produto implements Serializable {
+public class domainProduto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,16 +35,16 @@ public class Produto implements Serializable {
 			joinColumns = @JoinColumn(name = "produto_id"),
 			inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
-	private List<Categoria> categorias = new ArrayList<>();
+	private List<domainCategoria> categorias = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="Id.produto")
-	private Set<ItemPedido> itens = new HashSet<>();
+	private Set<domainItemPedido> itens = new HashSet<>();
 	
-	public Produto() {
+	public domainProduto() {
 	}
 
-	public Produto(Integer id, String nome, Double preco) {
+	public domainProduto(Integer id, String nome, Double preco) {
 		super();
 		this.Id = id;
 		this.nome = nome;
@@ -52,16 +52,16 @@ public class Produto implements Serializable {
 	}
 
 	@JsonIgnore
-	public List<Pedido> getPedidos() {
-		List<Pedido> lista = new ArrayList<>();
-		for(ItemPedido x: itens) {
+	public List<domainPedido> getPedidos() {
+		List<domainPedido> lista = new ArrayList<>();
+		for(domainItemPedido x: this.itens) {
 			lista.add(x.getPedido());
 		}
 		return lista;
 	}
 	
 	public Integer getId() {
-		return Id;
+		return this.Id;
 	}
 
 	public void setId(Integer id) {
@@ -69,7 +69,7 @@ public class Produto implements Serializable {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -77,26 +77,26 @@ public class Produto implements Serializable {
 	}
 
 	public Double getPreco() {
-		return preco;
+		return this.preco;
 	}
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 
-	public List<Categoria> getCategorias() {
-		return categorias;
+	public List<domainCategoria> getCategorias() {
+		return this.categorias;
 	}
 
-	public void setCategorias(List<Categoria> categorias) {
+	public void setCategorias(List<domainCategoria> categorias) {
 		this.categorias = categorias;
 	}
 
-	public Set<ItemPedido> getItens() {
-		return itens;
+	public Set<domainItemPedido> getItens() {
+		return this.itens;
 	}
 
-	public void setItens(Set<ItemPedido> itens) {
+	public void setItens(Set<domainItemPedido> itens) {
 		this.itens = itens;
 	}
 
@@ -104,7 +104,7 @@ public class Produto implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
+		result = prime * result + ((this.Id == null) ? 0 : this.Id.hashCode());
 		return result;
 	}
 
@@ -116,11 +116,11 @@ public class Produto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
-		if (Id == null) {
+		domainProduto other = (domainProduto) obj;
+		if (this.Id == null) {
 			if (other.Id != null)
 				return false;
-		} else if (!Id.equals(other.Id))
+		} else if (!this.Id.equals(other.Id))
 			return false;
 		return true;
 	}	

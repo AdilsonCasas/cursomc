@@ -5,22 +5,22 @@ import javax.persistence.Entity;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
-public class PagamentoComCartao extends Pagamento {
+public class domainPagamentoComCartao extends domainPagamento {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Integer numeroDeParcelas;
 	
-	public PagamentoComCartao() {
+	public domainPagamentoComCartao() {
 	}
 
-	public PagamentoComCartao(Integer id, EstadoPagamento estado, Pedido pedido, Integer numeroDeParcelas) {
+	public domainPagamentoComCartao(Integer id, EstadoPagamento estado, domainPedido pedido, Integer numeroDeParcelas) {
 		super(id, estado, pedido);
 		this.numeroDeParcelas = numeroDeParcelas;
 	}
 
 	public Integer getNumeroDeParcelas() {
-		return numeroDeParcelas;
+		return this.numeroDeParcelas;
 	}
 
 	public void setNumeroDeParcelas(Integer numeroDeParcelas) {
