@@ -62,6 +62,11 @@ public class CursomcApplication implements CommandLineRunner {
 		// Categoria+Produto
 		domainCategoria cat1 = new domainCategoria(null, "Informática");
 		domainCategoria cat2 = new domainCategoria(null, "Escritório");
+		domainCategoria cat3 = new domainCategoria(null, "Cama mesa e banho");
+		domainCategoria cat4 = new domainCategoria(null, "Eletrônicos");
+		domainCategoria cat5 = new domainCategoria(null, "Jardinagem");
+		domainCategoria cat6 = new domainCategoria(null, "Decoração");
+		domainCategoria cat7 = new domainCategoria(null, "Perfumaria");
 		
 		domainProduto prod1 = new domainProduto(null, "Computador", 2000.00);
 		domainProduto prod2 = new domainProduto(null, "Impressora",  800.00);
@@ -74,7 +79,7 @@ public class CursomcApplication implements CommandLineRunner {
 		prod2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		prod3.getCategorias().addAll(Arrays.asList(cat1));
 		
-		categoriaRepo.saveAll(Arrays.asList(cat1, cat2));
+		categoriaRepo.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
 		produtoRepo.saveAll(Arrays.asList(prod1, prod2, prod3));
 
 		//Estado+Cidade
