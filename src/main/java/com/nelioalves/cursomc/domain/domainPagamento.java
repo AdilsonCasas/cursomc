@@ -11,7 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
+import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -32,7 +32,7 @@ public abstract class domainPagamento implements Serializable {
 	public domainPagamento() {
 	}
 
-	public domainPagamento(Integer id, EstadoPagamento estado, domainPedido pedido) {
+	public domainPagamento(Integer id, enumEstadoPagamento estado, domainPedido pedido) {
 		super();
 		this.Id = id;
 		this.estado = estado.getCod();
@@ -47,11 +47,11 @@ public abstract class domainPagamento implements Serializable {
 		this.Id = id;
 	}
 
-	public EstadoPagamento getEstado() {
-		return EstadoPagamento.toEnum(this.estado);
+	public enumEstadoPagamento getEstado() {
+		return enumEstadoPagamento.toEnum(this.estado);
 	}
 
-	public void setEstado(EstadoPagamento estado) {
+	public void setEstado(enumEstadoPagamento estado) {
 		this.estado = estado.getCod();
 	}
 

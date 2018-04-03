@@ -2,7 +2,7 @@ package com.nelioalves.cursomc.domain;
 
 import javax.persistence.Entity;
 
-import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
+import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
 
 @Entity
 public class domainPagamentoComCartao extends domainPagamento {
@@ -14,7 +14,7 @@ public class domainPagamentoComCartao extends domainPagamento {
 	public domainPagamentoComCartao() {
 	}
 
-	public domainPagamentoComCartao(Integer id, EstadoPagamento estado, domainPedido pedido, Integer numeroDeParcelas) {
+	public domainPagamentoComCartao(Integer id, enumEstadoPagamento estado, domainPedido pedido, Integer numeroDeParcelas) {
 		super(id, estado, pedido);
 		this.numeroDeParcelas = numeroDeParcelas;
 	}

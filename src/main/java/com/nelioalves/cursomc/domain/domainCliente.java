@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nelioalves.cursomc.domain.enums.TipoCliente;
+import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
 
 @Entity
 public class domainCliente implements Serializable {
@@ -44,7 +44,7 @@ public class domainCliente implements Serializable {
 	public domainCliente() {
 	}
 
-	public domainCliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+	public domainCliente(Integer id, String nome, String email, String cpfOuCnpj, enumTipoCliente tipoCliente) {
 		super();
 		this.Id = id;
 		this.nome = nome;
@@ -85,11 +85,11 @@ public class domainCliente implements Serializable {
 		this.CpfOuCnpj = cpfOuCnpj;
 	}
 
-	public TipoCliente getTipoCliente() {
-		return TipoCliente.toEnum(this.tipoCliente);
+	public enumTipoCliente getTipoCliente() {
+		return enumTipoCliente.toEnum(this.tipoCliente);
 	}
 
-	public void setTipoCliente(TipoCliente tipoCliente) {
+	public void setTipoCliente(enumTipoCliente tipoCliente) {
 		this.tipoCliente = tipoCliente.getCod();
 	}
 

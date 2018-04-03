@@ -1,6 +1,6 @@
 package com.nelioalves.cursomc.domain.enums;
 
-public enum TipoCliente {
+public enum enumTipoCliente {
 	
 	PESSOAFISICA(1, "Pessoa Física"),
 	PESSOAJURIDICA(2, "Pessoa Jurídica");
@@ -8,7 +8,7 @@ public enum TipoCliente {
 	private int cod;
 	private String descricao;
 	
-	private TipoCliente(int cod, String descricao) {
+	private enumTipoCliente(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
@@ -21,11 +21,11 @@ public enum TipoCliente {
 		return this.descricao;
 	}
 	
-	public static TipoCliente toEnum(Integer cod) {
+	public static enumTipoCliente toEnum(Integer cod) {
 		if(cod == null) {
 			return null;
 		}
-		for(TipoCliente x: TipoCliente.values()) {
+		for(enumTipoCliente x: enumTipoCliente.values()) {
 			if(cod == x.getCod()) {
 				return x;
 			}

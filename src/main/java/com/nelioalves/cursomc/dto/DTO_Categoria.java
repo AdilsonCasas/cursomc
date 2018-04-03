@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 import com.nelioalves.cursomc.domain.domainCategoria;
 
-public class CategoriaDTO implements Serializable {
+public class DTO_Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Integer Id;
 	private String  nome;
 	
-	public CategoriaDTO() {
+	public DTO_Categoria() {
 	}
 	
-	public CategoriaDTO(domainCategoria obj) {
+	public DTO_Categoria(domainCategoria obj) {
 		this.Id = obj.getId();
 		this.nome = obj.getNome();
 	}

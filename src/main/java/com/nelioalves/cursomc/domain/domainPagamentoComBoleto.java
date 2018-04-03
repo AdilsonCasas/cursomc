@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
+import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
 
 @Entity
 public class domainPagamentoComBoleto extends domainPagamento {
@@ -20,7 +20,7 @@ public class domainPagamentoComBoleto extends domainPagamento {
 	public domainPagamentoComBoleto() {
 	}
 
-	public domainPagamentoComBoleto(Integer id, EstadoPagamento estado, domainPedido pedido, Date dataVencimento, Date dataPagamento) {
+	public domainPagamentoComBoleto(Integer id, enumEstadoPagamento estado, domainPedido pedido, Date dataVencimento, Date dataPagamento) {
 		super(id, estado, pedido);
 		this.dataPagamento = dataPagamento;
 		this.dataVencimento = dataVencimento;

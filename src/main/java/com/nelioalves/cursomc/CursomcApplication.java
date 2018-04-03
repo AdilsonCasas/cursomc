@@ -19,8 +19,8 @@ import com.nelioalves.cursomc.domain.domainPagamentoComBoleto;
 import com.nelioalves.cursomc.domain.domainPagamentoComCartao;
 import com.nelioalves.cursomc.domain.domainPedido;
 import com.nelioalves.cursomc.domain.domainProduto;
-import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
-import com.nelioalves.cursomc.domain.enums.TipoCliente;
+import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
+import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
 import com.nelioalves.cursomc.repositories.repositoryCategoria;
 import com.nelioalves.cursomc.repositories.repositoryCidade;
 import com.nelioalves.cursomc.repositories.repositoryCliente;
@@ -92,7 +92,7 @@ public class CursomcApplication implements CommandLineRunner {
 		estadoRepo.saveAll(Arrays.asList(est1, est2));
 		cidadeRepo.saveAll(Arrays.asList(c1, c2, c3));
 		
-		domainCliente cli1 = new domainCliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		domainCliente cli1 = new domainCliente(null, "Maria Silva", "maria@gmail.com", "36378912377", enumTipoCliente.PESSOAFISICA);
 		
 		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
 		
@@ -108,10 +108,10 @@ public class CursomcApplication implements CommandLineRunner {
 		domainPedido ped1 = new domainPedido(null, simpleDateFormat.parse("30/09/2017 10:32"),cli1, e1);
 		domainPedido ped2 = new domainPedido(null, simpleDateFormat.parse("10/10/2017 19:35"),cli1, e2);
 		
-		domainPagamento pagto1 = new domainPagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		domainPagamento pagto1 = new domainPagamentoComCartao(null, enumEstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
 		
-		domainPagamento pagto2 = new domainPagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, simpleDateFormat.parse("20/10/2017 00:99"), null);
+		domainPagamento pagto2 = new domainPagamentoComBoleto(null, enumEstadoPagamento.PENDENTE, ped2, simpleDateFormat.parse("20/10/2017 00:99"), null);
 		ped2.setPagamento(pagto2);
 		
 		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));

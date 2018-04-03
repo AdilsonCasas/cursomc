@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nelioalves.cursomc.domain.domainCategoria;
-import com.nelioalves.cursomc.dto.CategoriaDTO;
-import com.nelioalves.cursomc.services.serviceCategoriaService;
+import com.nelioalves.cursomc.dto.DTO_Categoria;
+import com.nelioalves.cursomc.services.serviceCategoria;
 
 @RestController
 @RequestMapping(value="/categorias")
 public class REST_CategoriaResource {
 
 	@Autowired
-	public serviceCategoriaService serviceCategoria;
+	public serviceCategoria serviceCategoria;
 	
 	@RequestMapping(value="/{Id}", method=RequestMethod.GET)
 	public ResponseEntity<domainCategoria> resource_find(@PathVariable Integer Id) {
@@ -51,9 +51,9 @@ public class REST_CategoriaResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<CategoriaDTO>> resource_findAll() {
+	public ResponseEntity<List<DTO_Categoria>> resource_findAll() {
 		List<domainCategoria> list = serviceCategoria.service_findAll();
-		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		List<DTO_Categoria> listDto = list.stream().map(obj -> new DTO_Categoria(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	

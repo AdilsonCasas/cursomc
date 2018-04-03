@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.domainCliente;
 import com.nelioalves.cursomc.repositories.repositoryCliente;
-import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
+import com.nelioalves.cursomc.services.exceptions.service_exceptionObjectNotFoundException;
 
 @Service
 public class serviceCliente {
@@ -17,7 +17,7 @@ public class serviceCliente {
 	
 	public domainCliente service_find(Integer Id) {
 		Optional<domainCliente> obj = repo.findById(Id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + Id + ", Tipo: " + domainCliente.class.getName()));
+		return obj.orElseThrow(() -> new service_exceptionObjectNotFoundException("Objeto não encontrado! Id: " + Id + ", Tipo: " + domainCliente.class.getName()));
 	}	
 	
 }
