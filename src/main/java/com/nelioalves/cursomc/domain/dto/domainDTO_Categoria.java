@@ -1,20 +1,27 @@
-package com.nelioalves.cursomc.dto;
+package com.nelioalves.cursomc.domain.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.nelioalves.cursomc.domain.domainCategoria;
 
-public class DTO_Categoria implements Serializable {
+public class domainDTO_Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Integer Id;
+	
+	@NotEmpty(message="Preenchimento do Nome da Categoria é obrigatório.")
+	@Length(min=5, max=80, message="O tamanho do Nome da Categoria deve estar entre 5 e 80 caracteres.")
 	private String  nome;
 	
-	public DTO_Categoria() {
+	public domainDTO_Categoria() {
 	}
 	
-	public DTO_Categoria(domainCategoria obj) {
+	public domainDTO_Categoria(domainCategoria obj) {
 		this.Id = obj.getId();
 		this.nome = obj.getNome();
 	}

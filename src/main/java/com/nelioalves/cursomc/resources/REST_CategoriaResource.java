@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nelioalves.cursomc.domain.domainCategoria;
-import com.nelioalves.cursomc.dto.DTO_Categoria;
+import com.nelioalves.cursomc.domain.dto.domainDTO_Categoria;
 import com.nelioalves.cursomc.services.serviceCategoria;
 
 @RestController
@@ -33,14 +35,16 @@ public class REST_CategoriaResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> resource_insert(@RequestBody domainCategoria obj) {
+	public ResponseEntity<Void> resource_insert(@Valid @RequestBody domainDTO_Categoria objDTO) {
+		domainCategoria obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
 		obj = serviceCategoria.service_insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value="/{Id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> resource_update(@RequestBody domainCategoria obj, @PathVariable Integer Id) {
+	public ResponseEntity<Void> resource_update(@Valid @RequestBody domainDTO_Categoria objDTO, @PathVariable Integer Id) {
+		domainCategoria obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
 		obj.setId(Id);
 		obj = serviceCategoria.service_update(obj);
 		return ResponseEntity.noContent().build();
@@ -53,9 +57,9 @@ public class REST_CategoriaResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<DTO_Categoria>> resource_findAll() {
+	public ResponseEntity<List<domainDTO_Categoria>> resource_findAll() {
 		List<domainCategoria> list = serviceCategoria.service_findAll();
-		List<DTO_Categoria> listDto = list.stream().map(obj -> new DTO_Categoria(obj)).collect(Collectors.toList());
+		List<domainDTO_Categoria> listDto = list.stream().map(obj -> new domainDTO_Categoria(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
@@ -64,13 +68,13 @@ public class REST_CategoriaResource {
 	// ex2 de chamada: "http://localhost:8080/categorias/page" (sem parâmetros)
 	// ex3 de chamada: "http://localhost:8080/categorias/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<DTO_Categoria>> resource_findPage(
+	public ResponseEntity<Page<domainDTO_Categoria>> resource_findPage(
 					@RequestParam(value="NumPage", defaultValue="0") Integer NumPage, 
 					@RequestParam(value="LinesPerPage", defaultValue="24") Integer LinesPerPage, 
 					@RequestParam(value="orderBy" , defaultValue="nome") String orderBy, 
 					@RequestParam(value="directionOrderBy", defaultValue="ASC") String directionOrderBy) {
 		Page<domainCategoria> list = serviceCategoria.service_findPage(NumPage, LinesPerPage, orderBy, directionOrderBy);
-		Page<DTO_Categoria> listDto = list.map(obj -> new DTO_Categoria(obj));
+		Page<domainDTO_Categoria> listDto = list.map(obj -> new domainDTO_Categoria(obj));
 		return ResponseEntity.ok().body(listDto);
 	}
 	
