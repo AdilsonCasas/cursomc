@@ -19,14 +19,14 @@ public class REST_exceptionResourceExceptionHandler {
 
 	@ExceptionHandler(ObjectNotFoundException.class)
 	ResponseEntity<REST_exceptionStandardError> UmNomeQualquerDeFuncao_1(ObjectNotFoundException e, HttpServletRequest request) {
-		REST_exceptionStandardError err = new REST_exceptionStandardError(HttpStatus.NOT_FOUND.value(),	"Objeto não encontrado! Id: "+e.getClass(), System.currentTimeMillis());
+		REST_exceptionStandardError err = new REST_exceptionStandardError(HttpStatus.NOT_FOUND.value(),	"Objeto não encontrado!", System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	//ResponseEntity<REST_exceptionStandardError> UmNomeQualquerDeFuncao_2(service_exceptionGenericRuntimeException e, HttpServletRequest request) {
 	ResponseEntity<REST_exceptionStandardError> UmNomeQualquerDeFuncao_2(DataIntegrityViolationException e, HttpServletRequest request) {
-		REST_exceptionStandardError err = new REST_exceptionStandardError(HttpStatus.BAD_REQUEST.value(), "Não é possível Excluir uma Categoria que possui produtos associados, ClassName="+e.getClass().getName(), System.currentTimeMillis());
+		REST_exceptionStandardError err = new REST_exceptionStandardError(HttpStatus.BAD_REQUEST.value(), "Não é possível Excluir porque possui relações externas no BD.", System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
