@@ -43,6 +43,7 @@ public class REST_CategoriaResource {
 	}
 	
 	@RequestMapping(value="/{Id}", method=RequestMethod.PUT)
+	// o "@Valid" abaixo é parte do "Bean Validate" que faz parte od Java EE, ele chama a validação definida nas diretivas incluídas no "domain" da categoria
 	public ResponseEntity<Void> resource_update(@Valid @RequestBody domainDTO_Categoria objDTO, @PathVariable Integer Id) {
 		domainCategoria obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
 		obj.setId(Id);

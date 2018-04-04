@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -13,8 +12,7 @@ import org.springframework.stereotype.Service;
 import com.nelioalves.cursomc.domain.domainCategoria;
 import com.nelioalves.cursomc.domain.dto.domainDTO_Categoria;
 import com.nelioalves.cursomc.repositories.repositoryCategoria;
-import com.nelioalves.cursomc.services.exceptions.service_exceptionDataIntegrityException;
-import com.nelioalves.cursomc.services.exceptions.service_exceptionObjectNotFoundException;
+import com.nelioalves.cursomc.services.exception.service_exceptionGenericRuntimeException;
 
 @Service
 public class serviceCategoria {
@@ -24,7 +22,7 @@ public class serviceCategoria {
 	
 	public domainCategoria service_find(Integer Id) {
 		Optional<domainCategoria> obj = repo.findById(Id);
-		return obj.orElseThrow(() -> new service_exceptionObjectNotFoundException("Objeto não encontrado! Id: " + Id + ", Tipo: " + domainCategoria.class.getName()));
+		return obj.orElseThrow(() -> new service_exceptionGenericRuntimeException("Objeto não encontrado! Id: " + Id + ", Tipo: " + domainCategoria.class.getName()));
 	}	
 	
 	public domainCategoria service_insert(domainCategoria obj) {
@@ -39,12 +37,12 @@ public class serviceCategoria {
 	
 	public void service_delete(Integer Id) {
 		service_find(Id);
-		try {
+		//try {
 			repo.deleteById(Id);
-		}
-		catch (DataIntegrityViolationException e) {
-			throw new service_exceptionDataIntegrityException("Não é possível Excluir uma Categoria que possui produtos associados");           
-		}
+		//}
+		//catch (DataIntegrityViolationException e) {
+		//	throw new service_exceptionGenericRuntimeException("Não é possível Excluir uma Categoria que possui produtos associados");           
+		//}
 	}
 	
 	public List<domainCategoria> service_findAll() {

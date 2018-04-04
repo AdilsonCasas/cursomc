@@ -1,4 +1,4 @@
-package com.nelioalves.cursomc.resources.exception;
+package com.nelioalves.cursomc.resources;
 
 import java.io.Serializable;
 

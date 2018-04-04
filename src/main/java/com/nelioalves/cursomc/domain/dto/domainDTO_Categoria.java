@@ -14,6 +14,7 @@ public class domainDTO_Categoria implements Serializable {
 	
 	private Integer Id;
 	
+	// as diretivas "@NotEmpty" e "@Length" abaixo é parte do "Bean Validate" que faz parte do Java EE, ele define a validação definida nestes parâmetros e coloca a "message" de retorno ao REST
 	@NotEmpty(message="Preenchimento do Nome da Categoria é obrigatório.")
 	@Length(min=5, max=80, message="O tamanho do Nome da Categoria deve estar entre 5 e 80 caracteres.")
 	private String  nome;
