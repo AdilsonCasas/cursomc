@@ -35,7 +35,7 @@ public abstract class domainPagamento implements Serializable {
 	public domainPagamento(Integer id, enumEstadoPagamento estado, domainPedido pedido) {
 		super();
 		this.Id = id;
-		this.estado = estado.getCod();
+		this.estado = (estado == null) ? null : estado.getCod();
 		this.pedido = pedido;
 	}
 

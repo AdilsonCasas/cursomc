@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.domainCategoria;
+import com.nelioalves.cursomc.domain.domainCliente;
 import com.nelioalves.cursomc.domain.dto.domainDTO_Categoria;
 import com.nelioalves.cursomc.repositories.repositoryCategoria;
 import com.nelioalves.cursomc.services.exception.service_exceptionGenericRuntimeException;
@@ -30,9 +31,10 @@ public class serviceCategoria {
 		return repo.save(obj);
 	}
 	
-	public domainCategoria service_update(domainCategoria obj) {
-		service_find(obj.getId());
-		return repo.save(obj);
+	public domainCategoria service_update(domainCategoria ObjAlterado) {
+		domainCategoria ObjJaExistenteBD = service_find(ObjAlterado.getId());
+		service_UpdateObjJaExistenteBD_from_ObjAlterado(ObjJaExistenteBD, ObjAlterado);
+		return repo.save(ObjJaExistenteBD);
 	}
 	
 	public void service_delete(Integer Id) {
@@ -58,4 +60,8 @@ public class serviceCategoria {
 		return new domainCategoria(objDTO.getId(),objDTO.getNome());
 	}
 	
+	private void service_UpdateObjJaExistenteBD_from_ObjAlterado(domainCategoria ObjJaExistenteBD, domainCategoria ObjAlterado) {
+		ObjJaExistenteBD.setNome(ObjAlterado.getNome());
+	}
+
 }
