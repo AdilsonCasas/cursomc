@@ -15,7 +15,7 @@ import com.nelioalves.cursomc.repositories.repositoryCliente;
 import com.nelioalves.cursomc.resources.REST_exceptionFieldMessage;
 import com.nelioalves.cursomc.services.validation.utils.BR;
 
-public class serviceClienteInsertValidator implements ConstraintValidator<serviceAnnotation_ClienteInsert, domainDTO_Cliente_Completo> {
+public class serviceValidatorClienteInsert implements ConstraintValidator<serviceAnnotation_ClienteInsert, domainDTO_Cliente_Completo> {
 
 	@Autowired
 	private repositoryCliente repoCliente;

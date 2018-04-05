@@ -8,10 +8,10 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Constraint(validatedBy = serviceValidatorClienteInsert.class)
+@Constraint(validatedBy = serviceValidatorClienteUpdate.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface serviceAnnotation_ClienteInsert {
+public @interface serviceAnnotation_ClienteUpdate {
 	String message() default "Erro de validação";
 
 	Class<?>[] groups() default {};

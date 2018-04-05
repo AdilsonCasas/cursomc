@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.nelioalves.cursomc.domain.domainCliente;
+import com.nelioalves.cursomc.services.validation.serviceAnnotation_ClienteUpdate;
 
+@serviceAnnotation_ClienteUpdate
 public class domainDTO_Cliente_nome_email implements Serializable {
 
 	private static final long serialVersionUID = 1L;
