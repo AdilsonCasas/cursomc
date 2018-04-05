@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nelioalves.cursomc.domain.domainCliente;
-import com.nelioalves.cursomc.domain.dto.domainDTO_Cliente;
+import com.nelioalves.cursomc.domain.dto.domainDTO_Cliente_Completo;
+import com.nelioalves.cursomc.domain.dto.domainDTO_Cliente_nome_email;
 import com.nelioalves.cursomc.services.serviceCliente;
 
 @RestController
@@ -28,14 +29,8 @@ public class REST_ClienteResource {
 	@Autowired
 	public serviceCliente serviceCliente;
 	
-	@RequestMapping(value="/{Id}", method=RequestMethod.GET)
-	public ResponseEntity<domainCliente> resource_find(@PathVariable Integer Id) {
-		domainCliente obj = serviceCliente.service_find(Id);
-		return ResponseEntity.ok().body(obj);
-	}
-	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> resource_insert(@Valid @RequestBody domainDTO_Cliente objDTO) {
+	public ResponseEntity<Void> resource_insert(@Valid @RequestBody domainDTO_Cliente_Completo objDTO) {
 		domainCliente obj = serviceCliente.service_fromDTO_to_Cliente(objDTO);
 		obj = serviceCliente.service_insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -44,7 +39,7 @@ public class REST_ClienteResource {
 	
 	@RequestMapping(value="/{Id}", method=RequestMethod.PUT)
 	// o "@Valid" abaixo é parte do "Bean Validate" que faz parte od Java EE, ele chama a validação definida nas diretivas incluídas no "domain" do cliente
-	public ResponseEntity<Void> resource_update(@Valid @RequestBody domainDTO_Cliente objDTO, @PathVariable Integer Id) {
+	public ResponseEntity<Void> resource_update(@Valid @RequestBody domainDTO_Cliente_nome_email objDTO, @PathVariable Integer Id) {
 		domainCliente obj = serviceCliente.service_fromDTO_to_Cliente(objDTO);
 		obj.setId(Id);
 		obj = serviceCliente.service_update(obj);
@@ -57,25 +52,31 @@ public class REST_ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<domainDTO_Cliente>> resource_findAll() {
+	@RequestMapping(value="/{Id}", method=RequestMethod.GET) // GET para SOMENTE UM Cliente
+	public ResponseEntity<domainCliente> resource_find(@PathVariable Integer Id) {
+		domainCliente obj = serviceCliente.service_find(Id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET) // Get para TODOS os Clientes, SEM paginação
+	public ResponseEntity<List<domainDTO_Cliente_nome_email>> resource_findAll() {
 		List<domainCliente> list = serviceCliente.service_findAll();
-		List<domainDTO_Cliente> listDto = list.stream().map(obj -> new domainDTO_Cliente(obj)).collect(Collectors.toList());
+		List<domainDTO_Cliente_nome_email> listDto = list.stream().map(obj -> new domainDTO_Cliente_nome_email(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	// os parâmetros do método 'resource_findPage' virão de parâmetros colocados na chamada do recurso na url do app chamador
-	// ex1 de chamada: "http://localhost:8080/clientes/page?NumPage=0&LinesPerPage=2&orderBy=nome&directionOrderBy=DESC" (NumPage=0, significa primeira página)
-	// ex2 de chamada: "http://localhost:8080/clientes/page" (sem parâmetros)
-	// ex3 de chamada: "http://localhost:8080/clientes/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
-	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<domainDTO_Cliente>> resource_findPage(
+	@RequestMapping(value="/page", method=RequestMethod.GET) // Get para TODOS os Clientes, COM paginação
+	public ResponseEntity<Page<domainDTO_Cliente_nome_email>> resource_findPage(
 					@RequestParam(value="NumPage", defaultValue="0") Integer NumPage, 
 					@RequestParam(value="LinesPerPage", defaultValue="24") Integer LinesPerPage, 
 					@RequestParam(value="orderBy" , defaultValue="nome") String orderBy, 
 					@RequestParam(value="directionOrderBy", defaultValue="ASC") String directionOrderBy) {
+		// os parâmetros do método 'resource_findPage' virão de parâmetros colocados na chamada do recurso na url do app chamador
+		// ex1 de chamada: "http://localhost:8080/clientes/page?NumPage=0&LinesPerPage=2&orderBy=nome&directionOrderBy=DESC" (NumPage=0, significa primeira página)
+		// ex2 de chamada: "http://localhost:8080/clientes/page" (sem parâmetros)
+		// ex3 de chamada: "http://localhost:8080/clientes/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
 		Page<domainCliente> list = serviceCliente.service_findPage(NumPage, LinesPerPage, orderBy, directionOrderBy);
-		Page<domainDTO_Cliente> listDto = list.map(obj -> new domainDTO_Cliente(obj));
+		Page<domainDTO_Cliente_nome_email> listDto = list.map(obj -> new domainDTO_Cliente_nome_email(obj));
 		return ResponseEntity.ok().body(listDto);
 	}
 	

@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.nelioalves.cursomc.domain.domainCliente;
 
-public class domainDTO_Cliente implements Serializable {
+public class domainDTO_Cliente_nome_email implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -24,10 +24,10 @@ public class domainDTO_Cliente implements Serializable {
 	@Email(message="Email inválido.")
 	private String email;
 	
-	public domainDTO_Cliente() {
+	public domainDTO_Cliente_nome_email() {
 	}
 	
-	public domainDTO_Cliente(domainCliente obj) {
+	public domainDTO_Cliente_nome_email(domainCliente obj) {
 		this.Id = obj.getId();
 		this.nome = obj.getNome();
 		this.email = obj.getEmail();
