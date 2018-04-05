@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,8 @@ public class domainCliente implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer Id;
 	private String nome;
+	
+	@Column(unique=true) //unique sendo true garante que no BD não haverá dois email's iguais, porém é necessário fazer um controle de exception personalizada.
 	private String email;
 	private String CpfOuCnpj;
 	private Integer tipoCliente;

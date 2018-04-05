@@ -6,13 +6,19 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.nelioalves.cursomc.domain.domainCliente;
 import com.nelioalves.cursomc.domain.dto.domainDTO_Cliente_Completo;
 import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
+import com.nelioalves.cursomc.repositories.repositoryCliente;
 import com.nelioalves.cursomc.resources.REST_exceptionFieldMessage;
 import com.nelioalves.cursomc.services.validation.utils.BR;
 
-public class serviceClienteInsertValidator
-		implements ConstraintValidator<serviceAnnotation_ClienteInsert, domainDTO_Cliente_Completo> {
+public class serviceClienteInsertValidator implements ConstraintValidator<serviceAnnotation_ClienteInsert, domainDTO_Cliente_Completo> {
+
+	@Autowired
+	private repositoryCliente repoCliente;
 
 	@Override
 	public void initialize(serviceAnnotation_ClienteInsert ann) {
@@ -27,6 +33,11 @@ public class serviceClienteInsertValidator
 
 		if (objDTO.getTipoCliente().equals(enumTipoCliente.PESSOAJURIDICA.getCod())	&& !BR.isValidCNPJ(objDTO.getCpfOuCnpj())) {
 			list.add(new REST_exceptionFieldMessage("CpfOuCnpj", "CNPJ inválido."));
+		}
+
+		domainCliente auxCli = repoCliente.findByEmail(objDTO.getEmail());
+		if ( auxCli != null  ) {
+			list.add(new REST_exceptionFieldMessage("email", "Email já cadastrado."));
 		}
 
 		// a classe 'REST_exceptionFieldMessage' não pertence ao Framework do Spring,
