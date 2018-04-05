@@ -60,7 +60,7 @@ public class serviceCliente {
 			repoCliente.deleteById(Id);
 		//}
 		//catch (DataIntegrityViolationException e) {
-		//	throw new service_exceptionGenericRuntimeException("Não é possível Excluir uma Cliente que possui produtos associados");           
+		//	throw new service_exceptionGenericRuntimeException("kskdj lkj asldfj lkdkfj lasdj flskjf lksjf lksjf lasjflkdjf lkdjf");           
 		//}
 	}
 	

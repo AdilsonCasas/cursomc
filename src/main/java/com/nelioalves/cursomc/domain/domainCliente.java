@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -30,7 +31,9 @@ public class domainCliente implements Serializable {
 	private String CpfOuCnpj;
 	private Integer tipoCliente;
 	
-	@OneToMany(mappedBy="cliente")
+	// Sempre que houver uma relação do tipo "Um pra Muitos" no BD, ao tentar excluir esta entidade vai gerar um erro do tipo "DataIntegrityViolationException"
+	// e por isso se coloca a diretiva 'cascade' na relação, para excluir em 'cascata' o outro obj relacionado
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<domainEndereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
