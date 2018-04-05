@@ -59,6 +59,7 @@ public class REST_CategoriaResource {
 		
 // ============================= METODO POST: faz um "insert" de nova instância da entidade no BD ================================================================= 
 	@RequestMapping(method=RequestMethod.POST)
+	// a diretiva '@Valid' abaixo percebe/captura o resultado do método 'isValid' definido na classe 'serviceClienteInsertValidator'
 	public ResponseEntity<Void> resource_insert(@Valid @RequestBody domainDTO_Categoria objDTO) {
 		domainCategoria obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
 		obj = serviceCategoria.service_insert(obj);

@@ -2,21 +2,44 @@ package com.nelioalves.cursomc.domain.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.nelioalves.cursomc.services.validation.serviceAnnotation_ClienteInsert;
+
+// Este '@' abaixo é uma 'annotation' que é usada para fazer validações de campos, como CNPJ ou CPF
+@serviceAnnotation_ClienteInsert
 public class domainDTO_Cliente_Completo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	// as diretivas "@NotEmpty" e "@Length" abaixo é parte do "Bean Validate" que faz parte do Java EE, ele define a validação definida nestes parâmetros e coloca a "message" de retorno ao REST
+	@NotEmpty(message="Preenchimento do Nome do Cliente é obrigatório.")
+	@Length(min=5, max=120, message="O tamanho do Nome do Cliente deve estar entre 5 e 120 caracteres.")
 	private String nome;
+
+	@NotEmpty(message="Preenchimento do Email do Cliente é obrigatório.")
+	@Email(message="Email inválido.")
 	private String email;
+
+	@NotEmpty(message="Preenchimento do CPF/CNPJ do Cliente é obrigatório.")
 	private String CpfOuCnpj;
 	private Integer tipoCliente;
 
+	@NotEmpty(message="Preenchimento do Logradouro do Cliente é obrigatório.")
 	private String logradouro;
+
+	@NotEmpty(message="Preenchimento do Número do Endereço do Cliente é obrigatório.")
 	private String numero;
 	private String complemento;
 	private String bairro;
+
+	@NotEmpty(message="Preenchimento do CEP do Cliente é obrigatório.")
 	private String cep;
-	
+
+	@NotEmpty(message="Preenchimento de pelo menos 1 Telefone do Cliente é obrigatório.")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
