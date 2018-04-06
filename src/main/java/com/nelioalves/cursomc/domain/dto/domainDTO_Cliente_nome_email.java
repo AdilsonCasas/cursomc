@@ -17,7 +17,7 @@ public class domainDTO_Cliente_nome_email implements Serializable {
 	
 	private Integer Id;
 	
-	// as diretivas "@NotEmpty" e "@Length" abaixo é parte do "Bean Validate" que faz parte do Java EE, ele define a validação definida nestes parâmetros e coloca a "message" de retorno ao REST
+	// as diretivas "@NotEmpty" e "@Length" abaixo é parte do "Bean Validate" que faz parte do Java EE, o Bean Validate define o tipo de validação com estas diretivas e envia a "message" de retorno ao REST
 	@NotEmpty(message="Preenchimento do Nome do Cliente é obrigatório.")
 	@Length(min=5, max=120, message="O tamanho do Nome do Cliente deve estar entre 5 e 120 caracteres.")
 	private String nome;

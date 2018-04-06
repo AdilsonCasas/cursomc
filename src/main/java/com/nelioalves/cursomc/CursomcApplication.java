@@ -59,7 +59,7 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// Categoria+Produto
+
 		domainCategoria cat1 = new domainCategoria(null, "Informática");
 		domainCategoria cat2 = new domainCategoria(null, "Escritório");
 		domainCategoria cat3 = new domainCategoria(null, "Cama mesa e banho");
@@ -68,41 +68,60 @@ public class CursomcApplication implements CommandLineRunner {
 		domainCategoria cat6 = new domainCategoria(null, "Decoração");
 		domainCategoria cat7 = new domainCategoria(null, "Perfumaria");
 		
-		domainProduto prod1 = new domainProduto(null, "Computador", 2000.00);
-		domainProduto prod2 = new domainProduto(null, "Impressora",  800.00);
-		domainProduto prod3 = new domainProduto(null, "Mouse",        80.00);
+		domainProduto prod1 = new domainProduto(null, "Computador",        2000.00);
+		domainProduto prod2 = new domainProduto(null, "Impressora",         800.00);
+		domainProduto prod3 = new domainProduto(null, "Mouse",               80.00);
+		domainProduto prod4 = new domainProduto(null, "Mesa de Escritório", 300.00);
+		domainProduto prod5 = new domainProduto(null, "Toalha",              50.00);
+		domainProduto prod6 = new domainProduto(null, "Colcha",             200.00);
+		domainProduto prod7 = new domainProduto(null, "TV true color",     1200.00);
+		domainProduto prod8 = new domainProduto(null, "Roçadeira",          800.00);
+		domainProduto prod9 = new domainProduto(null, "Abajour",            100.00);
+		domainProduto prod10 = new domainProduto(null, "Pendente",          180.00);
+		domainProduto prod11 = new domainProduto(null, "Shampoo",            90.00);
 		
 		cat1.getProdutos().addAll(Arrays.asList(prod1,prod2,prod3));
-		cat2.getProdutos().addAll(Arrays.asList(prod2));
+		cat2.getProdutos().addAll(Arrays.asList(prod2,prod4));
+		cat3.getProdutos().addAll(Arrays.asList(prod5,prod6));
+		cat4.getProdutos().addAll(Arrays.asList(prod1,prod2,prod3,prod7));
+		cat5.getProdutos().addAll(Arrays.asList(prod8));
+		cat6.getProdutos().addAll(Arrays.asList(prod9,prod10));
+		cat7.getProdutos().addAll(Arrays.asList(prod11));
 		
-		prod1.getCategorias().addAll(Arrays.asList(cat1));
-		prod2.getCategorias().addAll(Arrays.asList(cat1,cat2));
+		prod1.getCategorias().addAll(Arrays.asList(cat1,cat4));
+		prod2.getCategorias().addAll(Arrays.asList(cat1,cat2,cat4));
 		prod3.getCategorias().addAll(Arrays.asList(cat1));
+		prod4.getCategorias().addAll(Arrays.asList(cat2));
+		prod5.getCategorias().addAll(Arrays.asList(cat3));
+		prod6.getCategorias().addAll(Arrays.asList(cat3));
+		prod7.getCategorias().addAll(Arrays.asList(cat4));
+		prod8.getCategorias().addAll(Arrays.asList(cat5));
+		prod9.getCategorias().addAll(Arrays.asList(cat6));
+		prod10.getCategorias().addAll(Arrays.asList(cat6));
+		prod11.getCategorias().addAll(Arrays.asList(cat7));
 		
 		categoriaRepo.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
-		produtoRepo.saveAll(Arrays.asList(prod1, prod2, prod3));
+		produtoRepo.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11));
 
-		//Estado+Cidade
-	
-		domainEstado est1 = new domainEstado(null,"Minas Gerais");
-		domainEstado est2 = new domainEstado(null,"São Paulo");
+		domainEstado uf1 = new domainEstado(null,"Minas Gerais");
+		domainEstado uf2 = new domainEstado(null,"São Paulo");
 		
-		domainCidade c1 = new domainCidade(null, "Uberlândia", est1);
-		domainCidade c2 = new domainCidade(null, "São Paulo", est2);
-		domainCidade c3 = new domainCidade(null, "Campinas", est2);
+		domainCidade cid1 = new domainCidade(null, "Uberlândia", uf1);
+		domainCidade cid2 = new domainCidade(null, "São Paulo", uf2);
+		domainCidade cid3 = new domainCidade(null, "Campinas", uf2);
 		
-		est1.getCidades().addAll(Arrays.asList(c1));
-		est2.getCidades().addAll(Arrays.asList(c2,c3));
+		uf1.getCidades().addAll(Arrays.asList(cid1));
+		uf2.getCidades().addAll(Arrays.asList(cid2,cid3));
 		
-		estadoRepo.saveAll(Arrays.asList(est1, est2));
-		cidadeRepo.saveAll(Arrays.asList(c1, c2, c3));
+		estadoRepo.saveAll(Arrays.asList(uf1, uf2));
+		cidadeRepo.saveAll(Arrays.asList(cid1, cid2, cid3));
 		
 		domainCliente cli1 = new domainCliente(null, "Maria Silva", "maria@gmail.com", "36378912377", enumTipoCliente.PESSOAFISICA);
 		
 		cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
 		
-		domainEndereco e1 = new domainEndereco(null, "Rua Flores", "300", "Ap 303", "Jardins", "38220830", cli1, c1);
-		domainEndereco e2 = new domainEndereco(null, "Av. Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		domainEndereco e1 = new domainEndereco(null, "Rua Flores", "300", "Ap 303", "Jardins", "38220830", cli1, cid1);
+		domainEndereco e2 = new domainEndereco(null, "Av. Matos", "105", "Sala 800", "Centro", "38777012", cli1, cid2);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
 		
