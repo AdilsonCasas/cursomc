@@ -32,6 +32,12 @@ public class domainItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	// o método abaixo não foi gerado automáricamente, mas implementado manualmente, e ao colocar "get" no início do nome do método ele é reconhecido e serializado
+	// para o Json automaticamente, ou seja, em uma consulta tipo 'GET pedido' no postman, o Json coloca "SubTotal" em cada itemdepedido
+	public double getSubTotal() {
+		return (preco - desconto) * quantidade;
+	}
+
 	@JsonIgnore
 	public domainPedido getPedido() {
 		return this.Id.getPedido();

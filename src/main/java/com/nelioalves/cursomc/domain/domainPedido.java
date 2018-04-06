@@ -54,6 +54,14 @@ public class domainPedido implements Serializable {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
+	public double getValorTotal() {
+		double soma = 0.0;
+		for (domainItemPedido ip: itens) {
+			soma = soma + ip.getSubTotal();
+		}
+		return soma;
+	}
+
 	public Integer getId() {
 		return this.id;
 	}
