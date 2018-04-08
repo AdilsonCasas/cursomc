@@ -43,9 +43,17 @@ public class domainItemPedido implements Serializable {
 		return this.Id.getPedido();
 	}
 	
+	public void setPedido(domainPedido pedido) {
+		this.Id.setPedido(pedido);
+	}
+	
 	//@JsonIgnore : o produto é desejável que seja mostrado então não vamoss ignorá-lo
 	public domainProduto getProduto() {
 		return this.Id.getProduto();
+	}
+	
+	public void setProduto(domainProduto produto) {
+		this.Id.setProduto(produto);
 	}
 	
 	@JsonIgnore

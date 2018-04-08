@@ -19,7 +19,7 @@ public class domainCategoria implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer Id;
 	private String  nome;
-	
+
 	@ManyToMany(mappedBy="categorias")
 	private List<domainProduto> produtos = new ArrayList<>();
 	
