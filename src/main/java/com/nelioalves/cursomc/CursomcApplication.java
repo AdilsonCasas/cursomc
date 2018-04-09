@@ -17,6 +17,7 @@ public class CursomcApplication implements CommandLineRunner {
 	// meu link GitHub do curso no Heroku: 'https://git.heroku.com/curso-spring-ionic-adilson.git'
 	// link da minha aplicação no Heroku: 'https://curso-spring-ionic-adilson.herokuapp.com/'
 	// no github.com minha área é 'AdilsonCasas'
+	// Para fazer um 'push' do projeto no sistema é necessário estar logado no heroku e executar 'git push heroku master'
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);

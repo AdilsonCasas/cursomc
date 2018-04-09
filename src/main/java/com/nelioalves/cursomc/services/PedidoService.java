@@ -34,6 +34,9 @@ public class PedidoService {
 	private ProdutoService serviceProduto;
 
 	@Autowired
+	private ClienteService serviceCliente;
+
+	@Autowired
 	private ItemPedidoRepository repoItemPedido;
 
 	public PedidoDomain service_find(Integer Id) {
@@ -45,6 +48,7 @@ public class PedidoService {
 	public PedidoDomain service_insert(PedidoDomain obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(serviceCliente.service_find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(enumEstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if(obj.getPagamento() instanceof PagamentoComBoletoDomain) {
@@ -55,10 +59,12 @@ public class PedidoService {
 		repoPagamento.save(obj.getPagamento());
 		for (ItemPedidoDomain ip: obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(serviceProduto.service_find(ip.getProduto().getId()).getPreco());
+			ip.setProduto(serviceProduto.service_find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 		repoItemPedido.saveAll(obj.getItens());
+System.out.println(obj);
 		return obj;
 	}
 	
