@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nelioalves.cursomc.domain.domainProduto;
-import com.nelioalves.cursomc.domain.dto.domainDTO_Produto;
-import com.nelioalves.cursomc.resources.utils.REST_utilsURL;
-import com.nelioalves.cursomc.services.serviceProduto;
+import com.nelioalves.cursomc.domain.ProdutoDomain;
+import com.nelioalves.cursomc.domain.dto.DTO_ProdutoDomain;
+import com.nelioalves.cursomc.resources.utils.REST_Utils_URL;
+import com.nelioalves.cursomc.services.ProdutoService;
 
 @RestController
 @RequestMapping(value="/produtos")
 public class REST_ProdutoResource {
 
 	@Autowired
-	public serviceProduto serviceProduto;
+	public ProdutoService serviceProduto;
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 		@RequestMapping(value="/{Id}", method=RequestMethod.GET) // GET para SOMENTE UM Produto
-		public ResponseEntity<domainProduto> resource_find(@PathVariable Integer Id) {
-			domainProduto obj = serviceProduto.service_find(Id);
+		public ResponseEntity<ProdutoDomain> resource_find(@PathVariable Integer Id) {
+			ProdutoDomain obj = serviceProduto.service_find(Id);
 			return ResponseEntity.ok().body(obj);
 		}
 	
 		@RequestMapping(method=RequestMethod.GET) // Get para TODOS os Produtos, COM paginação
-		public ResponseEntity<Page<domainDTO_Produto>> resource_findPage(
+		public ResponseEntity<Page<DTO_ProdutoDomain>> resource_findPage(
 						@RequestParam(value="nome", defaultValue="") String nome, 
 						@RequestParam(value="categorias", defaultValue="") String categorias, 
 						@RequestParam(value="NumPage", defaultValue="0") Integer NumPage, 
@@ -42,15 +42,15 @@ public class REST_ProdutoResource {
 			// a URL de chamada deste GET terá o seguinte formato: 'http://localhost:8080/produtos/nome=computador&categorias=1,3,4'
 			// observe as categorias separadas por vírgulas
 			// esta URL deve ser desmembrada para recuperar os parâmetros a serem enviados para o método 'search'
-			List <Integer> ids = REST_utilsURL.REST_utils_decodeIntList(categorias);
+			List <Integer> ids = REST_Utils_URL.REST_utils_decodeIntList(categorias);
 
 			// o parâmetro 'nome' pode estar no formato típico de uma URL, que tenha passado por um'encode' que transforma uma string com possíveis espaços em banco, 
 			// para uma string do formato que existe dentro das URL's, por ex "TV LED" --> "TV%20LED".
 			// O método 'REST_utils_decodeParam' descodifica a string no parâmetro
-			String nomeDecoded = REST_utilsURL.REST_utils_decodeParam(nome);
+			String nomeDecoded = REST_Utils_URL.REST_utils_decodeParam(nome);
 		
-			Page<domainProduto> list = serviceProduto.service_search(nomeDecoded, ids, NumPage, LinesPerPage, orderBy, directionOrderBy);
-			Page<domainDTO_Produto> listDto = list.map(obj -> new domainDTO_Produto(obj));
+			Page<ProdutoDomain> list = serviceProduto.service_search(nomeDecoded, ids, NumPage, LinesPerPage, orderBy, directionOrderBy);
+			Page<DTO_ProdutoDomain> listDto = list.map(obj -> new DTO_ProdutoDomain(obj));
 			return ResponseEntity.ok().body(listDto);
 		}
 		

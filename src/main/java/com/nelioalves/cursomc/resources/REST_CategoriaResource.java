@@ -17,33 +17,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.nelioalves.cursomc.domain.domainCategoria;
-import com.nelioalves.cursomc.domain.dto.domainDTO_Categoria;
-import com.nelioalves.cursomc.services.serviceCategoria;
+import com.nelioalves.cursomc.domain.CategoriaDomain;
+import com.nelioalves.cursomc.domain.dto.DTO_CategoriaDomain;
+import com.nelioalves.cursomc.services.CategoriaService;
 
 @RestController
 @RequestMapping(value="/categorias")
 public class REST_CategoriaResource {
 
 	@Autowired
-	public serviceCategoria serviceCategoria;
+	public CategoriaService serviceCategoria;
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 		@RequestMapping(value="/{Id}", method=RequestMethod.GET) // GET para SOMENTE UMA Categoria
-		public ResponseEntity<domainCategoria> resource_find(@PathVariable Integer Id) {
-			domainCategoria obj = serviceCategoria.service_find(Id);
+		public ResponseEntity<CategoriaDomain> resource_find(@PathVariable Integer Id) {
+			CategoriaDomain obj = serviceCategoria.service_find(Id);
 			return ResponseEntity.ok().body(obj);
 		}
 		
 		@RequestMapping(method=RequestMethod.GET) // GET para TODAS AS Categorias, SEM paginação
-		public ResponseEntity<List<domainDTO_Categoria>> resource_findAll() {
-			List<domainCategoria> list = serviceCategoria.service_findAll();
-			List<domainDTO_Categoria> listDto = list.stream().map(obj -> new domainDTO_Categoria(obj)).collect(Collectors.toList());
+		public ResponseEntity<List<DTO_CategoriaDomain>> resource_findAll() {
+			List<CategoriaDomain> list = serviceCategoria.service_findAll();
+			List<DTO_CategoriaDomain> listDto = list.stream().map(obj -> new DTO_CategoriaDomain(obj)).collect(Collectors.toList());
 			return ResponseEntity.ok().body(listDto);
 		}
 		
 		@RequestMapping(value="/page", method=RequestMethod.GET) // GET para TODAS AS Categorias, COM paginação
-		public ResponseEntity<Page<domainDTO_Categoria>> resource_findPage(
+		public ResponseEntity<Page<DTO_CategoriaDomain>> resource_findPage(
 						@RequestParam(value="NumPage", defaultValue="0") Integer NumPage, 
 						@RequestParam(value="LinesPerPage", defaultValue="24") Integer LinesPerPage, 
 						@RequestParam(value="orderBy" , defaultValue="nome") String orderBy, 
@@ -52,16 +52,16 @@ public class REST_CategoriaResource {
 			// ex1 de chamada: "http://localhost:8080/categorias/page?NumPage=0&LinesPerPage=2&orderBy=nome&directionOrderBy=DESC" (NumPage=0, significa primeira página)
 			// ex2 de chamada: "http://localhost:8080/categorias/page" (sem parâmetros)
 			// ex3 de chamada: "http://localhost:8080/categorias/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
-			Page<domainCategoria> list = serviceCategoria.service_findPage(NumPage, LinesPerPage, orderBy, directionOrderBy);
-			Page<domainDTO_Categoria> listDto = list.map(obj -> new domainDTO_Categoria(obj));
+			Page<CategoriaDomain> list = serviceCategoria.service_findPage(NumPage, LinesPerPage, orderBy, directionOrderBy);
+			Page<DTO_CategoriaDomain> listDto = list.map(obj -> new DTO_CategoriaDomain(obj));
 			return ResponseEntity.ok().body(listDto);
 		}
 		
 // ============================= METODO POST: faz um "insert" de nova instância da entidade no BD ================================================================= 
 	@RequestMapping(method=RequestMethod.POST)
 	// a diretiva '@Valid' abaixo percebe/captura o resultado do método 'isValid' definido na classe 'serviceClienteInsertValidator'
-	public ResponseEntity<Void> resource_insert(@Valid @RequestBody domainDTO_Categoria objDTO) {
-		domainCategoria obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
+	public ResponseEntity<Void> resource_insert(@Valid @RequestBody DTO_CategoriaDomain objDTO) {
+		CategoriaDomain obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
 		obj = serviceCategoria.service_insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -70,8 +70,8 @@ public class REST_CategoriaResource {
 // ============================= METODO PUT: faz um "update" no BD em uma instância da entidade que já existe no BD ============================================== 
 	@RequestMapping(value="/{Id}", method=RequestMethod.PUT)
 	// o "@Valid" abaixo é parte do "Bean Validate" que faz parte od Java EE, ele chama a validação definida nas diretivas incluídas no "domain" da categoria
-	public ResponseEntity<Void> resource_update(@Valid @RequestBody domainDTO_Categoria objDTO, @PathVariable Integer Id) {
-		domainCategoria obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
+	public ResponseEntity<Void> resource_update(@Valid @RequestBody DTO_CategoriaDomain objDTO, @PathVariable Integer Id) {
+		CategoriaDomain obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
 		obj.setId(Id);
 		obj = serviceCategoria.service_update(obj);
 		return ResponseEntity.noContent().build();
