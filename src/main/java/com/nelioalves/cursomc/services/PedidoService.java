@@ -39,6 +39,11 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository repoItemPedido;
 
+	@Autowired
+	// a var 'serviceEmail' abaixo é instanciada no arq. de configuração 'ProfileTestConfig', sempre que uso um '@Autowired' há uma instanciação do componente do sistema citado.
+	// como 'EmailService' é uma interface e não uma classe é necessário a instanciação por 'new'
+	private EmailService serviceEmail;
+
 	public PedidoDomain service_find(Integer Id) {
 		Optional<PedidoDomain> obj = repoPedido.findById(Id);
 		return obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + Id + ", Tipo: " + PedidoDomain.class.getName()));
@@ -64,7 +69,12 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		repoItemPedido.saveAll(obj.getItens());
-System.out.println(obj);
+		serviceEmail.sendOrderConfirmationEmail(obj);
+		// from=adilson.casas@gmail.com
+		// to=maria@gmail.com; cc=; bcc=; 
+		// sentDate=Mon Apr 09 21:54:50 BRT 2018; 
+		// subject=Pedido confirmado! Código: 3; 
+		// text=Pedido Número: 3, Instante: 09/04/2018 21:54:50, Cliente: Maria Silva, Situação do Pagamento: Pendente ...
 		return obj;
 	}
 	

@@ -3,6 +3,8 @@ package com.nelioalves.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +27,7 @@ public class CategoriaService {
 		return obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + Id + ", Tipo: " + CategoriaDomain.class.getName()));
 	}	
 	
+	@Transactional
 	public CategoriaDomain service_insert(CategoriaDomain obj) {
 		obj.setId(null);
 		return repoCategoria.save(obj);
