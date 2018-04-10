@@ -69,7 +69,8 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		repoItemPedido.saveAll(obj.getItens());
-		serviceEmail.sendOrderConfirmationEmail(obj);
+		serviceEmail.sendOrderConfirmationHtmlEmail(obj);
+		//serviceEmail.sendOrderConfirmationEmail(obj);
 		// from=adilson.casas@gmail.com
 		// to=maria@gmail.com; cc=; bcc=; 
 		// sentDate=Mon Apr 09 21:54:50 BRT 2018; 
