@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.nelioalves.cursomc.services.DBService;
+import com.nelioalves.cursomc.services.EmailService;
+import com.nelioalves.cursomc.services.EmailSmtpService;
 
 @Configuration
 // as definições dentro desta classe só terão efeito dentro do profile "test", veja o arq "application-test.properties"
@@ -31,6 +33,11 @@ public class ProfileDevConfig {
 		}
 		serviceDB.instantiateTestDatabase();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new EmailSmtpService();
 	}
 
 }

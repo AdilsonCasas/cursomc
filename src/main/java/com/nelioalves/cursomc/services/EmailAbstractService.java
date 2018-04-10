@@ -20,7 +20,6 @@ public abstract class EmailAbstractService implements EmailService {
 
 	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(PedidoDomain obj) {
 		SimpleMailMessage sm = new SimpleMailMessage();
-	System.out.println("\n\n\n email: "+obj.getCliente().getEmail()+"\n\n\n");
 		sm.setTo(obj.getCliente().getEmail());
 		sm.setFrom(sender);
 		sm.setSubject("Pedido confirmado! Código: "+obj.getId());
