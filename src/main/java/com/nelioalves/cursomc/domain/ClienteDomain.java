@@ -33,7 +33,9 @@ public class ClienteDomain implements Serializable {
 	private String email;
 	private String CpfOuCnpj;
 	private Integer tipoCliente;
-	
+	@JsonIgnore
+	private String senha;
+
 	// Sempre que houver uma relação do tipo "Um pra Muitos" no BD, ao tentar excluir esta entidade vai gerar um erro do tipo "DataIntegrityViolationException"
 	// e por isso se coloca a diretiva 'cascade' na relação, para excluir em 'cascata' o outro obj relacionado
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
@@ -50,13 +52,14 @@ public class ClienteDomain implements Serializable {
 	public ClienteDomain() {
 	}
 
-	public ClienteDomain(Integer var_id, String var_nome, String var_email, String var_cpfOuCnpj, enumTipoCliente var_tipoCliente) {
+	public ClienteDomain(Integer var_id, String var_nome, String var_email, String var_cpfOuCnpj, enumTipoCliente var_tipoCliente, String var_senha) {
 		super();
 		this.Id = var_id;
 		this.nome = var_nome;
 		this.email = var_email;
 		this.CpfOuCnpj = var_cpfOuCnpj;
 		this.tipoCliente = (var_tipoCliente == null) ? null : var_tipoCliente.getCod();
+		this.senha = var_senha;
 	}
 
 	public Integer getId() {
@@ -97,6 +100,14 @@ public class ClienteDomain implements Serializable {
 
 	public void setTipoCliente(enumTipoCliente var_tipoCliente) {
 		this.tipoCliente = var_tipoCliente.getCod();
+	}
+
+	public String getSenha() {
+		return this.senha;
+	}
+
+	public void setSenha(String var_senha) {
+		this.senha = var_senha;
 	}
 
 	public List<EnderecoDomain> getEnderecos() {

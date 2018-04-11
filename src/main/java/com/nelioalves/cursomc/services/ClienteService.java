@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.CidadeDomain;
@@ -24,6 +25,9 @@ import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntim
 
 @Service
 public class ClienteService {
+
+	@Autowired
+	private BCryptPasswordEncoder var_bCryptPasswordEncoder;
 
 	@Autowired
 	private ClienteRepository var_repoCliente;
@@ -74,11 +78,11 @@ public class ClienteService {
 	}
 	
 	public ClienteDomain metodoService_fromDTO_to_Cliente(DTO_ClienteDomain_nome_email var_objDTO) {
-		return new ClienteDomain(var_objDTO.getId(), var_objDTO.getNome(), var_objDTO.getEmail(), null, null);
+		return new ClienteDomain(var_objDTO.getId(), var_objDTO.getNome(), var_objDTO.getEmail(), null, null, null);
 	}
 	
 	public ClienteDomain metodoService_fromDTO_to_Cliente(DTO_ClienteDomain_Completo var_objDTO) {
-		ClienteDomain var_cli = new ClienteDomain(null, var_objDTO.getNome(), var_objDTO.getEmail(), var_objDTO.getCpfOuCnpj(), enumTipoCliente.toEnum(var_objDTO.getTipoCliente()));
+		ClienteDomain var_cli = new ClienteDomain(null, var_objDTO.getNome(), var_objDTO.getEmail(), var_objDTO.getCpfOuCnpj(), enumTipoCliente.toEnum(var_objDTO.getTipoCliente()), var_bCryptPasswordEncoder.encode(var_objDTO.getSenha()));
 		CidadeDomain var_cid = var_repoCidade.getOne(var_objDTO.getCidadeId());
 		EnderecoDomain var_end = new EnderecoDomain(null, var_objDTO.getLogradouro(), var_objDTO.getNumero(), var_objDTO.getComplemento(), var_objDTO.getBairro(), var_objDTO.getCep(), var_cli, var_cid);
 		var_cli.getEnderecos().add(var_end);
