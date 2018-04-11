@@ -51,6 +51,28 @@ public class PedidoService {
 	
 	@Transactional
 	public PedidoDomain service_insert(PedidoDomain obj) {
+/*
+ * Para testar a inserção de novo pedido use o seguinte JSON:
+ * 
+ {
+	"cliente" : {"id" : 1},
+	"enderecoDeEntrega" : {"id" : 1},
+	"pagamento" : {
+		"numeroDeParcelas" : 10,
+		"@type": "pagamentoComCartao"
+	},
+	"itens" : [
+		{
+		"quantidade" : 2,
+		"produto" : {"id" : 3}
+		},
+		{
+		"quantidade" : 1,
+		"produto" : {"id" : 1}
+		}
+	]
+}
+ */
 		obj.setId(null);
 		obj.setInstante(new Date());
 		obj.setCliente(serviceCliente.service_find(obj.getCliente().getId()));
@@ -69,7 +91,7 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		repoItemPedido.saveAll(obj.getItens());
-		serviceEmail.sendOrderConfirmationHtmlEmail(obj);
+		//serviceEmail.sendOrderConfirmationHtmlEmail(obj);
 		//serviceEmail.sendOrderConfirmationEmail(obj);
 		// from=adilson.casas@gmail.com
 		// to=maria@gmail.com; cc=; bcc=; 

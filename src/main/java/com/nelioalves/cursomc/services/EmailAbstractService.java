@@ -17,6 +17,16 @@ import com.nelioalves.cursomc.domain.PedidoDomain;
 
 public abstract class EmailAbstractService implements EmailService {
 
+/*
+bean of type 'org.springframework.mail.javamail.JavaMailSender' that could not be found.
+	- Bean method 'mailSender'
+	
+	
+	
+	
+	
+	
+*/
 	@Value("${default.sender}")
 	private String sender;
 
@@ -25,7 +35,7 @@ public abstract class EmailAbstractService implements EmailService {
 	private TemplateEngine templateEngine;
 	
 	@Autowired
-	private JavaMailSender javaMailSender;
+	private JavaMailSender var_javaMailSender;
 
 // ===================================================== Processamento de email 'texto' ======================================================================
 	@Override
@@ -57,7 +67,7 @@ public abstract class EmailAbstractService implements EmailService {
 	}
 
 	protected MimeMessage prepareMimeMessageFromPedido(PedidoDomain obj) throws MessagingException {
-		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessage mimeMessage = var_javaMailSender.createMimeMessage();
 		MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage,true);
 		mmh.setTo(obj.getCliente().getEmail());
 		mmh.setFrom(sender);

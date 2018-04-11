@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 	
+	// Para acessar o bd "h2" em teste use: http://localhost:8080/h2-console/login.jsp?jsessionid=ee88b77a5a1a8ccd8e0ff77be97186e0
 	// no heroku.com o curso se chama "curso-spring-ionic-adilson"
 	// para logar-se no heroku execute no terminal (dentro da pasta do git do projeto): 'heroku login' (ele vai solicitar email+senha de login)
 	// dentro da pasta do git para o projeto execute: 'heroku git:remote -a curso-spring-ionic-adilson'
