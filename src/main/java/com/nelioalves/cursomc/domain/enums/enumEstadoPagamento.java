@@ -9,9 +9,9 @@ public enum enumEstadoPagamento {
 	private int cod;
 	private String descricao;
 	
-	private enumEstadoPagamento(int cod, String descricao) {
-		this.cod = cod;
-		this.descricao = descricao;
+	private enumEstadoPagamento(int var_cod, String var_descricao) {
+		this.cod = var_cod;
+		this.descricao = var_descricao;
 	}
 	
 	public int getCod() {
@@ -22,17 +22,17 @@ public enum enumEstadoPagamento {
 		return this.descricao;
 	}
 	
-	public static enumEstadoPagamento toEnum(Integer cod) {
-		if(cod == null) {
+	public static enumEstadoPagamento toEnum(Integer var_cod) {
+		if(var_cod == null) {
 			return null;
 		}
 		for(enumEstadoPagamento x: enumEstadoPagamento.values()) {
-			if(cod == x.getCod()) {
+			if(var_cod == x.getCod()) {
 				return x;
 			}
 		}
 		
-		throw new IllegalArgumentException("Cod EstadoPagamento inválido: "+cod);
+		throw new IllegalArgumentException("Cod EstadoPagamento inválido: "+var_cod);
 	}
 
 }

@@ -20,50 +20,50 @@ import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntim
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepository repoCategoria;
+	private CategoriaRepository var_repoCategoria;
 	
-	public CategoriaDomain service_find(Integer Id) {
-		Optional<CategoriaDomain> obj = repoCategoria.findById(Id);
-		return obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + Id + ", Tipo: " + CategoriaDomain.class.getName()));
+	public CategoriaDomain metodoService_findCategoria(Integer var_Id) {
+		Optional<CategoriaDomain> var_obj = var_repoCategoria.findById(var_Id);
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + CategoriaDomain.class.getName()));
 	}	
 	
 	@Transactional
-	public CategoriaDomain service_insert(CategoriaDomain obj) {
-		obj.setId(null);
-		return repoCategoria.save(obj);
+	public CategoriaDomain metodoService_insertCategoria(CategoriaDomain var_obj) {
+		var_obj.setId(null);
+		return var_repoCategoria.save(var_obj);
+	}
+
+	public CategoriaDomain metodoService_updateCategoria(CategoriaDomain var_ObjAlterado) {
+		CategoriaDomain var_ObjJaExistenteBD = metodoService_findCategoria(var_ObjAlterado.getId());
+		metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(var_ObjJaExistenteBD, var_ObjAlterado);
+		return var_repoCategoria.save(var_ObjJaExistenteBD);
 	}
 	
-	public CategoriaDomain service_update(CategoriaDomain ObjAlterado) {
-		CategoriaDomain ObjJaExistenteBD = service_find(ObjAlterado.getId());
-		service_UpdateObjJaExistenteBD_from_ObjAlterado(ObjJaExistenteBD, ObjAlterado);
-		return repoCategoria.save(ObjJaExistenteBD);
-	}
-	
-	public void service_delete(Integer Id) {
-		service_find(Id);
+	public void metodoService_deleteCategoria(Integer var_Id) {
+		metodoService_findCategoria(var_Id);
 		//try {
-			repoCategoria.deleteById(Id);
+			var_repoCategoria.deleteById(var_Id);
 		//}
 		//catch (DataIntegrityViolationException e) {
 		//	throw new service_exceptionGenericRuntimeException("Não é possível Excluir uma Categoria que possui produtos associados");           
 		//}
 	}
 	
-	public List<CategoriaDomain> service_findAll() {
-		return repoCategoria.findAll();
+	public List<CategoriaDomain> metodoService_findAllCategoria() {
+		return var_repoCategoria.findAll();
 	}
 	
-	public Page<CategoriaDomain> service_findPage(Integer NumPage, Integer LinesPerPage, String orderBy, String directionOrderBy) {
-		PageRequest service_pageRequest = PageRequest.of(NumPage, LinesPerPage, Direction.valueOf(directionOrderBy), orderBy);
-		return repoCategoria.findAll(service_pageRequest);
+	public Page<CategoriaDomain> metodoService_findPageCategoria(Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {
+		PageRequest var_service_pageRequest = PageRequest.of(var_NumPage, var_LinesPerPage, Direction.valueOf(var_directionOrderBy), var_orderBy);
+		return var_repoCategoria.findAll(var_service_pageRequest);
 	}
 	
-	public CategoriaDomain service_fromDTO_to_Categoria(DTO_CategoriaDomain objDTO) {
-		return new CategoriaDomain(objDTO.getId(),objDTO.getNome());
+	public CategoriaDomain metodoService_fromDTO_to_Categoria(DTO_CategoriaDomain var_objDTO) {
+		return new CategoriaDomain(var_objDTO.getId(),var_objDTO.getNome());
 	}
 	
-	private void service_UpdateObjJaExistenteBD_from_ObjAlterado(CategoriaDomain ObjJaExistenteBD, CategoriaDomain ObjAlterado) {
-		ObjJaExistenteBD.setNome(ObjAlterado.getNome());
+	private void metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(CategoriaDomain var_ObjJaExistenteBD, CategoriaDomain var_ObjAlterado) {
+		var_ObjJaExistenteBD.setNome(var_ObjAlterado.getNome());
 	}
 
 }

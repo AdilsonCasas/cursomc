@@ -26,61 +26,61 @@ import com.nelioalves.cursomc.services.CategoriaService;
 public class REST_CategoriaResource {
 
 	@Autowired
-	public CategoriaService serviceCategoria;
+	public CategoriaService var_serviceCategoria;
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
-		@RequestMapping(value="/{Id}", method=RequestMethod.GET) // GET para SOMENTE UMA Categoria
-		public ResponseEntity<CategoriaDomain> resource_find(@PathVariable Integer Id) {
-			CategoriaDomain obj = serviceCategoria.service_find(Id);
-			return ResponseEntity.ok().body(obj);
+		@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UMA Categoria
+		public ResponseEntity<CategoriaDomain> metodoREST_findCategoria(@PathVariable Integer paramId) {
+			CategoriaDomain var_obj = var_serviceCategoria.metodoService_findCategoria(paramId);
+			return ResponseEntity.ok().body(var_obj);
 		}
 		
 		@RequestMapping(method=RequestMethod.GET) // GET para TODAS AS Categorias, SEM paginação
-		public ResponseEntity<List<DTO_CategoriaDomain>> resource_findAll() {
-			List<CategoriaDomain> list = serviceCategoria.service_findAll();
-			List<DTO_CategoriaDomain> listDto = list.stream().map(obj -> new DTO_CategoriaDomain(obj)).collect(Collectors.toList());
-			return ResponseEntity.ok().body(listDto);
+		public ResponseEntity<List<DTO_CategoriaDomain>> metodoREST_findAllCategoria() {
+			List<CategoriaDomain> var_list = var_serviceCategoria.metodoService_findAllCategoria();
+			List<DTO_CategoriaDomain> var_listDto = var_list.stream().map(obj -> new DTO_CategoriaDomain(obj)).collect(Collectors.toList());
+			return ResponseEntity.ok().body(var_listDto);
 		}
 		
 		@RequestMapping(value="/page", method=RequestMethod.GET) // GET para TODAS AS Categorias, COM paginação
-		public ResponseEntity<Page<DTO_CategoriaDomain>> resource_findPage(
-						@RequestParam(value="NumPage", defaultValue="0") Integer NumPage, 
-						@RequestParam(value="LinesPerPage", defaultValue="24") Integer LinesPerPage, 
-						@RequestParam(value="orderBy" , defaultValue="nome") String orderBy, 
-						@RequestParam(value="directionOrderBy", defaultValue="ASC") String directionOrderBy) {
+		public ResponseEntity<Page<DTO_CategoriaDomain>> metodoREST_findPageCategoria(
+						@RequestParam(value="NumPage", defaultValue="0") Integer var_NumPage, 
+						@RequestParam(value="LinesPerPage", defaultValue="24") Integer var_LinesPerPage, 
+						@RequestParam(value="orderBy" , defaultValue="nome") String var_orderBy, 
+						@RequestParam(value="directionOrderBy", defaultValue="ASC") String var_directionOrderBy) {
 			// os parâmetros do método 'resource_findPage' virão de parâmetros colocados na chamada do recurso na url do app chamador
 			// ex1 de chamada: "http://localhost:8080/categorias/page?NumPage=0&LinesPerPage=2&orderBy=nome&directionOrderBy=DESC" (NumPage=0, significa primeira página)
 			// ex2 de chamada: "http://localhost:8080/categorias/page" (sem parâmetros)
 			// ex3 de chamada: "http://localhost:8080/categorias/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
-			Page<CategoriaDomain> list = serviceCategoria.service_findPage(NumPage, LinesPerPage, orderBy, directionOrderBy);
-			Page<DTO_CategoriaDomain> listDto = list.map(obj -> new DTO_CategoriaDomain(obj));
-			return ResponseEntity.ok().body(listDto);
+			Page<CategoriaDomain> var_list = var_serviceCategoria.metodoService_findPageCategoria(var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
+			Page<DTO_CategoriaDomain> var_listDto = var_list.map(obj -> new DTO_CategoriaDomain(obj));
+			return ResponseEntity.ok().body(var_listDto);
 		}
 		
 // ============================= METODO POST: faz um "insert" de nova instância da entidade no BD ================================================================= 
 	@RequestMapping(method=RequestMethod.POST)
 	// a diretiva '@Valid' abaixo percebe/captura o resultado do método 'isValid' definido na classe 'serviceClienteInsertValidator'
-	public ResponseEntity<Void> resource_insert(@Valid @RequestBody DTO_CategoriaDomain objDTO) {
-		CategoriaDomain obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
-		obj = serviceCategoria.service_insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
+	public ResponseEntity<Void> metodoREST_insertCategoria(@Valid @RequestBody DTO_CategoriaDomain var_objDTO) {
+		CategoriaDomain var_obj = var_serviceCategoria.metodoService_fromDTO_to_Categoria(var_objDTO);
+		var_obj = var_serviceCategoria.metodoService_insertCategoria(var_obj);
+		URI var_uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(var_obj.getId()).toUri();
+		return ResponseEntity.created(var_uri).build();
 	}
 	
 // ============================= METODO PUT: faz um "update" no BD em uma instância da entidade que já existe no BD ============================================== 
-	@RequestMapping(value="/{Id}", method=RequestMethod.PUT)
+	@RequestMapping(value="/{paramId}", method=RequestMethod.PUT)
 	// o "@Valid" abaixo é parte do "Bean Validate" que faz parte od Java EE, ele chama a validação definida nas diretivas incluídas no "domain" da categoria
-	public ResponseEntity<Void> resource_update(@Valid @RequestBody DTO_CategoriaDomain objDTO, @PathVariable Integer Id) {
-		CategoriaDomain obj = serviceCategoria.service_fromDTO_to_Categoria(objDTO);
-		obj.setId(Id);
-		obj = serviceCategoria.service_update(obj);
+	public ResponseEntity<Void> metodoREST_updateCategoria(@Valid @RequestBody DTO_CategoriaDomain var_objDTO, @PathVariable Integer paramId) {
+		CategoriaDomain var_obj = var_serviceCategoria.metodoService_fromDTO_to_Categoria(var_objDTO);
+		var_obj.setId(paramId);
+		var_obj = var_serviceCategoria.metodoService_updateCategoria(var_obj);
 		return ResponseEntity.noContent().build();
 	}
 	
 // ============================= METODO DELETE: faz um "delete" no BD em uma instância da entidade que já existe no BD ============================================ 
-	@RequestMapping(value="/{Id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> resource_delete(@PathVariable Integer Id) {
-		serviceCategoria.service_delete(Id);
+	@RequestMapping(value="/{paramId}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> metodoREST_deleteCategoria(@PathVariable Integer paramId) {
+		var_serviceCategoria.metodoService_deleteCategoria(paramId);
 		return ResponseEntity.noContent().build();
 	}
 	

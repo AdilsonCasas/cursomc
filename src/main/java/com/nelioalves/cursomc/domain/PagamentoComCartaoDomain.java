@@ -36,16 +36,16 @@ public class PagamentoComCartaoDomain extends PagamentoDomain {
 	public PagamentoComCartaoDomain() {
 	}
 
-	public PagamentoComCartaoDomain(Integer id, enumEstadoPagamento estado, PedidoDomain pedido, Integer numeroDeParcelas) {
-		super(id, estado, pedido);
-		this.numeroDeParcelas = numeroDeParcelas;
+	public PagamentoComCartaoDomain(Integer var_id, enumEstadoPagamento var_estado, PedidoDomain var_pedido, Integer var_numeroDeParcelas) {
+		super(var_id, var_estado, var_pedido);
+		this.numeroDeParcelas = var_numeroDeParcelas;
 	}
 
 	public Integer getNumeroDeParcelas() {
 		return this.numeroDeParcelas;
 	}
 
-	public void setNumeroDeParcelas(Integer numeroDeParcelas) {
-		this.numeroDeParcelas = numeroDeParcelas;
+	public void setNumeroDeParcelas(Integer var_numeroDeParcelas) {
+		this.numeroDeParcelas = var_numeroDeParcelas;
 	}
 }

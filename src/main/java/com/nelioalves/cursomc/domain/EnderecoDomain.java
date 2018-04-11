@@ -37,80 +37,80 @@ public class EnderecoDomain implements Serializable {
 	public EnderecoDomain() {
 	}
 
-	public EnderecoDomain(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, ClienteDomain cliente, CidadeDomain cidade) {
+	public EnderecoDomain(Integer var_id, String var_logradouro, String var_numero, String var_complemento, String var_bairro, String var_cep, ClienteDomain var_cliente, CidadeDomain var_cidade) {
 		super();
-		this.Id = id;
-		this.logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.bairro = bairro;
-		this.cep = cep;
-		this.cliente = cliente;
-		this.setCidade(cidade);
+		this.Id = var_id;
+		this.logradouro = var_logradouro;
+		this.numero = var_numero;
+		this.complemento = var_complemento;
+		this.bairro = var_bairro;
+		this.cep = var_cep;
+		this.cliente = var_cliente;
+		this.setCidade(var_cidade);
 	}
 
 	public Integer getId() {
 		return this.Id;
 	}
 
-	public void setId(Integer id) {
-		this.Id = id;
+	public void setId(Integer var_id) {
+		this.Id = var_id;
 	}
 
 	public String getLogradouro() {
 		return this.logradouro;
 	}
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
+	public void setLogradouro(String var_logradouro) {
+		this.logradouro = var_logradouro;
 	}
 
 	public String getNumero() {
 		return this.numero;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setNumero(String var_numero) {
+		this.numero = var_numero;
 	}
 
 	public String getComplemento() {
 		return this.complemento;
 	}
 
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+	public void setComplemento(String var_complemento) {
+		this.complemento = var_complemento;
 	}
 
 	public String getBairro() {
 		return this.bairro;
 	}
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
+	public void setBairro(String var_bairro) {
+		this.bairro = var_bairro;
 	}
 
 	public String getCep() {
 		return this.cep;
 	}
 
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setCep(String var_cep) {
+		this.cep = var_cep;
 	}
 
 	public ClienteDomain getCliente() {
 		return this.cliente;
 	}
 
-	public void setCliente(ClienteDomain cliente) {
-		this.cliente = cliente;
+	public void setCliente(ClienteDomain var_cliente) {
+		this.cliente = var_cliente;
 	}
 
 	public CidadeDomain getCidade() {
 		return this.cidade;
 	}
 
-	public void setCidade(CidadeDomain cidade) {
-		this.cidade = cidade;
+	public void setCidade(CidadeDomain var_cidade) {
+		this.cidade = var_cidade;
 	}
 
 	@Override

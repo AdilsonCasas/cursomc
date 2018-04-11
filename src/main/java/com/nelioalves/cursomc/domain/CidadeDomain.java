@@ -26,35 +26,35 @@ public class CidadeDomain implements Serializable {
 	public CidadeDomain() {
 	}
 
-	public CidadeDomain(Integer id, String nome, EstadoDomain estado) {
+	public CidadeDomain(Integer var_id, String var_nome, EstadoDomain var_estado) {
 		super();
-		this.id = id;
-		this.nome = nome;
-		this.estado = estado;
+		this.id = var_id;
+		this.nome = var_nome;
+		this.estado = var_estado;
 	}
 
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer var_id) {
+		this.id = var_id;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String var_nome) {
+		this.nome = var_nome;
 	}
 
 	public EstadoDomain getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadoDomain estado) {
-		this.estado = estado;
+	public void setEstado(EstadoDomain var_estado) {
+		this.estado = var_estado;
 	}
 
 	@Override

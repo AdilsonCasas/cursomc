@@ -19,20 +19,20 @@ import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntim
 public class ProdutoService {
 
 	@Autowired
-	private ProdutoRepository repoProduto;
+	private ProdutoRepository var_repoProduto;
 
 	@Autowired
-	private CategoriaRepository repoCategoria;
+	private CategoriaRepository var_repoCategoria;
 	
-	public ProdutoDomain service_find(Integer Id) {
-		Optional<ProdutoDomain> obj = repoProduto.findById(Id);
-		return obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + Id + ", Tipo: " + ProdutoDomain.class.getName()));
+	public ProdutoDomain metodoService_findProduto(Integer var_Id) {
+		Optional<ProdutoDomain> var_obj = var_repoProduto.findById(var_Id);
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + ProdutoDomain.class.getName()));
 	}	
 	
-	public Page<ProdutoDomain> service_search(String nome, List<Integer> ids, Integer NumPage, Integer LinesPerPage, String orderBy, String directionOrderBy) {
-		PageRequest service_pageRequest = PageRequest.of(NumPage, LinesPerPage, Direction.valueOf(directionOrderBy), orderBy);
-		List<CategoriaDomain> list_cat = repoCategoria.findAllById(ids);
-		return repoProduto.seach(nome, list_cat, service_pageRequest);
+	public Page<ProdutoDomain> metodoService_searchProduto(String var_nome, List<Integer> var_ids, Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {
+		PageRequest var_service_pageRequest = PageRequest.of(var_NumPage, var_LinesPerPage, Direction.valueOf(var_directionOrderBy), var_orderBy);
+		List<CategoriaDomain> var_list_cat = var_repoCategoria.findAllById(var_ids);
+		return var_repoProduto.seach(var_nome, var_list_cat, var_service_pageRequest);
 	}
 	
 }

@@ -12,26 +12,26 @@ import org.springframework.mail.javamail.JavaMailSender;
 public class EmailSmtpService extends EmailAbstractService {
 
 	@Autowired
-	private MailSender mailSender;
+	private MailSender var_mailSender;
 	
 	@Autowired
-	private JavaMailSender javaMailSender;
+	private JavaMailSender var_javaMailSender;
 
 	// LOG criado como 'private static final' para que não seja necessário criar um LOG diferente (var local) a cada chamada, existirá somente um mesmo LOG 
-	private static final Logger LOG = LoggerFactory.getLogger(EmailSmtpService.class);
+	private static final Logger var_LOG = LoggerFactory.getLogger(EmailSmtpService.class);
 
 	@Override
-	public void sendEmail(SimpleMailMessage msg) {
-		LOG.info("Enviando de email...");
-		mailSender.send(msg);
-		LOG.info("email enviado.");
+	public void metodoService_sendEmail(SimpleMailMessage var_msg) {
+		var_LOG.info("Enviando de email...");
+		var_mailSender.send(var_msg);
+		var_LOG.info("email enviado.");
 	}
 
 	@Override
-	public void sendHtmlEmail(MimeMessage msg) {
-		LOG.info("Enviando de email...");
-		javaMailSender.send(msg);
-		LOG.info("email enviado.");
+	public void metodoService_sendHtmlEmail(MimeMessage var_msg) {
+		var_LOG.info("Enviando de email...");
+		var_javaMailSender.send(var_msg);
+		var_LOG.info("email enviado.");
 	}
 
 }

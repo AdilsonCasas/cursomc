@@ -18,25 +18,25 @@ import com.nelioalves.cursomc.resources.REST_exceptionValidationError;
 public class REST_Exception_Handler {
 
 	@ExceptionHandler(ObjectNotFoundException.class)
-	ResponseEntity<REST_exceptionStandardError> UmNomeQualquerDeFuncao_1(ObjectNotFoundException e, HttpServletRequest request) {
-		REST_exceptionStandardError err = new REST_exceptionStandardError(HttpStatus.NOT_FOUND.value(),	"Objeto não encontrado!", System.currentTimeMillis());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ObjNaoEncontrado(ObjectNotFoundException e, HttpServletRequest var_request) {
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(HttpStatus.NOT_FOUND.value(),	"Objeto não encontrado!", System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(var_err);
 	}
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	//ResponseEntity<REST_exceptionStandardError> UmNomeQualquerDeFuncao_2(service_exceptionGenericRuntimeException e, HttpServletRequest request) {
-	ResponseEntity<REST_exceptionStandardError> UmNomeQualquerDeFuncao_2(DataIntegrityViolationException e, HttpServletRequest request) {
-		REST_exceptionStandardError err = new REST_exceptionStandardError(HttpStatus.BAD_REQUEST.value(), "Não é possível Excluir porque possui relações externas no BD.", System.currentTimeMillis());
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_NaoPodeExcluir(DataIntegrityViolationException e, HttpServletRequest var_request) {
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(HttpStatus.BAD_REQUEST.value(), "Não é possível Excluir porque possui relações externas no BD.", System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	ResponseEntity<REST_exceptionStandardError> UmNomeQualquerDeFuncao_3(MethodArgumentNotValidException e, HttpServletRequest request) {
-		REST_exceptionValidationError err = new REST_exceptionValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de Validação", System.currentTimeMillis());
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ErroValidacao(MethodArgumentNotValidException e, HttpServletRequest var_request) {
+		REST_exceptionValidationError var_err = new REST_exceptionValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de Validação", System.currentTimeMillis());
 		for(FieldError x: e.getBindingResult().getFieldErrors()) {
-			err.REST_exceptionValidationError_addError(x.getField(), x.getDefaultMessage());
+			var_err.REST_exceptionValidationError_addError(x.getField(), x.getDefaultMessage());
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
 	}
 	
 }

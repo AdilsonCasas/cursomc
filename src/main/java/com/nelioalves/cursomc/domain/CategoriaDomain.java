@@ -26,34 +26,34 @@ public class CategoriaDomain implements Serializable {
 	public CategoriaDomain () {
 	}
 
-	public CategoriaDomain(Integer id, String nome) {
+	public CategoriaDomain(Integer var_id, String var_nome) {
 		super();
-		this.Id = id;
-		this.nome = nome;
+		this.Id = var_id;
+		this.nome = var_nome;
 	}
 
 	public Integer getId() {
 		return this.Id;
 	}
 
-	public void setId(Integer id) {
-		this.Id = id;
+	public void setId(Integer var_id) {
+		this.Id = var_id;
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String var_nome) {
+		this.nome = var_nome;
 	}
 
 	public List<ProdutoDomain> getProdutos() {
 		return this.produtos;
 	}
 
-	public void setProdutos(List<ProdutoDomain> produtos) {
-		this.produtos = produtos;
+	public void setProdutos(List<ProdutoDomain> var_produtos) {
+		this.produtos = var_produtos;
 	}
 	
 	@Override

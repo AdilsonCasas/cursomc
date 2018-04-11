@@ -29,34 +29,34 @@ public class DTO_ClienteDomain_nome_email implements Serializable {
 	public DTO_ClienteDomain_nome_email() {
 	}
 	
-	public DTO_ClienteDomain_nome_email(ClienteDomain obj) {
-		this.Id = obj.getId();
-		this.nome = obj.getNome();
-		this.email = obj.getEmail();
+	public DTO_ClienteDomain_nome_email(ClienteDomain var_obj) {
+		this.Id = var_obj.getId();
+		this.nome = var_obj.getNome();
+		this.email = var_obj.getEmail();
 	}
 
 	public Integer getId() {
 		return this.Id;
 	}
 
-	public void setId(Integer id) {
-		this.Id = id;
+	public void setId(Integer var_id) {
+		this.Id = var_id;
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String var_nome) {
+		this.nome = var_nome;
 	}
 
 	public String getEmail() {
 		return this.email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String var_email) {
+		this.email = var_email;
 	}
 
 }

@@ -22,14 +22,14 @@ public class ItemPedidoDomainPK implements Serializable {
 	public PedidoDomain getPedido() {
 		return this.pedido;
 	}
-	public void setPedido(PedidoDomain pedido) {
-		this.pedido = pedido;
+	public void setPedido(PedidoDomain var_pedido) {
+		this.pedido = var_pedido;
 	}
 	public ProdutoDomain getProduto() {
 		return this.produto;
 	}
-	public void setProduto(ProdutoDomain produto) {
-		this.produto = produto;
+	public void setProduto(ProdutoDomain var_produto) {
+		this.produto = var_produto;
 	}
 	
 	@Override

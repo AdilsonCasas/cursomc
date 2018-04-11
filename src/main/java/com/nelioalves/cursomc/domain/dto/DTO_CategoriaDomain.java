@@ -22,25 +22,25 @@ public class DTO_CategoriaDomain implements Serializable {
 	public DTO_CategoriaDomain() {
 	}
 	
-	public DTO_CategoriaDomain(CategoriaDomain obj) {
-		this.Id = obj.getId();
-		this.nome = obj.getNome();
+	public DTO_CategoriaDomain(CategoriaDomain var_obj) {
+		this.Id = var_obj.getId();
+		this.nome = var_obj.getNome();
 	}
 
 	public Integer getId() {
 		return this.Id;
 	}
 
-	public void setId(Integer id) {
-		this.Id = id;
+	public void setId(Integer var_id) {
+		this.Id = var_id;
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String var_nome) {
+		this.nome = var_nome;
 	}
 
 }

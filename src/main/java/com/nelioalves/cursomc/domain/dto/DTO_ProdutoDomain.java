@@ -15,10 +15,10 @@ public class DTO_ProdutoDomain implements Serializable {
 	public DTO_ProdutoDomain() {
 	}
 
-	public DTO_ProdutoDomain(ProdutoDomain obj) {
-		this.Id = obj.getId();
-		this.nome = obj.getNome();
-		this.preco = obj.getPreco();
+	public DTO_ProdutoDomain(ProdutoDomain var_obj) {
+		this.Id = var_obj.getId();
+		this.nome = var_obj.getNome();
+		this.preco = var_obj.getPreco();
 		
 	}
 
@@ -26,24 +26,24 @@ public class DTO_ProdutoDomain implements Serializable {
 		return Id;
 	}
 
-	public void setId(Integer id) {
-		Id = id;
+	public void setId(Integer var_id) {
+		Id = var_id;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String var_nome) {
+		this.nome = var_nome;
 	}
 
 	public Double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPreco(Double var_preco) {
+		this.preco = var_preco;
 	}
 
 }

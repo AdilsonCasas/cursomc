@@ -25,19 +25,19 @@ public class ItemPedidoDomain implements Serializable {
 	public ItemPedidoDomain() {
 	}
 
-	public ItemPedidoDomain(PedidoDomain pedido, ProdutoDomain produto, Double desconto, Integer quantidade, Double preco) {
+	public ItemPedidoDomain(PedidoDomain var_pedido, ProdutoDomain var_produto, Double var_desconto, Integer var_quantidade, Double var_preco) {
 		super();
-		this.Id.setPedido(pedido);
-		this.Id.setProduto(produto);
-		this.desconto = desconto;
-		this.quantidade = quantidade;
-		this.preco = preco;
+		this.Id.setPedido(var_pedido);
+		this.Id.setProduto(var_produto);
+		this.desconto = var_desconto;
+		this.quantidade = var_quantidade;
+		this.preco = var_preco;
 	}
 
 	// o método abaixo não foi gerado automáricamente, mas implementado manualmente, e ao colocar "get" no início do nome do método ele é reconhecido e serializado
 	// para o Json automaticamente, ou seja, em uma consulta tipo 'GET pedido' no postman, o Json coloca "SubTotal" em cada itemdepedido
 	public double getSubTotal() {
-		return (preco - desconto) * quantidade;
+		return (this.preco - this.desconto) * this.quantidade;
 	}
 
 	@JsonIgnore
@@ -45,8 +45,8 @@ public class ItemPedidoDomain implements Serializable {
 		return this.Id.getPedido();
 	}
 	
-	public void setPedido(PedidoDomain pedido) {
-		this.Id.setPedido(pedido);
+	public void setPedido(PedidoDomain var_pedido) {
+		this.Id.setPedido(var_pedido);
 	}
 	
 	//@JsonIgnore : o produto é desejável que seja mostrado então não vamoss ignorá-lo
@@ -54,8 +54,8 @@ public class ItemPedidoDomain implements Serializable {
 		return this.Id.getProduto();
 	}
 	
-	public void setProduto(ProdutoDomain produto) {
-		this.Id.setProduto(produto);
+	public void setProduto(ProdutoDomain var_produto) {
+		this.Id.setProduto(var_produto);
 	}
 	
 	@JsonIgnore
@@ -63,32 +63,32 @@ public class ItemPedidoDomain implements Serializable {
 		return this.Id;
 	}
 
-	public void setId(ItemPedidoDomainPK id) {
-		this.Id = id;
+	public void setId(ItemPedidoDomainPK var_id) {
+		this.Id = var_id;
 	}
 
 	public Double getDesconto() {
 		return this.desconto;
 	}
 
-	public void setDesconto(Double desconto) {
-		this.desconto = desconto;
+	public void setDesconto(Double var_desconto) {
+		this.desconto = var_desconto;
 	}
 
 	public Integer getQuantidade() {
 		return this.quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantidade(Integer var_quantidade) {
+		this.quantidade = var_quantidade;
 	}
 
 	public Double getPreco() {
 		return this.preco;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPreco(Double var_preco) {
+		this.preco = var_preco;
 	}
 
 	@Override
@@ -118,17 +118,17 @@ public class ItemPedidoDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		NumberFormat numeroFormatado = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
-		StringBuilder builder = new StringBuilder();
-		builder.append(getProduto().getNome());
-		builder.append(", Qtde: ");
-		builder.append(getQuantidade());
-		builder.append(", Preco unitário: ");
-		builder.append(numeroFormatado.format(getPreco()));
-		builder.append(", Subtotal: ");
-		builder.append(numeroFormatado.format(getPreco()));
-		builder.append("\n");
-		return builder.toString();
+		NumberFormat var_numeroFormatado = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+		StringBuilder var_builder = new StringBuilder();
+		var_builder.append(getProduto().getNome());
+		var_builder.append(", Qtde: ");
+		var_builder.append(getQuantidade());
+		var_builder.append(", Preco unitário: ");
+		var_builder.append(var_numeroFormatado.format(getPreco()));
+		var_builder.append(", Subtotal: ");
+		var_builder.append(var_numeroFormatado.format(getPreco()));
+		var_builder.append("\n");
+		return var_builder.toString();
 	}
 
 }

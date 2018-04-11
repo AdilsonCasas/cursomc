@@ -22,35 +22,35 @@ import com.nelioalves.cursomc.services.utils.Service_Utils_Boleto;
 public class PedidoService {
 
 	@Autowired
-	private PedidoRepository repoPedido;
+	private PedidoRepository var_repoPedido;
 	
 	@Autowired
-	private PagamentoRepository repoPagamento;
+	private PagamentoRepository var_repoPagamento;
 	
 	@Autowired
-	private Service_Utils_Boleto serviceUtils_Boleto;
+	private Service_Utils_Boleto var_serviceUtils_Boleto;
 
 	@Autowired
-	private ProdutoService serviceProduto;
+	private ProdutoService var_serviceProduto;
 
 	@Autowired
-	private ClienteService serviceCliente;
+	private ClienteService var_serviceCliente;
 
 	@Autowired
-	private ItemPedidoRepository repoItemPedido;
+	private ItemPedidoRepository var_repoItemPedido;
 
 	@Autowired
 	// a var 'serviceEmail' abaixo é instanciada no arq. de configuração 'ProfileTestConfig', sempre que uso um '@Autowired' há uma instanciação do componente do sistema citado.
 	// como 'EmailService' é uma interface e não uma classe é necessário a instanciação por 'new'
-	private EmailService serviceEmail;
+	private EmailService var_serviceEmail;
 
-	public PedidoDomain service_find(Integer Id) {
-		Optional<PedidoDomain> obj = repoPedido.findById(Id);
-		return obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + Id + ", Tipo: " + PedidoDomain.class.getName()));
+	public PedidoDomain metodoService_findPedido(Integer var_Id) {
+		Optional<PedidoDomain> var_obj = var_repoPedido.findById(var_Id);
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + PedidoDomain.class.getName()));
 	}
 	
 	@Transactional
-	public PedidoDomain service_insert(PedidoDomain obj) {
+	public PedidoDomain metodoService_insertPedido(PedidoDomain var_obj) {
 /*
  * Para testar a inserção de novo pedido use o seguinte JSON:
  * 
@@ -73,32 +73,32 @@ public class PedidoService {
 	]
 }
  */
-		obj.setId(null);
-		obj.setInstante(new Date());
-		obj.setCliente(serviceCliente.service_find(obj.getCliente().getId()));
-		obj.getPagamento().setEstado(enumEstadoPagamento.PENDENTE);
-		obj.getPagamento().setPedido(obj);
-		if(obj.getPagamento() instanceof PagamentoComBoletoDomain) {
-			PagamentoComBoletoDomain pgto = (PagamentoComBoletoDomain) obj.getPagamento();
-			serviceUtils_Boleto.PreencherPagtoComBoleto(pgto, obj.getInstante());
+		var_obj.setId(null);
+		var_obj.setInstante(new Date());
+		var_obj.setCliente(var_serviceCliente.metodoService_findCliente(var_obj.getCliente().getId()));
+		var_obj.getPagamento().setEstado(enumEstadoPagamento.PENDENTE);
+		var_obj.getPagamento().setPedido(var_obj);
+		if(var_obj.getPagamento() instanceof PagamentoComBoletoDomain) {
+			PagamentoComBoletoDomain var_pgto = (PagamentoComBoletoDomain) var_obj.getPagamento();
+			var_serviceUtils_Boleto.metodoService_utils_PreencherPagtoComBoleto(var_pgto, var_obj.getInstante());
 		}
-		repoPedido.save(obj);
-		repoPagamento.save(obj.getPagamento());
-		for (ItemPedidoDomain ip: obj.getItens()) {
-			ip.setDesconto(0.0);
-			ip.setProduto(serviceProduto.service_find(ip.getProduto().getId()));
-			ip.setPreco(ip.getProduto().getPreco());
-			ip.setPedido(obj);
+		var_repoPedido.save(var_obj);
+		var_repoPagamento.save(var_obj.getPagamento());
+		for (ItemPedidoDomain var_ip: var_obj.getItens()) {
+			var_ip.setDesconto(0.0);
+			var_ip.setProduto(var_serviceProduto.metodoService_findProduto(var_ip.getProduto().getId()));
+			var_ip.setPreco(var_ip.getProduto().getPreco());
+			var_ip.setPedido(var_obj);
 		}
-		repoItemPedido.saveAll(obj.getItens());
-		//serviceEmail.sendOrderConfirmationHtmlEmail(obj);
-		//serviceEmail.sendOrderConfirmationEmail(obj);
+		var_repoItemPedido.saveAll(var_obj.getItens());
+		//var_serviceEmail.sendOrderConfirmationHtmlEmail(obj);
+		//var_serviceEmail.sendOrderConfirmationEmail(obj);
 		// from=adilson.casas@gmail.com
 		// to=maria@gmail.com; cc=; bcc=; 
 		// sentDate=Mon Apr 09 21:54:50 BRT 2018; 
 		// subject=Pedido confirmado! Código: 3; 
 		// text=Pedido Número: 3, Instante: 09/04/2018 21:54:50, Cliente: Maria Silva, Situação do Pagamento: Pendente ...
-		return obj;
+		return var_obj;
 	}
 	
 }

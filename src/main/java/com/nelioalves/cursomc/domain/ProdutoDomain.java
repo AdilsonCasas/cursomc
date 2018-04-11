@@ -44,60 +44,60 @@ public class ProdutoDomain implements Serializable {
 	public ProdutoDomain() {
 	}
 
-	public ProdutoDomain(Integer id, String nome, Double preco) {
+	public ProdutoDomain(Integer var_id, String var_nome, Double var_preco) {
 		super();
-		this.Id = id;
-		this.nome = nome;
-		this.preco = preco;
+		this.Id = var_id;
+		this.nome = var_nome;
+		this.preco = var_preco;
 	}
 
 	@JsonIgnore
 	public List<PedidoDomain> getPedidos() {
-		List<PedidoDomain> lista = new ArrayList<>();
+		List<PedidoDomain> var_lista = new ArrayList<>();
 		for(ItemPedidoDomain x: this.itens) {
-			lista.add(x.getPedido());
+			var_lista.add(x.getPedido());
 		}
-		return lista;
+		return var_lista;
 	}
 	
 	public Integer getId() {
 		return this.Id;
 	}
 
-	public void setId(Integer id) {
-		this.Id = id;
+	public void setId(Integer var_id) {
+		this.Id = var_id;
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String var_nome) {
+		this.nome = var_nome;
 	}
 
 	public Double getPreco() {
 		return this.preco;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setPreco(Double var_preco) {
+		this.preco = var_preco;
 	}
 
 	public List<CategoriaDomain> getCategorias() {
 		return this.categorias;
 	}
 
-	public void setCategorias(List<CategoriaDomain> categorias) {
-		this.categorias = categorias;
+	public void setCategorias(List<CategoriaDomain> var_categorias) {
+		this.categorias = var_categorias;
 	}
 
 	public Set<ItemPedidoDomain> getItens() {
 		return this.itens;
 	}
 
-	public void setItens(Set<ItemPedidoDomain> itens) {
-		this.itens = itens;
+	public void setItens(Set<ItemPedidoDomain> var_itens) {
+		this.itens = var_itens;
 	}
 
 	@Override

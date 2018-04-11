@@ -8,9 +8,9 @@ public enum enumTipoCliente {
 	private int cod;
 	private String descricao;
 	
-	private enumTipoCliente(int cod, String descricao) {
-		this.cod = cod;
-		this.descricao = descricao;
+	private enumTipoCliente(int var_cod, String var_descricao) {
+		this.cod = var_cod;
+		this.descricao = var_descricao;
 	}
 	
 	public int getCod() {
@@ -21,16 +21,16 @@ public enum enumTipoCliente {
 		return this.descricao;
 	}
 	
-	public static enumTipoCliente toEnum(Integer cod) {
-		if(cod == null) {
+	public static enumTipoCliente toEnum(Integer var_cod) {
+		if(var_cod == null) {
 			return null;
 		}
 		for(enumTipoCliente x: enumTipoCliente.values()) {
-			if(cod == x.getCod()) {
+			if(var_cod == x.getCod()) {
 				return x;
 			}
 		}
 		
-		throw new IllegalArgumentException("Cod Tipo Cliente inválido: "+cod);
+		throw new IllegalArgumentException("Cod Tipo Cliente inválido: "+var_cod);
 	}
 }

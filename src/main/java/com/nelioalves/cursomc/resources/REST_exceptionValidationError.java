@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class REST_exceptionValidationError extends REST_exceptionStandardError {
+
 	private static final long serialVersionUID = 1L;
 
-	private List<REST_exceptionFieldMessage> errors = new ArrayList<>();
+	private List<REST_exceptionFieldMessage> var_errors = new ArrayList<>();
 	
-	public REST_exceptionValidationError(Integer status, String msg, Long timeStamp) {
-		super(status, msg, timeStamp);
-		// TODO Auto-generated constructor stub
+	public REST_exceptionValidationError(Integer var_status, String var_msg, Long var_timeStamp) {
+		super(var_status, var_msg, var_timeStamp);
 	}
 
 	public List<REST_exceptionFieldMessage> getErrors() {
-		return errors;
+		return this.var_errors;
 	}
 
-	public void REST_exceptionValidationError_addError(String fieldName, String message) {
-		this.errors.add(new REST_exceptionFieldMessage(fieldName, message));
+	public void REST_exceptionValidationError_addError(String var_fieldName, String var_message) {
+		this.var_errors.add(new REST_exceptionFieldMessage(var_fieldName, var_message));
 	}
 	
 }

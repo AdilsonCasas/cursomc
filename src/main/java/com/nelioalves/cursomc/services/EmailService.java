@@ -8,12 +8,12 @@ import com.nelioalves.cursomc.domain.PedidoDomain;
 
 public interface EmailService {
 	
-	void sendOrderConfirmationEmail(PedidoDomain obj);
+	void metodoService_sendOrderConfirmationEmail(PedidoDomain var_obj);
 	
-	void sendEmail(SimpleMailMessage msg);
+	void metodoService_sendEmail(SimpleMailMessage var_msg);
 	
-	void sendOrderConfirmationHtmlEmail(PedidoDomain obj);
+	void metodoService_sendOrderConfirmationHtmlEmail(PedidoDomain var_obj);
 	
-	void sendHtmlEmail(MimeMessage msg);
+	void metodoService_sendHtmlEmail(MimeMessage var_msg);
 
 }

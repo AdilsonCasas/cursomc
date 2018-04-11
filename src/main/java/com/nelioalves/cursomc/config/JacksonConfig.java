@@ -14,16 +14,17 @@ import com.nelioalves.cursomc.domain.PagamentoComCartaoDomain;
 // incluída na classe 'PagamentoDomain' que é uma super-classe e não é instanciada diretamente, mas somente através das suas classes de herança.
 @Configuration
 public class JacksonConfig {
+
 	// veja em 'https://stackoverflow.com/questions/41452598/overcome-can-not-construct-instance-of-interfaceclass-without-hinting-the-pare' uma discussão sobre este tópico
 	@Bean
 	public Jackson2ObjectMapperBuilder objectMapperBuilder() {
-		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder() {
-			public void configure(ObjectMapper objectMapper) {
-				objectMapper.registerSubtypes(PagamentoComCartaoDomain.class);
-				objectMapper.registerSubtypes(PagamentoComBoletoDomain.class);
-				super.configure(objectMapper);
+		Jackson2ObjectMapperBuilder var_builder = new Jackson2ObjectMapperBuilder() {
+			public void configure(ObjectMapper var_objectMapper) {
+				var_objectMapper.registerSubtypes(PagamentoComCartaoDomain.class);
+				var_objectMapper.registerSubtypes(PagamentoComBoletoDomain.class);
+				super.configure(var_objectMapper);
 			}
 		};
-		return builder;
+		return var_builder;
 	}
 }

@@ -17,74 +17,64 @@ import com.nelioalves.cursomc.domain.PedidoDomain;
 
 public abstract class EmailAbstractService implements EmailService {
 
-/*
-bean of type 'org.springframework.mail.javamail.JavaMailSender' that could not be found.
-	- Bean method 'mailSender'
-	
-	
-	
-	
-	
-	
-*/
 	@Value("${default.sender}")
-	private String sender;
+	private String var_sender;
 
 	// este 'TemplateEngine' abaixo é do Thymeleaf
 	@Autowired
-	private TemplateEngine templateEngine;
+	private TemplateEngine var_templateEngine;
 	
 	@Autowired
 	private JavaMailSender var_javaMailSender;
 
 // ===================================================== Processamento de email 'texto' ======================================================================
 	@Override
-	public void sendOrderConfirmationEmail(PedidoDomain obj) {
-		SimpleMailMessage sm = prepareSimpleMailMessageFromPedido(obj);
-		sendEmail(sm);
+	public void metodoService_sendOrderConfirmationEmail(PedidoDomain var_obj) {
+		SimpleMailMessage var_sm = metodoService_prepareSimpleMailMessageFromPedido(var_obj);
+		metodoService_sendEmail(var_sm);
 	}
 
-	protected SimpleMailMessage prepareSimpleMailMessageFromPedido(PedidoDomain obj) {
-		SimpleMailMessage sm = new SimpleMailMessage();
-		sm.setTo(obj.getCliente().getEmail());
-		sm.setFrom(sender);
-		sm.setSubject("Pedido confirmado! Código: "+obj.getId());
-		sm.setSentDate(new Date(System.currentTimeMillis()));
-		sm.setText(obj.toString());
-		return sm;
+	protected SimpleMailMessage metodoService_prepareSimpleMailMessageFromPedido(PedidoDomain var_obj) {
+		SimpleMailMessage var_sm = new SimpleMailMessage();
+		var_sm.setTo(var_obj.getCliente().getEmail());
+		var_sm.setFrom(var_sender);
+		var_sm.setSubject("Pedido confirmado! Código: "+var_obj.getId());
+		var_sm.setSentDate(new Date(System.currentTimeMillis()));
+		var_sm.setText(var_obj.toString());
+		return var_sm;
 	}
 	
 // ===================================================== Processamento de email 'html' ======================================================================
 	@Override
-	public void sendOrderConfirmationHtmlEmail(PedidoDomain obj) {
+	public void metodoService_sendOrderConfirmationHtmlEmail(PedidoDomain var_obj) {
 		try {
-			MimeMessage mm = prepareMimeMessageFromPedido(obj);
-			sendHtmlEmail(mm);
+			MimeMessage var_mm = metodoService_prepareMimeMessageFromPedido(var_obj);
+			metodoService_sendHtmlEmail(var_mm);
 		}
 		catch(MessagingException e) {
-			sendOrderConfirmationEmail(obj);
+			metodoService_sendOrderConfirmationEmail(var_obj);
 		}
 	}
 
-	protected MimeMessage prepareMimeMessageFromPedido(PedidoDomain obj) throws MessagingException {
-		MimeMessage mimeMessage = var_javaMailSender.createMimeMessage();
-		MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage,true);
-		mmh.setTo(obj.getCliente().getEmail());
-		mmh.setFrom(sender);
-		mmh.setSubject("Pedido confirmado! Código: "+obj.getId());
-		mmh.setSentDate(new Date(System.currentTimeMillis()));
-		mmh.setText(htmlFromTemplatePedido(obj),true);
-		return mimeMessage;
+	protected MimeMessage metodoService_prepareMimeMessageFromPedido(PedidoDomain var_obj) throws MessagingException {
+		MimeMessage var_mimeMessage = var_javaMailSender.createMimeMessage();
+		MimeMessageHelper var_mmh = new MimeMessageHelper(var_mimeMessage,true);
+		var_mmh.setTo(var_obj.getCliente().getEmail());
+		var_mmh.setFrom(var_sender);
+		var_mmh.setSubject("Pedido confirmado! Código: "+var_obj.getId());
+		var_mmh.setSentDate(new Date(System.currentTimeMillis()));
+		var_mmh.setText(metodoService_htmlFromTemplatePedido(var_obj),true);
+		return var_mimeMessage;
 	}
 
-	protected String htmlFromTemplatePedido(PedidoDomain obj) {
+	protected String metodoService_htmlFromTemplatePedido(PedidoDomain var_obj) {
 		// este 'Context' abaixo é do Thymeleaf
-		Context context = new Context();
+		Context var_context = new Context();
 		// o 'setVariable' abaixo passa o objeto PedidoDomain para dentro do template 'confirmacaoPedido.html' e lhe dá o apelido de 'pedido', que é referenciado dentro do template html
-		context.setVariable("pedido", obj);
+		var_context.setVariable("pedido", var_obj);
 		// o comando abaixo faz o Thymeleaf "processar" o contexto e retornar uma String (o texto html) já com os valores "populados" a partir do pedido.
 		// por padrão o Thymeleaf processa os seus arquivos templates a partir da pasta "../src/main/resources/templates", por isso só foi colocado o path abaixo a partir de 'email' e o nome do arquivo "sem .html"
-		return templateEngine.process("email/confirmacaoPedido", context);
+		return var_templateEngine.process("email/confirmacaoPedido", var_context);
 	}
 
 }

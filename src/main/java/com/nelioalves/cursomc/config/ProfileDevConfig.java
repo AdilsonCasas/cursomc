@@ -18,20 +18,20 @@ import com.nelioalves.cursomc.services.EmailSmtpService;
 public class ProfileDevConfig {
 
 	@Autowired
-	private DBService serviceDB;
+	private DBService var_serviceDB;
 
 	// Esta anotação '@Value' abaixo pega o valor da chave 'spring.jpa.hibernate.ddl-auto' definida no arquivo 'application-dev.properties' para verificar se deve ou não criar a base de dados no BD mysql
 	// coloque ---> 'spring.jpa.hibernate.ddl-auto=create' no arq config se quiser CRIAR o BD ao inicializar esta aplicação ou 'none' no lugar de create para não fazer nada - não criar o BD
 	// o valor da variavel de configuração será colocada dentro da variável local tipo String logo abaixo (no meu caso 'strategy').
 	@Value("${spring.jpa.hibernate.ddl-auto}")
-	private String strategy; // 'estratégia' de criação do BD
+	private String var_strategy; // 'estratégia' de criação do BD
 
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
-		if(!"create".equals(strategy)) { // qualquer coisa diferente de "create" --> return.
+		if(!"create".equals(var_strategy)) { // qualquer coisa diferente de "create" --> return.
 			return false;
 		}
-		serviceDB.instantiateTestDatabase();
+		var_serviceDB.metodoService_instantiateTestDatabase();
 		return true;
 	}
 	

@@ -49,17 +49,17 @@ public class PedidoDomain implements Serializable {
 	public PedidoDomain() {
 	}
 
-	public PedidoDomain(Integer id, Date instante, ClienteDomain cliente, EnderecoDomain enderecoDeEntrega) {
+	public PedidoDomain(Integer var_id, Date var_instante, ClienteDomain var_cliente, EnderecoDomain var_enderecoDeEntrega) {
 		super();
-		this.id = id;
-		this.instante = instante;
-		this.cliente = cliente;
-		this.enderecoDeEntrega = enderecoDeEntrega;
+		this.id = var_id;
+		this.instante = var_instante;
+		this.cliente = var_cliente;
+		this.enderecoDeEntrega = var_enderecoDeEntrega;
 	}
 
 	public double getValorTotal() {
 		double soma = 0.0;
-		for (ItemPedidoDomain ip: itens) {
+		for (ItemPedidoDomain ip: this.itens) {
 			soma = soma + ip.getSubTotal();
 		}
 		return soma;
@@ -69,48 +69,48 @@ public class PedidoDomain implements Serializable {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer var_id) {
+		this.id = var_id;
 	}
 
 	public Date getInstante() {
 		return this.instante;
 	}
 
-	public void setInstante(Date instante) {
-		this.instante = instante;
+	public void setInstante(Date var_instante) {
+		this.instante = var_instante;
 	}
 
 	public PagamentoDomain getPagamento() {
 		return this.pagamento;
 	}
 
-	public void setPagamento(PagamentoDomain pagamento) {
-		this.pagamento = pagamento;
+	public void setPagamento(PagamentoDomain var_pagamento) {
+		this.pagamento = var_pagamento;
 	}
 
 	public ClienteDomain getCliente() {
 		return this.cliente;
 	}
 
-	public void setCliente(ClienteDomain cliente) {
-		this.cliente = cliente;
+	public void setCliente(ClienteDomain var_cliente) {
+		this.cliente = var_cliente;
 	}
 
 	public EnderecoDomain getEnderecoDeEntrega() {
 		return this.enderecoDeEntrega;
 	}
 
-	public void setEnderecoDeEntrega(EnderecoDomain enderecoDeEntrega) {
-		this.enderecoDeEntrega = enderecoDeEntrega;
+	public void setEnderecoDeEntrega(EnderecoDomain var_enderecoDeEntrega) {
+		this.enderecoDeEntrega = var_enderecoDeEntrega;
 	}
 
 	public Set<ItemPedidoDomain> getItens() {
 		return this.itens;
 	}
 
-	public void setItens(Set<ItemPedidoDomain> itens) {
-		this.itens = itens;
+	public void setItens(Set<ItemPedidoDomain> var_itens) {
+		this.itens = var_itens;
 	}
 
 	@Override
@@ -140,24 +140,24 @@ public class PedidoDomain implements Serializable {
 
 	@Override
 	public String toString() {
-		NumberFormat numeroFormatado = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		StringBuilder builder = new StringBuilder();
-		builder.append("Pedido Número: ");
-		builder.append(getId());
-		builder.append(", Instante: ");
-		builder.append(simpleDateFormat.format(getInstante()));
-		builder.append(", Cliente: ");
-		builder.append(getCliente().getNome());
-		builder.append(", Situação do Pagamento: ");
-		builder.append(getPagamento().getEstado().getDescricao());
-		builder.append("\nDetalhes:\n");
+		NumberFormat var_numeroFormatado = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+		SimpleDateFormat var_simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		StringBuilder var_builder = new StringBuilder();
+		var_builder.append("Pedido Número: ");
+		var_builder.append(getId());
+		var_builder.append(", Instante: ");
+		var_builder.append(var_simpleDateFormat.format(getInstante()));
+		var_builder.append(", Cliente: ");
+		var_builder.append(getCliente().getNome());
+		var_builder.append(", Situação do Pagamento: ");
+		var_builder.append(getPagamento().getEstado().getDescricao());
+		var_builder.append("\nDetalhes:\n");
 		for(ItemPedidoDomain ip: getItens()) {
-			builder.append(ip.toString());
+			var_builder.append(ip.toString());
 		}
-		builder.append("Valor Total: ");
-		builder.append(numeroFormatado.format(getValorTotal()));
-		return builder.toString();
+		var_builder.append("Valor Total: ");
+		var_builder.append(var_numeroFormatado.format(getValorTotal()));
+		return var_builder.toString();
 	}
 	
 	

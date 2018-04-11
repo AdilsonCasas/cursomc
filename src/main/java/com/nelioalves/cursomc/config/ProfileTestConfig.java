@@ -17,11 +17,11 @@ import com.nelioalves.cursomc.services.EmailService;
 public class ProfileTestConfig {
 
 	@Autowired
-	private DBService serviceDB;
+	private DBService var_serviceDB;
 	
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
-		serviceDB.instantiateTestDatabase();
+		var_serviceDB.metodoService_instantiateTestDatabase();
 		return true;
 	}
 	

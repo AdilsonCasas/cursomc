@@ -21,22 +21,22 @@ import com.nelioalves.cursomc.services.PedidoService;
 public class REST_PedidoResource {
 
 	@Autowired
-	public PedidoService servicePedido;
+	public PedidoService var_servicePedido;
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
-	@RequestMapping(value="/{Id}", method=RequestMethod.GET)
-	public ResponseEntity<PedidoDomain> resource_find(@PathVariable Integer Id) {
-		PedidoDomain obj = servicePedido.service_find(Id);
-		return ResponseEntity.ok().body(obj);
+	@RequestMapping(value="/{paramId}", method=RequestMethod.GET)
+	public ResponseEntity<PedidoDomain> metodoREST_findPedido(@PathVariable Integer paramId) {
+		PedidoDomain var_obj = var_servicePedido.metodoService_findPedido(paramId);
+		return ResponseEntity.ok().body(var_obj);
 	}
 
 // ============================= METODO POST: faz um "insert" de nova instância da entidade no BD ================================================================= 
 	@RequestMapping(method=RequestMethod.POST)
 	// a diretiva '@Valid' abaixo percebe/captura o resultado do método 'isValid' definido na classe 'serviceClienteInsertValidator'
-	public ResponseEntity<Void> resource_insert(@Valid @RequestBody PedidoDomain obj) {
-		obj = servicePedido.service_insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
+	public ResponseEntity<Void> metodoREST_insertPedido(@Valid @RequestBody PedidoDomain var_obj) {
+		var_obj = var_servicePedido.metodoService_insertPedido(var_obj);
+		URI var_uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(var_obj.getId()).toUri();
+		return ResponseEntity.created(var_uri).build();
 	}
 	
 // ============================= METODO PUT: faz um "update" no BD em uma instância da entidade que já existe no BD ==============================================

@@ -50,77 +50,77 @@ public class ClienteDomain implements Serializable {
 	public ClienteDomain() {
 	}
 
-	public ClienteDomain(Integer id, String nome, String email, String cpfOuCnpj, enumTipoCliente tipoCliente) {
+	public ClienteDomain(Integer var_id, String var_nome, String var_email, String var_cpfOuCnpj, enumTipoCliente var_tipoCliente) {
 		super();
-		this.Id = id;
-		this.nome = nome;
-		this.email = email;
-		this.CpfOuCnpj = cpfOuCnpj;
-		this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCod();
+		this.Id = var_id;
+		this.nome = var_nome;
+		this.email = var_email;
+		this.CpfOuCnpj = var_cpfOuCnpj;
+		this.tipoCliente = (var_tipoCliente == null) ? null : var_tipoCliente.getCod();
 	}
 
 	public Integer getId() {
 		return this.Id;
 	}
 
-	public void setId(Integer id) {
-		this.Id = id;
+	public void setId(Integer var_id) {
+		this.Id = var_id;
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String var_nome) {
+		this.nome = var_nome;
 	}
 
 	public String getEmail() {
 		return this.email;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String var_email) {
+		this.email = var_email;
 	}
 
 	public String getCpfOuCnpj() {
 		return this.CpfOuCnpj;
 	}
 
-	public void setCpfOuCnpj(String cpfOuCnpj) {
-		this.CpfOuCnpj = cpfOuCnpj;
+	public void setCpfOuCnpj(String var_cpfOuCnpj) {
+		this.CpfOuCnpj = var_cpfOuCnpj;
 	}
 
 	public enumTipoCliente getTipoCliente() {
 		return enumTipoCliente.toEnum(this.tipoCliente);
 	}
 
-	public void setTipoCliente(enumTipoCliente tipoCliente) {
-		this.tipoCliente = tipoCliente.getCod();
+	public void setTipoCliente(enumTipoCliente var_tipoCliente) {
+		this.tipoCliente = var_tipoCliente.getCod();
 	}
 
 	public List<EnderecoDomain> getEnderecos() {
 		return this.enderecos;
 	}
 
-	public void setEnderecos(List<EnderecoDomain> enderecos) {
-		this.enderecos = enderecos;
+	public void setEnderecos(List<EnderecoDomain> var_enderecos) {
+		this.enderecos = var_enderecos;
 	}
 
 	public Set<String> getTelefones() {
 		return this.telefones;
 	}
 
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setTelefones(Set<String> var_telefones) {
+		this.telefones = var_telefones;
 	}
 
 	public List<PedidoDomain> getPedidos() {
 		return this.pedidos;
 	}
 
-	public void setPedidos(List<PedidoDomain> pedidos) {
-		this.pedidos = pedidos;
+	public void setPedidos(List<PedidoDomain> var_pedidos) {
+		this.pedidos = var_pedidos;
 	}
 
 	@Override

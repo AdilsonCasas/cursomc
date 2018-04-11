@@ -4,12 +4,12 @@ public class Service_Exception_GenericRuntimeException extends RuntimeException 
 	
 	private static final long serialVersionUID = 1L;
 	
-	public Service_Exception_GenericRuntimeException(String msg) {
-		super(msg);
+	public Service_Exception_GenericRuntimeException(String var_msg) {
+		super(var_msg);
 	}
 
-	public Service_Exception_GenericRuntimeException(String msg, Throwable cause) {
-		super(msg,cause);
+	public Service_Exception_GenericRuntimeException(String var_msg, Throwable var_cause) {
+		super(var_msg, var_cause);
 	}
 
 }
