@@ -20,6 +20,7 @@ import com.nelioalves.cursomc.domain.PagamentoDomain;
 import com.nelioalves.cursomc.domain.PedidoDomain;
 import com.nelioalves.cursomc.domain.ProdutoDomain;
 import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
+import com.nelioalves.cursomc.domain.enums.enumPerfilUsuario;
 import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.repositories.CidadeRepository;
@@ -115,16 +116,22 @@ public class DBService {
 		var_repoCidade.saveAll(Arrays.asList(var_cid1, var_cid2, var_cid3));
 		
 		ClienteDomain var_cli1 = new ClienteDomain(null, "Maria Silva", "adilson.casas@gmail.com", "36378912377", enumTipoCliente.PESSOAFISICA, var_bCryptPasswordEncoder.encode("123"));
-		
 		var_cli1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
+		
+		ClienteDomain var_cli2 = new ClienteDomain(null, "Ana Costa", "pp890645@gmail.com", "69254717509", enumTipoCliente.PESSOAFISICA, var_bCryptPasswordEncoder.encode("123"));
+		var_cli2.getTelefones().addAll(Arrays.asList("93883321","34252625"));
+		var_cli2.addPerfil(enumPerfilUsuario.ADMIN); // vou assumir como regra de negácio que todo usuário do meu sistema será um "Cliente", dentre estes, alguns, também serão ADMIN
+
 		
 		EnderecoDomain var_e1 = new EnderecoDomain(null, "Rua Flores", "300", "Ap 303", "Jardins", "38220830", var_cli1, var_cid1);
 		EnderecoDomain var_e2 = new EnderecoDomain(null, "Av. Matos", "105", "Sala 800", "Centro", "38777012", var_cli1, var_cid2);
+		EnderecoDomain var_e3 = new EnderecoDomain(null, "Av. Floriano", "2106", null, "Centro", "28177012", var_cli2, var_cid2);
 		
 		var_cli1.getEnderecos().addAll(Arrays.asList(var_e1,var_e2));
+		var_cli2.getEnderecos().addAll(Arrays.asList(var_e3));
 		
-		var_repoCliente.saveAll(Arrays.asList(var_cli1));
-		var_repoEndereco.saveAll(Arrays.asList(var_e1,var_e2));
+		var_repoCliente.saveAll(Arrays.asList(var_cli1,var_cli2));
+		var_repoEndereco.saveAll(Arrays.asList(var_e1,var_e2,var_e3));
 		
 		SimpleDateFormat var_simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		PedidoDomain var_ped1 = new PedidoDomain(null, var_simpleDateFormat.parse("30/09/2017 10:32"),var_cli1, var_e1);

@@ -35,10 +35,10 @@ public abstract class PagamentoDomain implements Serializable {
 	public PagamentoDomain() {
 	}
 
-	public PagamentoDomain(Integer var_id, enumEstadoPagamento var_estado, PedidoDomain var_pedido) {
+	public PagamentoDomain(Integer var_id, enumEstadoPagamento var_enum_estado, PedidoDomain var_pedido) {
 		super();
 		this.Id = var_id;
-		this.estado = (var_estado == null) ? null : var_estado.getCod();
+		this.estado = (var_enum_estado == null) ? null : var_enum_estado.getCod();
 		this.pedido = var_pedido;
 	}
 
@@ -54,8 +54,8 @@ public abstract class PagamentoDomain implements Serializable {
 		return enumEstadoPagamento.toEnum(this.estado);
 	}
 
-	public void setEstado(enumEstadoPagamento var_estado) {
-		this.estado = var_estado.getCod();
+	public void setEstado(enumEstadoPagamento var_enum_estado) {
+		this.estado = var_enum_estado.getCod();
 	}
 
 	public PedidoDomain getPedido() {

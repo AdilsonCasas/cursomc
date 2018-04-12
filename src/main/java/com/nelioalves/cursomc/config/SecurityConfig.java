@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// vetor de endpoints liberados APENAS para readOlny
 	private static final String[] var_PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
-			"/categorias/**"
+			"/categorias/**",
+			"/clientes/**"
 	};
 	
 	@Override
@@ -58,7 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public BCryptPasswordEncoder metodo_Config_bCryptPasswordEncoder() {
-	//public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 

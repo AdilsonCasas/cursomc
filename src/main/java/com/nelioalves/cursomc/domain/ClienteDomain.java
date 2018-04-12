@@ -5,18 +5,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nelioalves.cursomc.domain.enums.enumPerfilUsuario;
 import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
 
 @Entity
@@ -45,11 +48,16 @@ public class ClienteDomain implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
 	private List<PedidoDomain> pedidos = new ArrayList<>();
 	
 	public ClienteDomain() {
+		addPerfil(enumPerfilUsuario.CLIENTE); // vou assumir como regra de negácio que todo usuário do meu sistema será um "Cliente", dentre estes, alguns, também serão ADMIN
 	}
 
 	public ClienteDomain(Integer var_id, String var_nome, String var_email, String var_cpfOuCnpj, enumTipoCliente var_tipoCliente, String var_senha) {
@@ -60,6 +68,7 @@ public class ClienteDomain implements Serializable {
 		this.CpfOuCnpj = var_cpfOuCnpj;
 		this.tipoCliente = (var_tipoCliente == null) ? null : var_tipoCliente.getCod();
 		this.senha = var_senha;
+		addPerfil(enumPerfilUsuario.CLIENTE); // vou assumir como regra de negácio que todo usuário do meu sistema será um "Cliente", dentre estes, alguns, também serão ADMIN
 	}
 
 	public Integer getId() {
@@ -98,8 +107,8 @@ public class ClienteDomain implements Serializable {
 		return enumTipoCliente.toEnum(this.tipoCliente);
 	}
 
-	public void setTipoCliente(enumTipoCliente var_tipoCliente) {
-		this.tipoCliente = var_tipoCliente.getCod();
+	public void setTipoCliente(enumTipoCliente var_enum_tipoCliente) {
+		this.tipoCliente = var_enum_tipoCliente.getCod();
 	}
 
 	public String getSenha() {
@@ -108,6 +117,14 @@ public class ClienteDomain implements Serializable {
 
 	public void setSenha(String var_senha) {
 		this.senha = var_senha;
+	}
+	
+	public Set<enumPerfilUsuario> getPerfis() {
+		return this.perfis.stream().map(x -> enumPerfilUsuario.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(enumPerfilUsuario var_enum_perfil) {
+		this.perfis.add(var_enum_perfil.getCod());
 	}
 
 	public List<EnderecoDomain> getEnderecos() {
