@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nelioalves.cursomc.domain.dto.CredenciaisDTO;
+import com.nelioalves.cursomc.domain.dto.DTO_Credenciais;
 
 // o 'extends' abaixo chamado 'UsernamePasswordAuthenticationFilter' é um padrão do Spring Security e ele intercepta o endpoint '/login'
 // enviado pelo Front_End para fazer a autenticação do usuário.
@@ -38,8 +38,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                                 HttpServletResponse var_res) throws AuthenticationException {
 
 		try {
-			CredenciaisDTO var_CredenciaisDTO = new ObjectMapper()
-	                .readValue(var_req.getInputStream(), CredenciaisDTO.class);
+			DTO_Credenciais var_CredenciaisDTO = new ObjectMapper()
+	                .readValue(var_req.getInputStream(), DTO_Credenciais.class);
 	
 			// o token abaixo não é do JWT, mas sim do Spring Security
 	        UsernamePasswordAuthenticationToken var_authToken = new UsernamePasswordAuthenticationToken(var_CredenciaisDTO.getEmail(), var_CredenciaisDTO.getSenha(), new ArrayList<>());

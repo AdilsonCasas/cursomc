@@ -76,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder var_auth) throws Exception {
-		var_auth.userDetailsService(var_userDetailsService).passwordEncoder(metodo_Config_bCryptPasswordEncoder());
+		var_auth.userDetailsService(var_userDetailsService).passwordEncoder(metodoConfig_bCryptPasswordEncoder());
 	}
 	
 	@Bean
@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public BCryptPasswordEncoder metodo_Config_bCryptPasswordEncoder() {
+	public BCryptPasswordEncoder metodoConfig_bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 

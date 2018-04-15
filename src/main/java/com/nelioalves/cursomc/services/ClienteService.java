@@ -17,10 +17,12 @@ import com.nelioalves.cursomc.domain.ClienteDomain;
 import com.nelioalves.cursomc.domain.EnderecoDomain;
 import com.nelioalves.cursomc.domain.dto.DTO_ClienteDomain_Completo;
 import com.nelioalves.cursomc.domain.dto.DTO_ClienteDomain_nome_email;
+import com.nelioalves.cursomc.domain.enums.enumPerfilUsuario;
 import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
 import com.nelioalves.cursomc.repositories.CidadeRepository;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.repositories.EnderecoRepository;
+import com.nelioalves.cursomc.security.UserSpringSecurity;
 import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntimeException;
 
 @Service
@@ -39,6 +41,10 @@ public class ClienteService {
 	private EnderecoRepository var_repoEndereco;
 	
 	public ClienteDomain metodoService_findCliente(Integer var_Id) {
+		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
+		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId())) {
+			throw new Service_Exception_GenericRuntimeException("Acesso Negado!" + var_Id + ", Tipo: " + ClienteDomain.class.getName());
+		}
 		Optional<ClienteDomain> var_obj = var_repoCliente.findById(var_Id);
 		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + ClienteDomain.class.getName()));
 	}	

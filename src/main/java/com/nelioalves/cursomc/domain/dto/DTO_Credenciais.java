@@ -2,13 +2,13 @@ package com.nelioalves.cursomc.domain.dto;
 
 import java.io.Serializable;
 
-public class CredenciaisDTO implements Serializable {
+public class DTO_Credenciais implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String email;
 	private String senha;
 	
-	public CredenciaisDTO() {
+	public DTO_Credenciais() {
 	}
 	
 	public String getEmail() {

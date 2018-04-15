@@ -34,7 +34,7 @@ public class UserSpringSecurity implements UserDetails {
 	private Integer Id;
 	private String email;
 	private String senha;
-	private Collection<? extends GrantedAuthority> authorities;
+	private Collection<? extends GrantedAuthority> authorities; // este 'authorities' são os perfis do usuário que o autorizam a fazer POST ou DELETE etc, definidos pelos vetores 'var_PUBLIC_MATCHERS_'
 	
 	public UserSpringSecurity() {
 	}
@@ -84,5 +84,9 @@ public class UserSpringSecurity implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+	
+	public boolean metodoUserSpringSecurity_hasRole(enumPerfilUsuario var_enumPerfilUsuario) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(var_enumPerfilUsuario.getDescricao()));
 	}
 }
