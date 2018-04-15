@@ -12,7 +12,7 @@ import com.nelioalves.cursomc.domain.ClienteDomain;
 import com.nelioalves.cursomc.domain.dto.DTO_ClienteDomain_Completo;
 import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
-import com.nelioalves.cursomc.resources.REST_exceptionFieldMessage;
+import com.nelioalves.cursomc.resources.exception.REST_exceptionFieldMessage;
 import com.nelioalves.cursomc.services.validation.utils.Service_Validation_Utils_BR;
 
 public class Service_Validator_ClienteInsert implements ConstraintValidator<Service_Annotation_ClienteInsert, DTO_ClienteDomain_Completo> {

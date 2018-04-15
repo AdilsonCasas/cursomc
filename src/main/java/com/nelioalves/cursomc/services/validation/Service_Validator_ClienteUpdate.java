@@ -14,7 +14,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import com.nelioalves.cursomc.domain.ClienteDomain;
 import com.nelioalves.cursomc.domain.dto.DTO_ClienteDomain_nome_email;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
-import com.nelioalves.cursomc.resources.REST_exceptionFieldMessage;
+import com.nelioalves.cursomc.resources.exception.REST_exceptionFieldMessage;
 
 public class Service_Validator_ClienteUpdate implements ConstraintValidator<Service_Annotation_ClienteUpdate, DTO_ClienteDomain_nome_email> {
 

@@ -7,14 +7,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import com.nelioalves.cursomc.security.JWTAuthenticationFilter;
+import com.nelioalves.cursomc.security.JWT_Util;
 
 @Configuration
 @EnableWebSecurity
@@ -24,11 +29,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private Environment var_env;
 
+	@Autowired
+	private JWT_Util var_jwtUtil;
+
 	// vetor de endpoints liberados não apenas para readOlny, porém com alterações no bd autorizadas
 	private static final String[] var_PUBLIC_MATCHERS = {
 			"/h2-console/**"
 	};
-	
+
+	@Autowired
+	// Perceba que o 'UserDetailsService' abaixo é uma inteface definida em 'org.springframework.security.core.userdetails.UserDetailsService'
+	// e o Spring é inteligente o suficiente para procurar aqui no próprio sistema uma imprementação para esta interface e encontra esta 
+	// imprementação em 'SecurityService_UserDetailsServiceImplementacao', então a variável 'var_userDetailsService' aponta para a nossa
+	// implementação em 'SecurityService_UserDetailsServiceImplementacao'
+	private UserDetailsService var_userDetailsService;
+
 	// vetor de endpoints liberados APENAS para readOlny
 	private static final String[] var_PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
@@ -47,7 +62,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET).permitAll()
 				.antMatchers(var_PUBLIC_MATCHERS).permitAll()
 				.anyRequest().authenticated();
+		var_http.addFilter(new JWTAuthenticationFilter(authenticationManager(), var_jwtUtil));
 		var_http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+	
+	@Override
+	public void configure(AuthenticationManagerBuilder var_auth) throws Exception {
+		var_auth.userDetailsService(var_userDetailsService).passwordEncoder(metodo_Config_bCryptPasswordEncoder());
 	}
 	
 	@Bean

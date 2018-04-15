@@ -11,9 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.nelioalves.cursomc.resources.REST_exceptionStandardError;
-import com.nelioalves.cursomc.resources.REST_exceptionValidationError;
-
 @ControllerAdvice
 public class REST_Exception_Handler {
 

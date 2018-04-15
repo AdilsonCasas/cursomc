@@ -1,4 +1,4 @@
-package com.nelioalves.cursomc.resources;
+package com.nelioalves.cursomc.resources.exception;
 
 import java.util.ArrayList;
 import java.util.List;
