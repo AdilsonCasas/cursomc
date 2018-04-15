@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -24,6 +25,7 @@ import com.nelioalves.cursomc.security.JWT_Util;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	// linha abaixo somente para liberar a consulta do "h2"
@@ -48,7 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// vetor de endpoints liberados APENAS para readOlny
 	private static final String[] var_PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
-			"/categorias/**",
+			"/categorias/**"
+	};
+	
+	private static final String[] var_PUBLIC_MATCHERS_POST = {
 			"/clientes/**"
 	};
 	
@@ -60,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		}
 		var_http.cors().and().csrf().disable();
 		var_http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET).permitAll()
+		.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_POST).permitAll()
+		.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET).permitAll()
 				.antMatchers(var_PUBLIC_MATCHERS).permitAll()
 				.anyRequest().authenticated();
 		var_http.addFilter(new JWTAuthenticationFilter(authenticationManager(), var_jwtUtil));

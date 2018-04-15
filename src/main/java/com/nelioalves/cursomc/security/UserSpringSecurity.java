@@ -14,7 +14,7 @@ import com.nelioalves.cursomc.domain.enums.enumPerfilUsuario;
 
 Este aqui deve dar erro 'Não Autorizado'
 {
-	"email": "ana@gmail.com",
+	"email": "pp890645@gmail.com",
 	"senha": "123"
 }
 

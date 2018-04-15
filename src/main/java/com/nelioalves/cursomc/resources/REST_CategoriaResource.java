@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +58,8 @@ public class REST_CategoriaResource {
 			return ResponseEntity.ok().body(var_listDto);
 		}
 		
-// ============================= METODO POST: faz um "insert" de nova instância da entidade no BD ================================================================= 
+// ============================= METODO POST: faz um "insert" de nova instância da entidade no BD =================================================================
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method=RequestMethod.POST)
 	// a diretiva '@Valid' abaixo percebe/captura o resultado do método 'isValid' definido na classe 'serviceClienteInsertValidator'
 	public ResponseEntity<Void> metodoREST_insertCategoria(@Valid @RequestBody DTO_CategoriaDomain var_objDTO) {
@@ -68,6 +70,7 @@ public class REST_CategoriaResource {
 	}
 	
 // ============================= METODO PUT: faz um "update" no BD em uma instância da entidade que já existe no BD ============================================== 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{paramId}", method=RequestMethod.PUT)
 	// o "@Valid" abaixo é parte do "Bean Validate" que faz parte od Java EE, ele chama a validação definida nas diretivas incluídas no "domain" da categoria
 	public ResponseEntity<Void> metodoREST_updateCategoria(@Valid @RequestBody DTO_CategoriaDomain var_objDTO, @PathVariable Integer paramId) {
@@ -78,6 +81,7 @@ public class REST_CategoriaResource {
 	}
 	
 // ============================= METODO DELETE: faz um "delete" no BD em uma instância da entidade que já existe no BD ============================================ 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{paramId}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> metodoREST_deleteCategoria(@PathVariable Integer paramId) {
 		var_serviceCategoria.metodoService_deleteCategoria(paramId);

@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class REST_ClienteResource {
 			return ResponseEntity.ok().body(var_obj);
 		}
 		
+		@PreAuthorize("hasAnyRole('ADMIN')")
 		@RequestMapping(method=RequestMethod.GET) // Get para TODOS os Clientes, SEM paginação
 		public ResponseEntity<List<DTO_ClienteDomain_nome_email>> metodoREST_findAllCliente() {
 			List<ClienteDomain> var_list = var_serviceCliente.metodoService_findAllCliente();
@@ -43,6 +45,7 @@ public class REST_ClienteResource {
 			return ResponseEntity.ok().body(var_listDto);
 		}
 		
+		@PreAuthorize("hasAnyRole('ADMIN')")
 		@RequestMapping(value="/page", method=RequestMethod.GET) // Get para TODOS os Clientes, COM paginação
 		public ResponseEntity<Page<DTO_ClienteDomain_nome_email>> metodoREST_findPageCliente(
 						@RequestParam(value="NumPage", defaultValue="0") Integer var_NumPage, 
@@ -79,6 +82,7 @@ public class REST_ClienteResource {
 	}
 	
 // ============================= METODO DELETE: faz um "delete" no BD em uma instância da entidade que já existe no BD ============================================ 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{paramId}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> metodoREST_deleteCliente(@PathVariable Integer paramId) {
 		var_serviceCliente.metodoService_deleteCliente(paramId);
