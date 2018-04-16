@@ -7,11 +7,11 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.nelioalves.cursomc.domain.ClienteDomain;
+import com.nelioalves.cursomc.domain.ClienteEntity;
 import com.nelioalves.cursomc.services.validation.Service_Annotation_ClienteUpdate;
 
 @Service_Annotation_ClienteUpdate
-public class DTO_ClienteDomain_nome_email implements Serializable {
+public class DTO_ClienteEntity_nome_email implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,10 +26,10 @@ public class DTO_ClienteDomain_nome_email implements Serializable {
 	@Email(message="Email inválido.")
 	private String email;
 	
-	public DTO_ClienteDomain_nome_email() {
+	public DTO_ClienteEntity_nome_email() {
 	}
 	
-	public DTO_ClienteDomain_nome_email(ClienteDomain var_obj) {
+	public DTO_ClienteEntity_nome_email(ClienteEntity var_obj) {
 		this.Id = var_obj.getId();
 		this.nome = var_obj.getNome();
 		this.email = var_obj.getEmail();

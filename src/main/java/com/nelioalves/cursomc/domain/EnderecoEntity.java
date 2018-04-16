@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class EnderecoDomain implements Serializable {
+public class EnderecoEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -28,16 +28,16 @@ public class EnderecoDomain implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
-	private ClienteDomain cliente;
+	private ClienteEntity cliente;
 
 	@ManyToOne
 	@JoinColumn(name="cidade_id")
-	private CidadeDomain cidade;
+	private CidadeEntity cidade;
 	
-	public EnderecoDomain() {
+	public EnderecoEntity() {
 	}
 
-	public EnderecoDomain(Integer var_id, String var_logradouro, String var_numero, String var_complemento, String var_bairro, String var_cep, ClienteDomain var_cliente, CidadeDomain var_cidade) {
+	public EnderecoEntity(Integer var_id, String var_logradouro, String var_numero, String var_complemento, String var_bairro, String var_cep, ClienteEntity var_cliente, CidadeEntity var_cidade) {
 		super();
 		this.Id = var_id;
 		this.logradouro = var_logradouro;
@@ -97,19 +97,19 @@ public class EnderecoDomain implements Serializable {
 		this.cep = var_cep;
 	}
 
-	public ClienteDomain getCliente() {
+	public ClienteEntity getCliente() {
 		return this.cliente;
 	}
 
-	public void setCliente(ClienteDomain var_cliente) {
+	public void setCliente(ClienteEntity var_cliente) {
 		this.cliente = var_cliente;
 	}
 
-	public CidadeDomain getCidade() {
+	public CidadeEntity getCidade() {
 		return this.cidade;
 	}
 
-	public void setCidade(CidadeDomain var_cidade) {
+	public void setCidade(CidadeEntity var_cidade) {
 		this.cidade = var_cidade;
 	}
 
@@ -129,7 +129,7 @@ public class EnderecoDomain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EnderecoDomain other = (EnderecoDomain) obj;
+		EnderecoEntity other = (EnderecoEntity) obj;
 		if (this.Id == null) {
 			if (other.Id != null)
 				return false;

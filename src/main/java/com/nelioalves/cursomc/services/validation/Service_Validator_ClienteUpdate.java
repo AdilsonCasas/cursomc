@@ -11,12 +11,12 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.nelioalves.cursomc.domain.ClienteDomain;
-import com.nelioalves.cursomc.domain.dto.DTO_ClienteDomain_nome_email;
+import com.nelioalves.cursomc.domain.ClienteEntity;
+import com.nelioalves.cursomc.domain.dto.DTO_ClienteEntity_nome_email;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.resources.exception.REST_exceptionFieldMessage;
 
-public class Service_Validator_ClienteUpdate implements ConstraintValidator<Service_Annotation_ClienteUpdate, DTO_ClienteDomain_nome_email> {
+public class Service_Validator_ClienteUpdate implements ConstraintValidator<Service_Annotation_ClienteUpdate, DTO_ClienteEntity_nome_email> {
 
 	@Autowired
 	private HttpServletRequest var_requestURI;
@@ -29,7 +29,7 @@ public class Service_Validator_ClienteUpdate implements ConstraintValidator<Serv
 	}
 
 	@Override
-	public boolean isValid(DTO_ClienteDomain_nome_email var_objDTO, ConstraintValidatorContext var_context) {
+	public boolean isValid(DTO_ClienteEntity_nome_email var_objDTO, ConstraintValidatorContext var_context) {
 
 		// Este "Map" é padrão Java.util e é uma coleção de pares 'chave/valor' tipo o arq. JSon
 		// Neste caso vamos usá-lo para pegar o "Id" da entidade a ser alterada que está na URL do PUT no Postman
@@ -38,7 +38,7 @@ public class Service_Validator_ClienteUpdate implements ConstraintValidator<Serv
 		Integer var_uriId = Integer.parseInt(var_map.get("Id"));
 
 		List<REST_exceptionFieldMessage> var_list = new ArrayList<>();
-		ClienteDomain var_auxCli = var_repoCliente.findByEmail(var_objDTO.getEmail());
+		ClienteEntity var_auxCli = var_repoCliente.findByEmail(var_objDTO.getEmail());
 		if ( var_auxCli != null && !var_auxCli.getId().equals(var_uriId)  ) { /// este if verifica se a alteração no BD tenta alterar um email que já existe em outro cliente que não o mesmo pesquisado
 			var_list.add(new REST_exceptionFieldMessage("email", "Email já cadastrado."));
 		}

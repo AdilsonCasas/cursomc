@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.nelioalves.cursomc.domain.PedidoDomain;
+import com.nelioalves.cursomc.domain.PedidoEntity;
 
 public abstract class EmailAbstractService implements EmailService {
 
@@ -29,12 +29,12 @@ public abstract class EmailAbstractService implements EmailService {
 
 // ===================================================== Processamento de email 'texto' ======================================================================
 	@Override
-	public void metodoService_sendOrderConfirmationEmail(PedidoDomain var_obj) {
+	public void metodoService_sendOrderConfirmationEmail(PedidoEntity var_obj) {
 		SimpleMailMessage var_sm = metodoService_prepareSimpleMailMessageFromPedido(var_obj);
 		metodoService_sendEmail(var_sm);
 	}
 
-	protected SimpleMailMessage metodoService_prepareSimpleMailMessageFromPedido(PedidoDomain var_obj) {
+	protected SimpleMailMessage metodoService_prepareSimpleMailMessageFromPedido(PedidoEntity var_obj) {
 		SimpleMailMessage var_sm = new SimpleMailMessage();
 		var_sm.setTo(var_obj.getCliente().getEmail());
 		var_sm.setFrom(var_sender);
@@ -46,7 +46,7 @@ public abstract class EmailAbstractService implements EmailService {
 	
 // ===================================================== Processamento de email 'html' ======================================================================
 	@Override
-	public void metodoService_sendOrderConfirmationHtmlEmail(PedidoDomain var_obj) {
+	public void metodoService_sendOrderConfirmationHtmlEmail(PedidoEntity var_obj) {
 		try {
 			MimeMessage var_mm = metodoService_prepareMimeMessageFromPedido(var_obj);
 			metodoService_sendHtmlEmail(var_mm);
@@ -56,7 +56,7 @@ public abstract class EmailAbstractService implements EmailService {
 		}
 	}
 
-	protected MimeMessage metodoService_prepareMimeMessageFromPedido(PedidoDomain var_obj) throws MessagingException {
+	protected MimeMessage metodoService_prepareMimeMessageFromPedido(PedidoEntity var_obj) throws MessagingException {
 		MimeMessage var_mimeMessage = var_javaMailSender.createMimeMessage();
 		MimeMessageHelper var_mmh = new MimeMessageHelper(var_mimeMessage,true);
 		var_mmh.setTo(var_obj.getCliente().getEmail());
@@ -67,10 +67,10 @@ public abstract class EmailAbstractService implements EmailService {
 		return var_mimeMessage;
 	}
 
-	protected String metodoService_htmlFromTemplatePedido(PedidoDomain var_obj) {
+	protected String metodoService_htmlFromTemplatePedido(PedidoEntity var_obj) {
 		// este 'Context' abaixo é do Thymeleaf
 		Context var_context = new Context();
-		// o 'setVariable' abaixo passa o objeto PedidoDomain para dentro do template 'confirmacaoPedido.html' e lhe dá o apelido de 'pedido', que é referenciado dentro do template html
+		// o 'setVariable' abaixo passa o objeto PedidoEntity para dentro do template 'confirmacaoPedido.html' e lhe dá o apelido de 'pedido', que é referenciado dentro do template html
 		var_context.setVariable("pedido", var_obj);
 		// o comando abaixo faz o Thymeleaf "processar" o contexto e retornar uma String (o texto html) já com os valores "populados" a partir do pedido.
 		// por padrão o Thymeleaf processa os seus arquivos templates a partir da pasta "../src/main/resources/templates", por isso só foi colocado o path abaixo a partir de 'email' e o nome do arquivo "sem .html"

@@ -8,14 +8,14 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.nelioalves.cursomc.domain.ClienteDomain;
-import com.nelioalves.cursomc.domain.dto.DTO_ClienteDomain_Completo;
+import com.nelioalves.cursomc.domain.ClienteEntity;
+import com.nelioalves.cursomc.domain.dto.DTO_ClienteEntity_Completo;
 import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.resources.exception.REST_exceptionFieldMessage;
 import com.nelioalves.cursomc.services.validation.utils.Service_Validation_Utils_BR;
 
-public class Service_Validator_ClienteInsert implements ConstraintValidator<Service_Annotation_ClienteInsert, DTO_ClienteDomain_Completo> {
+public class Service_Validator_ClienteInsert implements ConstraintValidator<Service_Annotation_ClienteInsert, DTO_ClienteEntity_Completo> {
 
 	@Autowired
 	private ClienteRepository var_repoCliente;
@@ -25,7 +25,7 @@ public class Service_Validator_ClienteInsert implements ConstraintValidator<Serv
 	}
 
 	@Override
-	public boolean isValid(DTO_ClienteDomain_Completo var_objDTO, ConstraintValidatorContext var_context) {
+	public boolean isValid(DTO_ClienteEntity_Completo var_objDTO, ConstraintValidatorContext var_context) {
 		List<REST_exceptionFieldMessage> var_list = new ArrayList<>();
 		if (var_objDTO.getTipoCliente().equals(enumTipoCliente.PESSOAFISICA.getCod()) && !Service_Validation_Utils_BR.isValidCPF(var_objDTO.getCpfOuCnpj())) {
 			var_list.add(new REST_exceptionFieldMessage("CpfOuCnpj", "CPF inválido."));
@@ -35,7 +35,7 @@ public class Service_Validator_ClienteInsert implements ConstraintValidator<Serv
 			var_list.add(new REST_exceptionFieldMessage("CpfOuCnpj", "CNPJ inválido."));
 		}
 
-		ClienteDomain auxCli = var_repoCliente.findByEmail(var_objDTO.getEmail());
+		ClienteEntity auxCli = var_repoCliente.findByEmail(var_objDTO.getEmail());
 		if ( auxCli != null  ) {
 			var_list.add(new REST_exceptionFieldMessage("email", "Email já cadastrado."));
 		}

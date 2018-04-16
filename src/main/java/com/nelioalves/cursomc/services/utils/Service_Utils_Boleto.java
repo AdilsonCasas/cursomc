@@ -5,12 +5,12 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
-import com.nelioalves.cursomc.domain.PagamentoComBoletoDomain;
+import com.nelioalves.cursomc.domain.PagamentoComBoletoEntity;
 
 @Service
 public class Service_Utils_Boleto {
 	
-	public void metodoService_utils_PreencherPagtoComBoleto(PagamentoComBoletoDomain var_pgto, Date var_InstanteDoPedido) {
+	public void metodoService_utils_PreencherPagtoComBoleto(PagamentoComBoletoEntity var_pgto, Date var_InstanteDoPedido) {
 		Calendar var_calend = Calendar.getInstance();
 		var_calend.setTime(var_InstanteDoPedido);
 		// acrescenta 7 dias à data 'InstanteDoPedido' --> este '7 dias a mais' para o vcto foi aleatório, deve-se definir a correta regra de negócio para isto.

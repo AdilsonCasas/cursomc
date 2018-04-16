@@ -3,9 +3,9 @@ package com.nelioalves.cursomc.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.nelioalves.cursomc.domain.EstadoDomain;
+import com.nelioalves.cursomc.domain.EstadoEntity;
 
 @Repository
-public interface EstadoRepository extends JpaRepository<EstadoDomain, Integer> {
+public interface EstadoRepository extends JpaRepository<EstadoEntity, Integer> {
 
 }

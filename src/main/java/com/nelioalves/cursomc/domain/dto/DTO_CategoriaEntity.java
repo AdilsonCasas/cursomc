@@ -6,9 +6,9 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.nelioalves.cursomc.domain.CategoriaDomain;
+import com.nelioalves.cursomc.domain.CategoriaEntity;
 
-public class DTO_CategoriaDomain implements Serializable {
+public class DTO_CategoriaEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -19,10 +19,10 @@ public class DTO_CategoriaDomain implements Serializable {
 	@Length(min=5, max=80, message="O tamanho do Nome da Categoria deve estar entre 5 e 80 caracteres.")
 	private String  nome;
 	
-	public DTO_CategoriaDomain() {
+	public DTO_CategoriaEntity() {
 	}
 	
-	public DTO_CategoriaDomain(CategoriaDomain var_obj) {
+	public DTO_CategoriaEntity(CategoriaEntity var_obj) {
 		this.Id = var_obj.getId();
 		this.nome = var_obj.getNome();
 	}

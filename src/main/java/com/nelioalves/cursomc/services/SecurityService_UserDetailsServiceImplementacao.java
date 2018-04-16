@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.nelioalves.cursomc.domain.ClienteDomain;
+import com.nelioalves.cursomc.domain.ClienteEntity;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.security.UserSpringSecurity;
 
@@ -18,7 +18,7 @@ public class SecurityService_UserDetailsServiceImplementacao implements UserDeta
 	
 	@Override
 	public UserDetails loadUserByUsername(String var_email) throws UsernameNotFoundException {
-		ClienteDomain cli = var_repo.findByEmail(var_email);
+		ClienteEntity cli = var_repo.findByEmail(var_email);
 		if (cli == null) {
 			throw new UsernameNotFoundException(var_email);
 		}

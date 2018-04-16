@@ -23,7 +23,7 @@ import com.nelioalves.cursomc.domain.enums.enumPerfilUsuario;
 import com.nelioalves.cursomc.domain.enums.enumTipoCliente;
 
 @Entity
-public class ClienteDomain implements Serializable {
+public class ClienteEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class ClienteDomain implements Serializable {
 	// Sempre que houver uma relação do tipo "Um pra Muitos" no BD, ao tentar excluir esta entidade vai gerar um erro do tipo "DataIntegrityViolationException"
 	// e por isso se coloca a diretiva 'cascade' na relação, para excluir em 'cascata' o outro obj relacionado
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
-	private List<EnderecoDomain> enderecos = new ArrayList<>();
+	private List<EnderecoEntity> enderecos = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
@@ -54,13 +54,13 @@ public class ClienteDomain implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
-	private List<PedidoDomain> pedidos = new ArrayList<>();
+	private List<PedidoEntity> pedidos = new ArrayList<>();
 	
-	public ClienteDomain() {
+	public ClienteEntity() {
 		addPerfil(enumPerfilUsuario.CLIENTE); // vou assumir como regra de negácio que todo usuário do meu sistema será um "Cliente", dentre estes, alguns, também serão ADMIN
 	}
 
-	public ClienteDomain(Integer var_id, String var_nome, String var_email, String var_cpfOuCnpj, enumTipoCliente var_tipoCliente, String var_senha) {
+	public ClienteEntity(Integer var_id, String var_nome, String var_email, String var_cpfOuCnpj, enumTipoCliente var_tipoCliente, String var_senha) {
 		super();
 		this.Id = var_id;
 		this.nome = var_nome;
@@ -127,11 +127,11 @@ public class ClienteDomain implements Serializable {
 		this.perfis.add(var_enum_perfil.getCod());
 	}
 
-	public List<EnderecoDomain> getEnderecos() {
+	public List<EnderecoEntity> getEnderecos() {
 		return this.enderecos;
 	}
 
-	public void setEnderecos(List<EnderecoDomain> var_enderecos) {
+	public void setEnderecos(List<EnderecoEntity> var_enderecos) {
 		this.enderecos = var_enderecos;
 	}
 
@@ -143,11 +143,11 @@ public class ClienteDomain implements Serializable {
 		this.telefones = var_telefones;
 	}
 
-	public List<PedidoDomain> getPedidos() {
+	public List<PedidoEntity> getPedidos() {
 		return this.pedidos;
 	}
 
-	public void setPedidos(List<PedidoDomain> var_pedidos) {
+	public void setPedidos(List<PedidoEntity> var_pedidos) {
 		this.pedidos = var_pedidos;
 	}
 
@@ -167,7 +167,7 @@ public class ClienteDomain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClienteDomain other = (ClienteDomain) obj;
+		ClienteEntity other = (ClienteEntity) obj;
 		if (this.Id == null) {
 			if (other.Id != null)
 				return false;

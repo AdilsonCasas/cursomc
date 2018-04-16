@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nelioalves.cursomc.domain.ItemPedidoDomain;
-import com.nelioalves.cursomc.domain.PagamentoComBoletoDomain;
-import com.nelioalves.cursomc.domain.PedidoDomain;
+import com.nelioalves.cursomc.domain.ItemPedidoEntity;
+import com.nelioalves.cursomc.domain.PagamentoComBoletoEntity;
+import com.nelioalves.cursomc.domain.PedidoEntity;
 import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
 import com.nelioalves.cursomc.repositories.ItemPedidoRepository;
 import com.nelioalves.cursomc.repositories.PagamentoRepository;
@@ -44,13 +44,13 @@ public class PedidoService {
 	// como 'EmailService' é uma interface e não uma classe é necessário a instanciação por 'new'
 	private EmailService var_serviceEmail;
 
-	public PedidoDomain metodoService_findPedido(Integer var_Id) {
-		Optional<PedidoDomain> var_obj = var_repoPedido.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + PedidoDomain.class.getName()));
+	public PedidoEntity metodoService_findPedido(Integer var_Id) {
+		Optional<PedidoEntity> var_obj = var_repoPedido.findById(var_Id);
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + PedidoEntity.class.getName()));
 	}
 	
 	@Transactional
-	public PedidoDomain metodoService_insertPedido(PedidoDomain var_obj) {
+	public PedidoEntity metodoService_insertPedido(PedidoEntity var_obj) {
 /*
  * Para testar a inserção de novo pedido use o seguinte JSON:
  * 
@@ -78,13 +78,13 @@ public class PedidoService {
 		var_obj.setCliente(var_serviceCliente.metodoService_findCliente(var_obj.getCliente().getId()));
 		var_obj.getPagamento().setEstado(enumEstadoPagamento.PENDENTE);
 		var_obj.getPagamento().setPedido(var_obj);
-		if(var_obj.getPagamento() instanceof PagamentoComBoletoDomain) {
-			PagamentoComBoletoDomain var_pgto = (PagamentoComBoletoDomain) var_obj.getPagamento();
+		if(var_obj.getPagamento() instanceof PagamentoComBoletoEntity) {
+			PagamentoComBoletoEntity var_pgto = (PagamentoComBoletoEntity) var_obj.getPagamento();
 			var_serviceUtils_Boleto.metodoService_utils_PreencherPagtoComBoleto(var_pgto, var_obj.getInstante());
 		}
 		var_repoPedido.save(var_obj);
 		var_repoPagamento.save(var_obj.getPagamento());
-		for (ItemPedidoDomain var_ip: var_obj.getItens()) {
+		for (ItemPedidoEntity var_ip: var_obj.getItens()) {
 			var_ip.setDesconto(0.0);
 			var_ip.setProduto(var_serviceProduto.metodoService_findProduto(var_ip.getProduto().getId()));
 			var_ip.setPreco(var_ip.getProduto().getPreco());

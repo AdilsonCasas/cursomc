@@ -18,7 +18,7 @@ import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
 @Inheritance(strategy=InheritanceType.JOINED)
 // Aula 48 - Inserindo Pedido: inserido '@JsonTypeInfo' para processar arquivo Json na inclusão de pedido
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
-public abstract class PagamentoDomain implements Serializable {
+public abstract class PagamentoEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,12 +30,12 @@ public abstract class PagamentoDomain implements Serializable {
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId
-	private PedidoDomain pedido;
+	private PedidoEntity pedido;
 	
-	public PagamentoDomain() {
+	public PagamentoEntity() {
 	}
 
-	public PagamentoDomain(Integer var_id, enumEstadoPagamento var_enum_estado, PedidoDomain var_pedido) {
+	public PagamentoEntity(Integer var_id, enumEstadoPagamento var_enum_estado, PedidoEntity var_pedido) {
 		super();
 		this.Id = var_id;
 		this.estado = (var_enum_estado == null) ? null : var_enum_estado.getCod();
@@ -58,11 +58,11 @@ public abstract class PagamentoDomain implements Serializable {
 		this.estado = var_enum_estado.getCod();
 	}
 
-	public PedidoDomain getPedido() {
+	public PedidoEntity getPedido() {
 		return this.pedido;
 	}
 
-	public void setPedido(PedidoDomain var_pedido) {
+	public void setPedido(PedidoEntity var_pedido) {
 		this.pedido = var_pedido;
 	}
 
@@ -82,7 +82,7 @@ public abstract class PagamentoDomain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PagamentoDomain other = (PagamentoDomain) obj;
+		PagamentoEntity other = (PagamentoEntity) obj;
 		if (this.Id == null) {
 			if (other.Id != null)
 				return false;

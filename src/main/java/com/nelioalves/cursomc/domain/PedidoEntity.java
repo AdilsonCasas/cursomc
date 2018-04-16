@@ -21,7 +21,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class PedidoDomain implements Serializable {
+public class PedidoEntity implements Serializable {
 
 	/*  Exemplo de arq. Json para processar uma inclusão de pedido com sub-classe e uso da anotação acima '@JsonTypeName("pagamentoComBoleto")'
 	{
@@ -54,23 +54,23 @@ public class PedidoDomain implements Serializable {
 	private Date instante;
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
-	private PagamentoDomain pagamento;
+	private PagamentoEntity pagamento;
 	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
-	private ClienteDomain cliente;
+	private ClienteEntity cliente;
 	
 	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")
-	private EnderecoDomain enderecoDeEntrega;
+	private EnderecoEntity enderecoDeEntrega;
 	
 	@OneToMany(mappedBy="Id.pedido")
-	private Set<ItemPedidoDomain> itens = new HashSet<>();
+	private Set<ItemPedidoEntity> itens = new HashSet<>();
 
-	public PedidoDomain() {
+	public PedidoEntity() {
 	}
 
-	public PedidoDomain(Integer var_id, Date var_instante, ClienteDomain var_cliente, EnderecoDomain var_enderecoDeEntrega) {
+	public PedidoEntity(Integer var_id, Date var_instante, ClienteEntity var_cliente, EnderecoEntity var_enderecoDeEntrega) {
 		super();
 		this.id = var_id;
 		this.instante = var_instante;
@@ -80,7 +80,7 @@ public class PedidoDomain implements Serializable {
 
 	public double getValorTotal() {
 		double soma = 0.0;
-		for (ItemPedidoDomain ip: this.itens) {
+		for (ItemPedidoEntity ip: this.itens) {
 			soma = soma + ip.getSubTotal();
 		}
 		return soma;
@@ -102,35 +102,35 @@ public class PedidoDomain implements Serializable {
 		this.instante = var_instante;
 	}
 
-	public PagamentoDomain getPagamento() {
+	public PagamentoEntity getPagamento() {
 		return this.pagamento;
 	}
 
-	public void setPagamento(PagamentoDomain var_pagamento) {
+	public void setPagamento(PagamentoEntity var_pagamento) {
 		this.pagamento = var_pagamento;
 	}
 
-	public ClienteDomain getCliente() {
+	public ClienteEntity getCliente() {
 		return this.cliente;
 	}
 
-	public void setCliente(ClienteDomain var_cliente) {
+	public void setCliente(ClienteEntity var_cliente) {
 		this.cliente = var_cliente;
 	}
 
-	public EnderecoDomain getEnderecoDeEntrega() {
+	public EnderecoEntity getEnderecoDeEntrega() {
 		return this.enderecoDeEntrega;
 	}
 
-	public void setEnderecoDeEntrega(EnderecoDomain var_enderecoDeEntrega) {
+	public void setEnderecoDeEntrega(EnderecoEntity var_enderecoDeEntrega) {
 		this.enderecoDeEntrega = var_enderecoDeEntrega;
 	}
 
-	public Set<ItemPedidoDomain> getItens() {
+	public Set<ItemPedidoEntity> getItens() {
 		return this.itens;
 	}
 
-	public void setItens(Set<ItemPedidoDomain> var_itens) {
+	public void setItens(Set<ItemPedidoEntity> var_itens) {
 		this.itens = var_itens;
 	}
 
@@ -150,7 +150,7 @@ public class PedidoDomain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PedidoDomain other = (PedidoDomain) obj;
+		PedidoEntity other = (PedidoEntity) obj;
 		if (this.id == null) {
 			if (other.id != null)
 				return false;
@@ -173,7 +173,7 @@ public class PedidoDomain implements Serializable {
 		var_builder.append(", Situação do Pagamento: ");
 		var_builder.append(getPagamento().getEstado().getDescricao());
 		var_builder.append("\nDetalhes:\n");
-		for(ItemPedidoDomain ip: getItens()) {
+		for(ItemPedidoEntity ip: getItens()) {
 			var_builder.append(ip.toString());
 		}
 		var_builder.append("Valor Total: ");

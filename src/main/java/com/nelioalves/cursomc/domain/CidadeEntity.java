@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
  
 @Entity
-public class CidadeDomain implements Serializable {
+public class CidadeEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -21,12 +21,12 @@ public class CidadeDomain implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="estado_id")
-	private EstadoDomain estado;
+	private EstadoEntity estado;
 	
-	public CidadeDomain() {
+	public CidadeEntity() {
 	}
 
-	public CidadeDomain(Integer var_id, String var_nome, EstadoDomain var_estado) {
+	public CidadeEntity(Integer var_id, String var_nome, EstadoEntity var_estado) {
 		super();
 		this.id = var_id;
 		this.nome = var_nome;
@@ -49,11 +49,11 @@ public class CidadeDomain implements Serializable {
 		this.nome = var_nome;
 	}
 
-	public EstadoDomain getEstado() {
+	public EstadoEntity getEstado() {
 		return estado;
 	}
 
-	public void setEstado(EstadoDomain var_estado) {
+	public void setEstado(EstadoEntity var_estado) {
 		this.estado = var_estado;
 	}
 
@@ -73,7 +73,7 @@ public class CidadeDomain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CidadeDomain other = (CidadeDomain) obj;
+		CidadeEntity other = (CidadeEntity) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nelioalves.cursomc.domain.PagamentoComBoletoDomain;
-import com.nelioalves.cursomc.domain.PagamentoComCartaoDomain;
+import com.nelioalves.cursomc.domain.PagamentoComBoletoEntity;
+import com.nelioalves.cursomc.domain.PagamentoComCartaoEntity;
 
 // Esta classe de 'configuração' contém informações que serão executadas no início da aplicação, é necessário ter '@Configuration' no início da classe e
 // '@Bean' no corpo da implementação para indicar quais são estas configurações a serem processadas.
@@ -20,8 +20,8 @@ public class JacksonConfig {
 	public Jackson2ObjectMapperBuilder objectMapperBuilder() {
 		Jackson2ObjectMapperBuilder var_builder = new Jackson2ObjectMapperBuilder() {
 			public void configure(ObjectMapper var_objectMapper) {
-				var_objectMapper.registerSubtypes(PagamentoComCartaoDomain.class);
-				var_objectMapper.registerSubtypes(PagamentoComBoletoDomain.class);
+				var_objectMapper.registerSubtypes(PagamentoComCartaoEntity.class);
+				var_objectMapper.registerSubtypes(PagamentoComBoletoEntity.class);
 				super.configure(var_objectMapper);
 			}
 		};

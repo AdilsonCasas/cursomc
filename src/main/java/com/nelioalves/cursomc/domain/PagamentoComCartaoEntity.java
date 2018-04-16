@@ -7,7 +7,7 @@ import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
 
 @Entity
 @JsonTypeName("pagamentoComCartao")
-public class PagamentoComCartaoDomain extends PagamentoDomain {
+public class PagamentoComCartaoEntity extends PagamentoEntity {
 /*  Exemplo de arq. Json para processar uma inclusão de pedido com sub-classe e uso da anotação acima '@JsonTypeName("pagamentoComCartao")'
 {
 	"cliente" : {"id" : 1},
@@ -33,10 +33,10 @@ public class PagamentoComCartaoDomain extends PagamentoDomain {
 	
 	private Integer numeroDeParcelas;
 	
-	public PagamentoComCartaoDomain() {
+	public PagamentoComCartaoEntity() {
 	}
 
-	public PagamentoComCartaoDomain(Integer var_id, enumEstadoPagamento var_enum_estado, PedidoDomain var_pedido, Integer var_numeroDeParcelas) {
+	public PagamentoComCartaoEntity(Integer var_id, enumEstadoPagamento var_enum_estado, PedidoEntity var_pedido, Integer var_numeroDeParcelas) {
 		super(var_id, var_enum_estado, var_pedido);
 		this.numeroDeParcelas = var_numeroDeParcelas;
 	}

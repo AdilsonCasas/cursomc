@@ -10,22 +10,22 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class ItemPedidoDomain implements Serializable {
+public class ItemPedidoEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@JsonIgnore
 	@EmbeddedId
-	private ItemPedidoDomainPK Id = new ItemPedidoDomainPK();
+	private ItemPedidoEntityPK Id = new ItemPedidoEntityPK();
 
 	private Double desconto;
 	private Integer quantidade;
 	private Double preco;
 	
-	public ItemPedidoDomain() {
+	public ItemPedidoEntity() {
 	}
 
-	public ItemPedidoDomain(PedidoDomain var_pedido, ProdutoDomain var_produto, Double var_desconto, Integer var_quantidade, Double var_preco) {
+	public ItemPedidoEntity(PedidoEntity var_pedido, ProdutoEntity var_produto, Double var_desconto, Integer var_quantidade, Double var_preco) {
 		super();
 		this.Id.setPedido(var_pedido);
 		this.Id.setProduto(var_produto);
@@ -41,29 +41,29 @@ public class ItemPedidoDomain implements Serializable {
 	}
 
 	@JsonIgnore
-	public PedidoDomain getPedido() {
+	public PedidoEntity getPedido() {
 		return this.Id.getPedido();
 	}
 	
-	public void setPedido(PedidoDomain var_pedido) {
+	public void setPedido(PedidoEntity var_pedido) {
 		this.Id.setPedido(var_pedido);
 	}
 	
 	//@JsonIgnore : o produto é desejável que seja mostrado então não vamoss ignorá-lo
-	public ProdutoDomain getProduto() {
+	public ProdutoEntity getProduto() {
 		return this.Id.getProduto();
 	}
 	
-	public void setProduto(ProdutoDomain var_produto) {
+	public void setProduto(ProdutoEntity var_produto) {
 		this.Id.setProduto(var_produto);
 	}
 	
 	@JsonIgnore
-	public ItemPedidoDomainPK getId() {
+	public ItemPedidoEntityPK getId() {
 		return this.Id;
 	}
 
-	public void setId(ItemPedidoDomainPK var_id) {
+	public void setId(ItemPedidoEntityPK var_id) {
 		this.Id = var_id;
 	}
 
@@ -107,7 +107,7 @@ public class ItemPedidoDomain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemPedidoDomain other = (ItemPedidoDomain) obj;
+		ItemPedidoEntity other = (ItemPedidoEntity) obj;
 		if (this.Id == null) {
 			if (other.Id != null)
 				return false;

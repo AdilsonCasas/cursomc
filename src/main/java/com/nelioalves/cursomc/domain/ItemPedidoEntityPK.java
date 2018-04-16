@@ -7,28 +7,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class ItemPedidoDomainPK implements Serializable {
+public class ItemPedidoEntityPK implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
 	@JoinColumn(name="pedido_id")
-	private PedidoDomain pedido;
+	private PedidoEntity pedido;
 	
 	@ManyToOne
 	@JoinColumn(name="produto_id")
-	private ProdutoDomain produto;
+	private ProdutoEntity produto;
 	
-	public PedidoDomain getPedido() {
+	public PedidoEntity getPedido() {
 		return this.pedido;
 	}
-	public void setPedido(PedidoDomain var_pedido) {
+	public void setPedido(PedidoEntity var_pedido) {
 		this.pedido = var_pedido;
 	}
-	public ProdutoDomain getProduto() {
+	public ProdutoEntity getProduto() {
 		return this.produto;
 	}
-	public void setProduto(ProdutoDomain var_produto) {
+	public void setProduto(ProdutoEntity var_produto) {
 		this.produto = var_produto;
 	}
 	
@@ -49,7 +49,7 @@ public class ItemPedidoDomainPK implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemPedidoDomainPK other = (ItemPedidoDomainPK) obj;
+		ItemPedidoEntityPK other = (ItemPedidoEntityPK) obj;
 		if (this.pedido == null) {
 			if (other.pedido != null)
 				return false;

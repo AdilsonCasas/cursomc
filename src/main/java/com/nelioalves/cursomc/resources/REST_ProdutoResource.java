@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nelioalves.cursomc.domain.ProdutoDomain;
-import com.nelioalves.cursomc.domain.dto.DTO_ProdutoDomain;
+import com.nelioalves.cursomc.domain.ProdutoEntity;
+import com.nelioalves.cursomc.domain.dto.DTO_ProdutoEntity;
 import com.nelioalves.cursomc.resources.utils.REST_Utils_URL;
 import com.nelioalves.cursomc.services.ProdutoService;
 
@@ -25,13 +25,13 @@ public class REST_ProdutoResource {
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 		@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UM Produto
-		public ResponseEntity<ProdutoDomain> metodoREST_findProduto(@PathVariable Integer paramId) {
-			ProdutoDomain var_obj = var_serviceProduto.metodoService_findProduto(paramId);
+		public ResponseEntity<ProdutoEntity> metodoREST_findProduto(@PathVariable Integer paramId) {
+			ProdutoEntity var_obj = var_serviceProduto.metodoService_findProduto(paramId);
 			return ResponseEntity.ok().body(var_obj);
 		}
 	
 		@RequestMapping(method=RequestMethod.GET) // Get para TODOS os Produtos, COM paginação
-		public ResponseEntity<Page<DTO_ProdutoDomain>> metodoREST_findPageProduto(
+		public ResponseEntity<Page<DTO_ProdutoEntity>> metodoREST_findPageProduto(
 						@RequestParam(value="nome", defaultValue="") String var_nome, 
 						@RequestParam(value="categorias", defaultValue="") String var_categorias, 
 						@RequestParam(value="NumPage", defaultValue="0") Integer var_NumPage, 
@@ -49,8 +49,8 @@ public class REST_ProdutoResource {
 			// O método 'REST_utils_decodeParam' descodifica a string no parâmetro
 			String var_nomeDecoded = REST_Utils_URL.metodoREST_utils_decodeParam(var_nome);
 		
-			Page<ProdutoDomain> var_list = var_serviceProduto.metodoService_searchProduto(var_nomeDecoded, var_ids, var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
-			Page<DTO_ProdutoDomain> var_listDto = var_list.map(var_obj -> new DTO_ProdutoDomain(var_obj));
+			Page<ProdutoEntity> var_list = var_serviceProduto.metodoService_searchProduto(var_nomeDecoded, var_ids, var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
+			Page<DTO_ProdutoEntity> var_listDto = var_list.map(var_obj -> new DTO_ProdutoEntity(var_obj));
 			return ResponseEntity.ok().body(var_listDto);
 		}
 		

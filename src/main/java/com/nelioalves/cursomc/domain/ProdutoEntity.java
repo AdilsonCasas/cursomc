@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class ProdutoDomain implements Serializable {
+public class ProdutoEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,16 +35,16 @@ public class ProdutoDomain implements Serializable {
 			joinColumns = @JoinColumn(name = "produto_id"),
 			inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
-	private List<CategoriaDomain> categorias = new ArrayList<>();
+	private List<CategoriaEntity> categorias = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="Id.produto")
-	private Set<ItemPedidoDomain> itens = new HashSet<>();
+	private Set<ItemPedidoEntity> itens = new HashSet<>();
 	
-	public ProdutoDomain() {
+	public ProdutoEntity() {
 	}
 
-	public ProdutoDomain(Integer var_id, String var_nome, Double var_preco) {
+	public ProdutoEntity(Integer var_id, String var_nome, Double var_preco) {
 		super();
 		this.Id = var_id;
 		this.nome = var_nome;
@@ -52,9 +52,9 @@ public class ProdutoDomain implements Serializable {
 	}
 
 	@JsonIgnore
-	public List<PedidoDomain> getPedidos() {
-		List<PedidoDomain> var_lista = new ArrayList<>();
-		for(ItemPedidoDomain x: this.itens) {
+	public List<PedidoEntity> getPedidos() {
+		List<PedidoEntity> var_lista = new ArrayList<>();
+		for(ItemPedidoEntity x: this.itens) {
 			var_lista.add(x.getPedido());
 		}
 		return var_lista;
@@ -84,19 +84,19 @@ public class ProdutoDomain implements Serializable {
 		this.preco = var_preco;
 	}
 
-	public List<CategoriaDomain> getCategorias() {
+	public List<CategoriaEntity> getCategorias() {
 		return this.categorias;
 	}
 
-	public void setCategorias(List<CategoriaDomain> var_categorias) {
+	public void setCategorias(List<CategoriaEntity> var_categorias) {
 		this.categorias = var_categorias;
 	}
 
-	public Set<ItemPedidoDomain> getItens() {
+	public Set<ItemPedidoEntity> getItens() {
 		return this.itens;
 	}
 
-	public void setItens(Set<ItemPedidoDomain> var_itens) {
+	public void setItens(Set<ItemPedidoEntity> var_itens) {
 		this.itens = var_itens;
 	}
 
@@ -116,7 +116,7 @@ public class ProdutoDomain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProdutoDomain other = (ProdutoDomain) obj;
+		ProdutoEntity other = (ProdutoEntity) obj;
 		if (this.Id == null) {
 			if (other.Id != null)
 				return false;

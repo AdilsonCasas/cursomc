@@ -11,7 +11,7 @@ import com.nelioalves.cursomc.services.validation.Service_Annotation_ClienteInse
 
 // Este '@' abaixo é uma 'annotation' que é usada para fazer validações de campos, como CNPJ ou CPF
 @Service_Annotation_ClienteInsert
-public class DTO_ClienteDomain_Completo implements Serializable {
+public class DTO_ClienteEntity_Completo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -48,10 +48,10 @@ public class DTO_ClienteDomain_Completo implements Serializable {
 	
 	private Integer cidadeId;
 	
-	public DTO_ClienteDomain_Completo() {
+	public DTO_ClienteEntity_Completo() {
 	}
 
-	public DTO_ClienteDomain_Completo(String var_nome, String var_email, String var_cpfOuCnpj, Integer var_tipoCliente,
+	public DTO_ClienteEntity_Completo(String var_nome, String var_email, String var_cpfOuCnpj, Integer var_tipoCliente,
 			String var_logradouro, String var_numero, String var_complemento, String var_bairro, String var_cep, String var_telefone1,
 			String var_telefone2, String var_telefone3, Integer var_cidadeId) {
 		super();

@@ -10,7 +10,7 @@ import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
 
 @Entity
 @JsonTypeName("pagamentoComBoleto")
-public class PagamentoComBoletoDomain extends PagamentoDomain {
+public class PagamentoComBoletoEntity extends PagamentoEntity {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -20,10 +20,10 @@ public class PagamentoComBoletoDomain extends PagamentoDomain {
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataPagamento;
 
-	public PagamentoComBoletoDomain() {
+	public PagamentoComBoletoEntity() {
 	}
 
-	public PagamentoComBoletoDomain(Integer var_id, enumEstadoPagamento var_enum_estado, PedidoDomain var_pedido, Date var_dataVencimento, Date var_dataPagamento) {
+	public PagamentoComBoletoEntity(Integer var_id, enumEstadoPagamento var_enum_estado, PedidoEntity var_pedido, Date var_dataVencimento, Date var_dataPagamento) {
 		super(var_id, var_enum_estado, var_pedido);
 		this.dataPagamento = var_dataPagamento;
 		this.dataVencimento = var_dataVencimento;

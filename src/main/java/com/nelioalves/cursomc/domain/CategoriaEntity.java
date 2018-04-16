@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class CategoriaDomain implements Serializable {
+public class CategoriaEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,12 +21,12 @@ public class CategoriaDomain implements Serializable {
 	private String  nome;
 
 	@ManyToMany(mappedBy="categorias")
-	private List<ProdutoDomain> produtos = new ArrayList<>();
+	private List<ProdutoEntity> produtos = new ArrayList<>();
 	
-	public CategoriaDomain () {
+	public CategoriaEntity () {
 	}
 
-	public CategoriaDomain(Integer var_id, String var_nome) {
+	public CategoriaEntity(Integer var_id, String var_nome) {
 		super();
 		this.Id = var_id;
 		this.nome = var_nome;
@@ -48,11 +48,11 @@ public class CategoriaDomain implements Serializable {
 		this.nome = var_nome;
 	}
 
-	public List<ProdutoDomain> getProdutos() {
+	public List<ProdutoEntity> getProdutos() {
 		return this.produtos;
 	}
 
-	public void setProdutos(List<ProdutoDomain> var_produtos) {
+	public void setProdutos(List<ProdutoEntity> var_produtos) {
 		this.produtos = var_produtos;
 	}
 	
@@ -72,7 +72,7 @@ public class CategoriaDomain implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoriaDomain other = (CategoriaDomain) obj;
+		CategoriaEntity other = (CategoriaEntity) obj;
 		if (this.Id == null) {
 			if (other.Id != null)
 				return false;

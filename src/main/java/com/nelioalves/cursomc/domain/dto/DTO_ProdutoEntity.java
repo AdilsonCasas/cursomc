@@ -2,9 +2,9 @@ package com.nelioalves.cursomc.domain.dto;
 
 import java.io.Serializable;
 
-import com.nelioalves.cursomc.domain.ProdutoDomain;
+import com.nelioalves.cursomc.domain.ProdutoEntity;
 
-public class DTO_ProdutoDomain implements Serializable {
+public class DTO_ProdutoEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -12,10 +12,10 @@ public class DTO_ProdutoDomain implements Serializable {
 	private String nome;
 	private Double preco;
 	
-	public DTO_ProdutoDomain() {
+	public DTO_ProdutoEntity() {
 	}
 
-	public DTO_ProdutoDomain(ProdutoDomain var_obj) {
+	public DTO_ProdutoEntity(ProdutoEntity var_obj) {
 		this.Id = var_obj.getId();
 		this.nome = var_obj.getNome();
 		this.preco = var_obj.getPreco();

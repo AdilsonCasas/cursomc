@@ -11,8 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.nelioalves.cursomc.domain.CategoriaDomain;
-import com.nelioalves.cursomc.domain.dto.DTO_CategoriaDomain;
+import com.nelioalves.cursomc.domain.CategoriaEntity;
+import com.nelioalves.cursomc.domain.dto.DTO_CategoriaEntity;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntimeException;
 
@@ -22,19 +22,19 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository var_repoCategoria;
 	
-	public CategoriaDomain metodoService_findCategoria(Integer var_Id) {
-		Optional<CategoriaDomain> var_obj = var_repoCategoria.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + CategoriaDomain.class.getName()));
+	public CategoriaEntity metodoService_findCategoria(Integer var_Id) {
+		Optional<CategoriaEntity> var_obj = var_repoCategoria.findById(var_Id);
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + CategoriaEntity.class.getName()));
 	}	
 	
 	@Transactional
-	public CategoriaDomain metodoService_insertCategoria(CategoriaDomain var_obj) {
+	public CategoriaEntity metodoService_insertCategoria(CategoriaEntity var_obj) {
 		var_obj.setId(null);
 		return var_repoCategoria.save(var_obj);
 	}
 
-	public CategoriaDomain metodoService_updateCategoria(CategoriaDomain var_ObjAlterado) {
-		CategoriaDomain var_ObjJaExistenteBD = metodoService_findCategoria(var_ObjAlterado.getId());
+	public CategoriaEntity metodoService_updateCategoria(CategoriaEntity var_ObjAlterado) {
+		CategoriaEntity var_ObjJaExistenteBD = metodoService_findCategoria(var_ObjAlterado.getId());
 		metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(var_ObjJaExistenteBD, var_ObjAlterado);
 		return var_repoCategoria.save(var_ObjJaExistenteBD);
 	}
@@ -49,20 +49,20 @@ public class CategoriaService {
 		//}
 	}
 	
-	public List<CategoriaDomain> metodoService_findAllCategoria() {
+	public List<CategoriaEntity> metodoService_findAllCategoria() {
 		return var_repoCategoria.findAll();
 	}
 	
-	public Page<CategoriaDomain> metodoService_findPageCategoria(Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {
+	public Page<CategoriaEntity> metodoService_findPageCategoria(Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {
 		PageRequest var_service_pageRequest = PageRequest.of(var_NumPage, var_LinesPerPage, Direction.valueOf(var_directionOrderBy), var_orderBy);
 		return var_repoCategoria.findAll(var_service_pageRequest);
 	}
 	
-	public CategoriaDomain metodoService_fromDTO_to_Categoria(DTO_CategoriaDomain var_objDTO) {
-		return new CategoriaDomain(var_objDTO.getId(),var_objDTO.getNome());
+	public CategoriaEntity metodoService_fromDTO_to_Categoria(DTO_CategoriaEntity var_objDTO) {
+		return new CategoriaEntity(var_objDTO.getId(),var_objDTO.getNome());
 	}
 	
-	private void metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(CategoriaDomain var_ObjJaExistenteBD, CategoriaDomain var_ObjAlterado) {
+	private void metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(CategoriaEntity var_ObjJaExistenteBD, CategoriaEntity var_ObjAlterado) {
 		var_ObjJaExistenteBD.setNome(var_ObjAlterado.getNome());
 	}
 
