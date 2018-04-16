@@ -2,6 +2,7 @@ package com.nelioalves.cursomc.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nelioalves.cursomc.domain.ClienteEntity;
 
@@ -12,6 +13,7 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Integer>
 	// mas o nome da função tem que seguir o padrão de nomenclatura, com 'find' minusculo e 'By' maiúsculo + nome do campo a ser pesquisado, sem traço nem underline.
 	// 
 	// No "site: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/"   item "4.3. Query methods" tem uma lista dos nomes de método padrão que vc 
-	// pode usar e fazer o próprio Spring montar a consulta JPQL (SQL do JPA) pra vc. 
+	// pode usar e fazer o próprio Spring montar a consulta JPQL (SQL do JPA) pra vc.
+	@Transactional
 	ClienteEntity findByEmail(String email);
 }

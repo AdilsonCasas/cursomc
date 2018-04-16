@@ -45,11 +45,11 @@ public class ClienteEntity implements Serializable {
 	private List<EnderecoEntity> enderecos = new ArrayList<>();
 	
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
+	@CollectionTable(name="TELEFONE_ENTITY")
 	private Set<String> telefones = new HashSet<>();
 	
 	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name="PERFIS")
+	@CollectionTable(name="PERFIS_ENTITY")
 	private Set<Integer> perfis = new HashSet<>();
 	
 	@JsonIgnore

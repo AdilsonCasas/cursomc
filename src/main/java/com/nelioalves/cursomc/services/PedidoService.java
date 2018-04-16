@@ -6,8 +6,12 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.nelioalves.cursomc.domain.ClienteEntity;
 import com.nelioalves.cursomc.domain.ItemPedidoEntity;
 import com.nelioalves.cursomc.domain.PagamentoComBoletoEntity;
 import com.nelioalves.cursomc.domain.PedidoEntity;
@@ -15,12 +19,35 @@ import com.nelioalves.cursomc.domain.enums.enumEstadoPagamento;
 import com.nelioalves.cursomc.repositories.ItemPedidoRepository;
 import com.nelioalves.cursomc.repositories.PagamentoRepository;
 import com.nelioalves.cursomc.repositories.PedidoRepository;
+import com.nelioalves.cursomc.security.UserSpringSecurity;
 import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntimeException;
 import com.nelioalves.cursomc.services.utils.Service_Utils_Boleto;
 
 @Service
 public class PedidoService {
 
+/*
+ * Para testar a inserção de novo pedido use o seguinte JSON:
+ * 
+ {
+	"cliente" : {"id" : 1},
+	"enderecoDeEntrega" : {"id" : 1},
+	"pagamento" : {
+		"numeroDeParcelas" : 10,
+		"@type": "pagamentoComCartao"
+	},
+	"itens" : [
+		{
+		"quantidade" : 2,
+		"produto" : {"id" : 3}
+		},
+		{
+		"quantidade" : 1,
+		"produto" : {"id" : 1}
+		}
+	]
+}
+*/
 	@Autowired
 	private PedidoRepository var_repoPedido;
 	
@@ -51,28 +78,6 @@ public class PedidoService {
 	
 	@Transactional
 	public PedidoEntity metodoService_insertPedido(PedidoEntity var_obj) {
-/*
- * Para testar a inserção de novo pedido use o seguinte JSON:
- * 
- {
-	"cliente" : {"id" : 1},
-	"enderecoDeEntrega" : {"id" : 1},
-	"pagamento" : {
-		"numeroDeParcelas" : 10,
-		"@type": "pagamentoComCartao"
-	},
-	"itens" : [
-		{
-		"quantidade" : 2,
-		"produto" : {"id" : 3}
-		},
-		{
-		"quantidade" : 1,
-		"produto" : {"id" : 1}
-		}
-	]
-}
- */
 		var_obj.setId(null);
 		var_obj.setInstante(new Date());
 		var_obj.setCliente(var_serviceCliente.metodoService_findCliente(var_obj.getCliente().getId()));
@@ -100,5 +105,14 @@ public class PedidoService {
 		// text=Pedido Número: 3, Instante: 09/04/2018 21:54:50, Cliente: Maria Silva, Situação do Pagamento: Pendente ...
 		return var_obj;
 	}
-	
+
+	public Page<PedidoEntity> metodoService_findPagePedido(Integer var_page, Integer var_linesPerPage, String var_orderBy, String var_direction) {
+		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
+		if (var_user == null) {
+			throw new Service_Exception_GenericRuntimeException("Acesso Negado!");
+		}
+		PageRequest var_pageRequest = PageRequest.of(var_page, var_linesPerPage, Direction.valueOf(var_direction), var_orderBy);
+		ClienteEntity var_Cliente =  var_serviceCliente.metodoService_findCliente(var_user.getId());
+		return var_repoPedido.findByCliente(var_Cliente, var_pageRequest);
+	}
 }
