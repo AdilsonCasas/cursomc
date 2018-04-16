@@ -4,6 +4,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.SimpleMailMessage;
 
+import com.nelioalves.cursomc.domain.ClienteEntity;
 import com.nelioalves.cursomc.domain.PedidoEntity;
 
 public interface EmailService {
@@ -15,5 +16,7 @@ public interface EmailService {
 	void metodoService_sendOrderConfirmationHtmlEmail(PedidoEntity var_obj);
 	
 	void metodoService_sendHtmlEmail(MimeMessage var_msg);
+	
+	void metodoService_sendNewPasswordEmail(ClienteEntity var_Cliente, String var_newPass);
 
 }

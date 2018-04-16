@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.nelioalves.cursomc.domain.ClienteEntity;
 import com.nelioalves.cursomc.domain.PedidoEntity;
 
 public abstract class EmailAbstractService implements EmailService {
@@ -77,4 +78,20 @@ public abstract class EmailAbstractService implements EmailService {
 		return var_templateEngine.process("email/confirmacaoPedido", var_context);
 	}
 
+// ===================================================== Envio de nova senha por email ===============================================================
+	@Override
+	public void metodoService_sendNewPasswordEmail(ClienteEntity var_Cliente, String var_newPass) {
+		SimpleMailMessage var_sm = metodoService_prepareNewPasswordEmail(var_Cliente, var_newPass);
+		metodoService_sendEmail(var_sm);
+	}
+
+	protected SimpleMailMessage metodoService_prepareNewPasswordEmail(ClienteEntity var_Cliente, String var_newPass) {
+		SimpleMailMessage var_sm = new SimpleMailMessage();
+		var_sm.setTo(var_Cliente.getEmail());
+		var_sm.setFrom(var_sender);
+		var_sm.setSubject("Solicitação de nova senha");
+		var_sm.setSentDate(new Date(System.currentTimeMillis()));
+		var_sm.setText("Nova senha: " + var_newPass);
+		return var_sm;
+	}
 }
