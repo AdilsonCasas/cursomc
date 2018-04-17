@@ -13,7 +13,7 @@ import com.nelioalves.cursomc.services.EmailService;
 import com.nelioalves.cursomc.services.EmailSmtpService;
 
 @Configuration
-// as definições dentro desta classe só terão efeito dentro do profile "dev", veja o arq "application-test.properties"
+// as definições dentro desta classe só terão efeito dentro do profile "dev", veja o arq "application-dev.properties"
 @Profile("dev")
 public class ProfileDevConfig {
 

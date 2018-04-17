@@ -18,6 +18,7 @@ import com.nelioalves.cursomc.domain.PedidoEntity;
 
 public abstract class EmailAbstractService implements EmailService {
 
+	// este '@Value(' abaixo busca o nome da variável no arq. application.properties 
 	@Value("${default.sender}")
 	private String var_sender;
 

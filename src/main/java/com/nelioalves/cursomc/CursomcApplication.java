@@ -1,12 +1,29 @@
 package com.nelioalves.cursomc;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.nelioalves.cursomc.services.AmazonS3Service;
+
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 	
+	// descrição das variáveis no arq 'application.properties':
+	//      default.sender=pp890645@gmail.com --> email usado para enviar os emails do sistema
+	//      default.recipient=adilson.casas@gmail.com
+	//		jwt.segredo=SequenciaDeCaracteresParaAssinarTokenQuantoMaiorEMaisEstranhaEstaPalavraMelhororaASeguranca
+	//		jwt.tempoexpira=86400000 --> define o tempo de expiração do token JWT, sendo 60.000 = 1 minuto
+	//      aws.access_key_id= ---> Amazon S3
+	//      aws.secret_access_key=  ---> Amazon S3
+	//		s3.bucket=curso-spring-ionic  ---> Amazon S3
+	//		s3.region=sa-east-1  ---> Amazon S3
+	//    obs: no link https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions-availability-zones
+	//         vc pega o nome/descrição da região a ser colocada na var 's3.region'
+	// O serviço 'S3' da Amazon é um 'storage' para arquivos (em geral imagens do nosso sistema), estes arquivos são armazenados
+	// em uma unidade lógica chamada 'Bucket', o nome do meu Bucket criado  no S3 é: 'curso-udemy-spring-ionic', user 'curso-udemy-spring-ionic-user'
+
 	// Para acessar o bd "h2" em teste use: http://localhost:8080/h2-console/login.jsp?jsessionid=ee88b77a5a1a8ccd8e0ff77be97186e0
 	// no heroku.com o curso se chama "curso-spring-ionic-adilson"
 	// para logar-se no heroku execute no terminal (dentro da pasta do git do projeto): 'heroku login' (ele vai solicitar email+senha de login)
@@ -22,6 +39,9 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	// a anotação '@Bean' torna a classe ou o método um 'Componente' dentro do framework, e que portanto pode ser usado em outra parte qualquer da aplicação
 
+	@Autowired
+	private AmazonS3Service var_serviceAmazonS3;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
@@ -29,5 +49,6 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// Este método roda antes de qualquer outro método no sistema, pode ser usado para executar alguns procedimentos iniciais...
+		var_serviceAmazonS3.metodoService_uploadFile("/home/lenovo/Imagens/deserto-atacama-561125371.jpg");
 	}
 }
