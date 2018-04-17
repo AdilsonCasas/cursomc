@@ -23,6 +23,25 @@ public class CursomcApplication implements CommandLineRunner {
 	//         vc pega o nome/descrição da região a ser colocada na var 's3.region'
 	// O serviço 'S3' da Amazon é um 'storage' para arquivos (em geral imagens do nosso sistema), estes arquivos são armazenados
 	// em uma unidade lógica chamada 'Bucket', o nome do meu Bucket criado  no S3 é: 'curso-udemy-spring-ionic', user 'curso-udemy-spring-ionic-user'
+	// Tornando o bucket com acesso público para leitura --> copie o script abaixo para aba "Permissions" no Bucket,  depois em BucketPolicy, dentro do site da Amazon/S3
+	//{
+	//	"Version": "2008-10-17",
+	//	"Statement": [
+	//		{
+	//			"Sid": "AllowPublicRead",
+	//			"Effect": "Allow",
+	//			"Principal": {
+	//				"AWS": "*"
+	//			},
+	//			"Action": [
+	//				"s3:GetObject"
+	//			],
+	//			"Resource": [
+	//				"arn:aws:s3:::curso-udemy-spring-ionic/*"
+	//			]
+	//		}
+	//	]
+	//}
 
 	// Para acessar o bd "h2" em teste use: http://localhost:8080/h2-console/login.jsp?jsessionid=ee88b77a5a1a8ccd8e0ff77be97186e0
 	// no heroku.com o curso se chama "curso-spring-ionic-adilson"
