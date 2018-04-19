@@ -34,7 +34,7 @@ public class REST_Exception_Handler {
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ErroValidacao(MethodArgumentNotValidException e, HttpServletRequest var_request) {
-		REST_exceptionValidationError var_err = new REST_exceptionValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de Validação", System.currentTimeMillis());
+		REST_exceptionValidationError var_err = new REST_exceptionValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de Validação.", System.currentTimeMillis());
 		for(FieldError x: e.getBindingResult().getFieldErrors()) {
 			var_err.REST_exceptionValidationError_addError(x.getField(), x.getDefaultMessage());
 		}

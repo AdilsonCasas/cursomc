@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.services;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -30,6 +32,9 @@ import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntim
 @Service
 public class ClienteService {
 
+	@Value("${img.prefix.client.profile}")
+	private String var_prefixoArqProfile;
+
 	@Autowired
 	private BCryptPasswordEncoder var_bCryptPasswordEncoder;
 
@@ -43,7 +48,10 @@ public class ClienteService {
 	private EnderecoRepository var_repoEndereco;
 	
 	@Autowired
-	private AmazonS3Service var_servieAmazonS3;
+	private AmazonS3Service var_serviceAmazonS3;
+	
+	@Autowired
+	private ImageService var_serviceImage;
 	
 	public ClienteEntity metodoService_findCliente(Integer var_Id) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
@@ -113,7 +121,13 @@ public class ClienteService {
 	}
 	
 	public URI metodoService_uploadProfilePictureService(MultipartFile var_multipartFile) {
-		return var_servieAmazonS3.metodoService_uploadFile(var_multipartFile);
+		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
+		if (var_user == null) {
+			throw new Service_Exception_GenericRuntimeException("Acesso Negado (metodoService_uploadProfilePictureService)");
+		}
+		BufferedImage var_imgPJG = var_serviceImage.metodoService_getJpgImageFromFile(var_multipartFile);
+		String var_fileName = var_prefixoArqProfile + var_user.getId() + ".jpg";
+		return var_serviceAmazonS3.metodoService_uploadFile(var_serviceImage.metodoService_getInputStream(var_imgPJG, "jpg"), var_fileName, "image");
 	}
 
 }

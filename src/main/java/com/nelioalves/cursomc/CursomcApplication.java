@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 	
+criar classe com Mensagens De Erro padrão do sistma...
+
+
 	// descrição das variáveis no arq 'application.properties':
 	//      default.sender=pp890645@gmail.com --> email usado para enviar os emails do sistema
 	//      default.recipient=adilson.casas@gmail.com

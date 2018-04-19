@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final String[] var_PUBLIC_MATCHERS_POST = {
 			"/clientes/**",
-			"/clientes/picture/**",
+//			"/clientes/picture/**", // se validar esta linha todo POST no endpoint '/clientes/picture' é autorizado, se tirar esta linha daqui uma autenticação de usuário será requerida 
 			"/auth/forgot/**" // email com nova senha quando o cliente "esqueci a senha"
 	};
 	
