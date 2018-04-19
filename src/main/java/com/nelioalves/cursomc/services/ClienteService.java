@@ -34,6 +34,9 @@ public class ClienteService {
 
 	@Value("${img.prefix.client.profile}")
 	private String var_prefixoArqProfile;
+	
+	@Value("${img.profile.size}")
+	private Integer var_sizeImageProfile;
 
 	@Autowired
 	private BCryptPasswordEncoder var_bCryptPasswordEncoder;
@@ -126,6 +129,8 @@ public class ClienteService {
 			throw new Service_Exception_GenericRuntimeException("Acesso Negado (metodoService_uploadProfilePictureService)");
 		}
 		BufferedImage var_imgPJG = var_serviceImage.metodoService_getJpgImageFromFile(var_multipartFile);
+		var_imgPJG = var_serviceImage.metodoService_cropSquare(var_imgPJG);
+		var_imgPJG = var_serviceImage.metodoService_resize(var_imgPJG, var_sizeImageProfile);
 		String var_fileName = var_prefixoArqProfile + var_user.getId() + ".jpg";
 		return var_serviceAmazonS3.metodoService_uploadFile(var_serviceImage.metodoService_getInputStream(var_imgPJG, "jpg"), var_fileName, "image");
 	}
