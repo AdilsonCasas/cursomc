@@ -35,7 +35,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	@Override
     public Authentication attemptAuthentication(HttpServletRequest var_req,
-                                                HttpServletResponse var_res) throws AuthenticationException {
+                                                HttpServletResponse var_res)
+                                                		throws AuthenticationException {
 
 		try {
 			DTO_Credenciais var_CredenciaisDTO = new ObjectMapper()

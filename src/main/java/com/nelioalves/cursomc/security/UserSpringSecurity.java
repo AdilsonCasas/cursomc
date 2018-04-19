@@ -12,7 +12,7 @@ import com.nelioalves.cursomc.domain.enums.enumPerfilUsuario;
 
 /* abaixo os 2 exempls de JSon para autenticação no login do sistema --> teste de Spring Secutiry
 
-Este aqui deve dar erro 'Não Autorizado'
+o Email 'adilson.casas' deve dar erro 'Não Autorizado', o email 'pp890645@gmail.com' deve dar certo ( ou o inverso kkkkkkk)
 {
 	"email": "pp890645@gmail.com",
 	"senha": "123"

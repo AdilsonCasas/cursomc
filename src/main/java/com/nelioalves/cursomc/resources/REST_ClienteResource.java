@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.nelioalves.cursomc.domain.ClienteEntity;
@@ -81,12 +82,17 @@ public class REST_ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-// ============================= METODO DELETE: faz um "delete" no BD em uma instância da entidade que já existe no BD ============================================ 
+// ============================= METODO DELETE: faz um "delete" no BD em uma instância da entidade que já existe no BD ======================================= 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{paramId}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> metodoREST_deleteCliente(@PathVariable Integer paramId) {
 		var_serviceCliente.metodoService_deleteCliente(paramId);
 		return ResponseEntity.noContent().build();
 	}
-	
+// ============================= o METODO POST abaixo processa o endpoint "/clientes/picture que será para enviar arq ao Amazon S3 =========================== 
+	@RequestMapping(value="/picture", method=RequestMethod.POST)
+	public ResponseEntity<Void> metodoREST_uploadProfilePictureToAmazonS3(@RequestParam(name="file") MultipartFile var_multipartFile) {
+		URI var_uri = var_serviceCliente.metodoService_uploadProfilePictureService(var_multipartFile);
+		return ResponseEntity.created(var_uri).build();
+	}
 }

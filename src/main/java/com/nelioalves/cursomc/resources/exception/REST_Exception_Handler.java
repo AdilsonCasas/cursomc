@@ -12,6 +12,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.nelioalves.cursomc.services.exception.Service_Exception_FileException;
+
 @ControllerAdvice
 public class REST_Exception_Handler {
 
@@ -37,8 +42,33 @@ public class REST_Exception_Handler {
 	}
 	
 	@ExceptionHandler(AuthorizationServiceException.class)
-	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_UsuarioNaoAutorizado(ObjectNotFoundException e, HttpServletRequest var_request) {
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_UsuarioNaoAutorizado(AuthorizationServiceException e, HttpServletRequest var_request) {
 		REST_exceptionStandardError var_err = new REST_exceptionStandardError(HttpStatus.FORBIDDEN.value(),	"Objeto não encontrado!", System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(var_err);
+	}
+
+	@ExceptionHandler(Service_Exception_FileException.class)
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_FileException(Service_Exception_FileException e, HttpServletRequest var_request) {
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(HttpStatus.BAD_REQUEST.value(),	"Objeto (File Exception) não encontrado!", System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
+	}
+
+	@ExceptionHandler(AmazonServiceException.class)
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_AmazonException(AmazonServiceException e, HttpServletRequest var_request) {
+		HttpStatus var_codeStatus = HttpStatus.valueOf(e.getErrorCode());
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(var_codeStatus.value(),	"Objeto(Amazon Service) não encontrado!", System.currentTimeMillis());
+		return ResponseEntity.status(var_codeStatus).body(var_err);
+	}
+
+	@ExceptionHandler(AmazonClientException.class)
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_AmazonClientException(AmazonClientException e, HttpServletRequest var_request) {
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(HttpStatus.BAD_REQUEST.value(),	"Objeto (Amazon Client) não encontrado!", System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
+	}
+
+	@ExceptionHandler(AmazonS3Exception.class)
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_AmazonClientException(AmazonS3Exception e, HttpServletRequest var_request) {
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(HttpStatus.BAD_REQUEST.value(),	"Objeto (S3) não encontrado!", System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
 	}
 }

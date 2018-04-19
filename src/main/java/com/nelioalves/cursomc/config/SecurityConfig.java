@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JWT_Util var_jwtUtil;
 
-	// vetor de endpoints liberados não apenas para readOlny, porém com alterações no bd autorizadas
+	// vetor de endpoints liberados não apenas para readOlny, mas também com alterações no bd autorizadas
 	private static final String[] var_PUBLIC_MATCHERS = {
 			"/h2-console/**"
 	};
@@ -55,7 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final String[] var_PUBLIC_MATCHERS_POST = {
 			"/clientes/**",
-			"/auth/forgot/**"
+			"/clientes/picture/**",
+			"/auth/forgot/**" // email com nova senha quando o cliente "esqueci a senha"
 	};
 	
 	@Override
@@ -64,12 +65,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		if(Arrays.asList(var_env.getActiveProfiles()).contains("test")) {
 			var_http.headers().frameOptions().disable();
 		}
-		var_http.cors().and().csrf().disable();
+		var_http.cors()
+					.and()
+					.csrf().disable();
 		var_http.authorizeRequests()
-		.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_POST).permitAll()
-		.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET).permitAll()
-				.antMatchers(var_PUBLIC_MATCHERS).permitAll()
-				.anyRequest().authenticated();
+					.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_POST)
+							.permitAll()
+					.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET)
+							.permitAll()
+					.antMatchers(var_PUBLIC_MATCHERS)
+							.permitAll()
+					.anyRequest()
+							.authenticated();
 		var_http.addFilter(new JWTAuthenticationFilter(authenticationManager(), var_jwtUtil));
 		var_http.addFilter(new JWTAuthorizationFilter(authenticationManager(), var_jwtUtil, var_userDetailsService));
 		var_http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

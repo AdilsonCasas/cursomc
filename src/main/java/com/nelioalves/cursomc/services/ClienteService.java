@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nelioalves.cursomc.domain.CidadeEntity;
 import com.nelioalves.cursomc.domain.ClienteEntity;
@@ -39,6 +41,9 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository var_repoEndereco;
+	
+	@Autowired
+	private AmazonS3Service var_servieAmazonS3;
 	
 	public ClienteEntity metodoService_findCliente(Integer var_Id) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
@@ -105,6 +110,10 @@ public class ClienteService {
 	private void metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(ClienteEntity var_ObjJaExistenteBD, ClienteEntity var_ObjAlterado) {
 		var_ObjJaExistenteBD.setNome(var_ObjAlterado.getNome());
 		var_ObjJaExistenteBD.setEmail(var_ObjAlterado.getEmail());
+	}
+	
+	public URI metodoService_uploadProfilePictureService(MultipartFile var_multipartFile) {
+		return var_servieAmazonS3.metodoService_uploadFile(var_multipartFile);
 	}
 
 }
