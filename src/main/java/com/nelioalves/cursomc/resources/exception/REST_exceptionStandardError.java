@@ -7,9 +7,10 @@ public class REST_exceptionStandardError implements Serializable {
 	
 	private Integer status;
 	private String msg;
+	private String origem;
 	private Long timeStamp;
 	
-	public REST_exceptionStandardError(Integer var_status, String var_msg, Long var_timeStamp) {
+	public REST_exceptionStandardError(Integer var_status, String var_msg, String var_origem, Long var_timeStamp) {
 		super();
 		this.status = var_status;
 		this.msg = var_msg;
@@ -38,6 +39,14 @@ public class REST_exceptionStandardError implements Serializable {
 	
 	public void setTimeStamp(Long var_timeStamp) {
 		this.timeStamp = var_timeStamp;
+	}
+
+	public String getOrigem() {
+		return this.origem;
+	}
+
+	public void setOrigem(String var_origem) {
+		this.origem = var_origem;
 	}
 	
 }

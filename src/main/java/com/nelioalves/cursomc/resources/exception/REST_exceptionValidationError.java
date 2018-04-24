@@ -9,8 +9,8 @@ public class REST_exceptionValidationError extends REST_exceptionStandardError {
 
 	private List<REST_exceptionFieldMessage> var_errors = new ArrayList<>();
 	
-	public REST_exceptionValidationError(Integer var_status, String var_msg, Long var_timeStamp) {
-		super(var_status, var_msg, var_timeStamp);
+	public REST_exceptionValidationError(Integer var_status, String var_msg, String var_origem, Long var_timeStamp) {
+		super(var_status, var_msg, var_origem, var_timeStamp);
 	}
 
 	public List<REST_exceptionFieldMessage> getErrors() {

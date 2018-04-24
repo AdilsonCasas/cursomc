@@ -80,7 +80,7 @@ public class PedidoService {
 	public PedidoEntity metodoService_insertPedido(PedidoEntity var_obj) {
 		var_obj.setId(null);
 		var_obj.setInstante(new Date());
-		var_obj.setCliente(var_serviceCliente.metodoService_findCliente(var_obj.getCliente().getId()));
+		var_obj.setCliente(var_serviceCliente.metodoService_findClienteById(var_obj.getCliente().getId()));
 		var_obj.getPagamento().setEstado(enumEstadoPagamento.PENDENTE);
 		var_obj.getPagamento().setPedido(var_obj);
 		if(var_obj.getPagamento() instanceof PagamentoComBoletoEntity) {
@@ -112,7 +112,7 @@ public class PedidoService {
 			throw new Service_Exception_GenericRuntimeException("Acesso Negado!");
 		}
 		PageRequest var_pageRequest = PageRequest.of(var_page, var_linesPerPage, Direction.valueOf(var_direction), var_orderBy);
-		ClienteEntity var_Cliente =  var_serviceCliente.metodoService_findCliente(var_user.getId());
+		ClienteEntity var_Cliente =  var_serviceCliente.metodoService_findClienteById(var_user.getId());
 		return var_repoPedido.findByCliente(var_Cliente, var_pageRequest);
 	}
 }

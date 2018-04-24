@@ -56,14 +56,35 @@ public class ClienteService {
 	@Autowired
 	private ImageService var_serviceImage;
 	
-	public ClienteEntity metodoService_findCliente(Integer var_Id) {
+	public ClienteEntity metodoService_findClienteById(Integer var_Id) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId())) {
 			throw new Service_Exception_GenericRuntimeException("Acesso Negado!" + var_Id + ", Tipo: " + ClienteEntity.class.getName());
 		}
 		Optional<ClienteEntity> var_obj = var_repoCliente.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + ClienteEntity.class.getName()));
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Email: " + var_Id + ", Tipo: " + ClienteEntity.class.getName()));
 	}	
+	
+	public ClienteEntity metodoService_findClienteByEmail(String var_email) {
+		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
+		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_email.equals(var_user.getUsername())) {
+			throw new Service_Exception_GenericRuntimeException("Acesso Negado!" + var_email + ", Tipo: " + ClienteEntity.class.getName());
+		}
+		ClienteEntity var_obj = var_repoCliente.findByEmail(var_email);
+		if (var_obj == null) {
+			throw new Service_Exception_GenericRuntimeException("Email não encontrado, email: " + var_email + ", Tipo: " + ClienteEntity.class.getName());
+		}
+		return var_obj;
+	}	
+	
+	public List<ClienteEntity> metodoService_findAllCliente() {
+		return var_repoCliente.findAll();
+	}
+	
+	public Page<ClienteEntity> metodoService_findPageCliente(Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {
+		PageRequest var_service_pageRequest = PageRequest.of(var_NumPage, var_LinesPerPage, Direction.valueOf(var_directionOrderBy), var_orderBy);
+		return var_repoCliente.findAll(var_service_pageRequest);
+	}
 	
 	// a diretiva "Transational" faz uma operação integrando duas ou mais entidades no BD, no caso de Clientes há relações com a entidade Endereços e Cidade/Estado
 	@Transactional
@@ -75,28 +96,19 @@ public class ClienteService {
 	}
 	
 	public ClienteEntity metodoService_updateCliente(ClienteEntity var_ObjAlterado) {
-		ClienteEntity var_ObjJaExistenteBD = metodoService_findCliente(var_ObjAlterado.getId());
+		ClienteEntity var_ObjJaExistenteBD = metodoService_findClienteById(var_ObjAlterado.getId());
 		metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(var_ObjJaExistenteBD, var_ObjAlterado);
 		return var_repoCliente.save(var_ObjJaExistenteBD);
 	}
 	
 	public void metodoService_deleteCliente(Integer var_Id) {
-		metodoService_findCliente(var_Id);
+		metodoService_findClienteById(var_Id);
 		//try {
 			var_repoCliente.deleteById(var_Id);
 		//}
 		//catch (DataIntegrityViolationException e) {
 		//	throw new service_exceptionGenericRuntimeException("kskdj lkj asldfj lkdkfj lasdj flskjf lksjf lksjf lasjflkdjf lkdjf");           
 		//}
-	}
-	
-	public List<ClienteEntity> metodoService_findAllCliente() {
-		return var_repoCliente.findAll();
-	}
-	
-	public Page<ClienteEntity> metodoService_findPageCliente(Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {
-		PageRequest var_service_pageRequest = PageRequest.of(var_NumPage, var_LinesPerPage, Direction.valueOf(var_directionOrderBy), var_orderBy);
-		return var_repoCliente.findAll(var_service_pageRequest);
 	}
 	
 	public ClienteEntity metodoService_fromDTO_to_Cliente(DTO_ClienteEntity_nome_email var_objDTO) {
@@ -134,5 +146,4 @@ public class ClienteService {
 		String var_fileName = var_prefixoArqProfile + var_user.getId() + ".jpg";
 		return var_serviceAmazonS3.metodoService_uploadFile(var_serviceImage.metodoService_getInputStream(var_imgPJG, "jpg"), var_fileName, "image");
 	}
-
 }
