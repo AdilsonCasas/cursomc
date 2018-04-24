@@ -39,6 +39,7 @@ public class REST_AuthResource {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		String var_token = this.jwt_util.generateToken(var_user.getUsername());
 		var_response.addHeader("Authorization", "Bearer " + var_token);
+        var_response.addHeader("access-control-expose-headers", "Authorization");
 		return ResponseEntity.noContent().build();
 	}
 
