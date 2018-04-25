@@ -30,33 +30,33 @@ public class REST_CategoriaResource {
 	public CategoriaService var_serviceCategoria;
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
-		@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UMA Categoria
-		public ResponseEntity<CategoriaEntity> metodoREST_findCategoria(@PathVariable Integer paramId) {
-			CategoriaEntity var_obj = var_serviceCategoria.metodoService_findCategoria(paramId);
-			return ResponseEntity.ok().body(var_obj);
-		}
+	@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UMA Categoria
+	public ResponseEntity<CategoriaEntity> metodoREST_findCategoria(@PathVariable Integer paramId) {
+		CategoriaEntity var_obj = var_serviceCategoria.metodoService_findCategoria(paramId);
+		return ResponseEntity.ok().body(var_obj);
+	}
 		
-		@RequestMapping(method=RequestMethod.GET) // GET para TODAS AS Categorias, SEM paginação
-		public ResponseEntity<List<DTO_CategoriaEntity>> metodoREST_findAllCategoria() {
-			List<CategoriaEntity> var_list = var_serviceCategoria.metodoService_findAllCategoria();
-			List<DTO_CategoriaEntity> var_listDto = var_list.stream().map(obj -> new DTO_CategoriaEntity(obj)).collect(Collectors.toList());
-			return ResponseEntity.ok().body(var_listDto);
-		}
+	@RequestMapping(method=RequestMethod.GET) // GET para TODAS AS Categorias, SEM paginação
+	public ResponseEntity<List<DTO_CategoriaEntity>> metodoREST_findAllCategoria() {
+		List<CategoriaEntity> var_list = var_serviceCategoria.metodoService_findAllCategoria();
+		List<DTO_CategoriaEntity> var_listDto = var_list.stream().map(obj -> new DTO_CategoriaEntity(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(var_listDto);
+	}
 		
-		@RequestMapping(value="/page", method=RequestMethod.GET) // GET para TODAS AS Categorias, COM paginação
-		public ResponseEntity<Page<DTO_CategoriaEntity>> metodoREST_findPageCategoria(
-						@RequestParam(value="NumPage", defaultValue="0") Integer var_NumPage, 
-						@RequestParam(value="LinesPerPage", defaultValue="24") Integer var_LinesPerPage, 
-						@RequestParam(value="orderBy" , defaultValue="nome") String var_orderBy, 
-						@RequestParam(value="directionOrderBy", defaultValue="ASC") String var_directionOrderBy) {
-			// os parâmetros do método 'resource_findPage' virão de parâmetros colocados na chamada do recurso na url do app chamador
-			// ex1 de chamada: "http://localhost:8080/categorias/page?NumPage=0&LinesPerPage=2&orderBy=nome&directionOrderBy=DESC" (NumPage=0, significa primeira página)
-			// ex2 de chamada: "http://localhost:8080/categorias/page" (sem parâmetros)
-			// ex3 de chamada: "http://localhost:8080/categorias/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
-			Page<CategoriaEntity> var_list = var_serviceCategoria.metodoService_findPageCategoria(var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
-			Page<DTO_CategoriaEntity> var_listDto = var_list.map(obj -> new DTO_CategoriaEntity(obj));
-			return ResponseEntity.ok().body(var_listDto);
-		}
+	@RequestMapping(value="/page", method=RequestMethod.GET) // GET para TODAS AS Categorias, COM paginação
+	public ResponseEntity<Page<DTO_CategoriaEntity>> metodoREST_findPageCategoria(
+					@RequestParam(value="NumPage", defaultValue="0") Integer var_NumPage, 
+					@RequestParam(value="LinesPerPage", defaultValue="24") Integer var_LinesPerPage, 
+					@RequestParam(value="orderBy" , defaultValue="nome") String var_orderBy, 
+					@RequestParam(value="directionOrderBy", defaultValue="ASC") String var_directionOrderBy) {
+		// os parâmetros do método 'resource_findPage' virão de parâmetros colocados na chamada do recurso na url do app chamador
+		// ex1 de chamada: "http://localhost:8080/categorias/page?NumPage=0&LinesPerPage=2&orderBy=nome&directionOrderBy=DESC" (NumPage=0, significa primeira página)
+		// ex2 de chamada: "http://localhost:8080/categorias/page" (sem parâmetros)
+		// ex3 de chamada: "http://localhost:8080/categorias/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
+		Page<CategoriaEntity> var_list = var_serviceCategoria.metodoService_findPageCategoria(var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
+		Page<DTO_CategoriaEntity> var_listDto = var_list.map(obj -> new DTO_CategoriaEntity(obj));
+		return ResponseEntity.ok().body(var_listDto);
+	}
 		
 // ============================= METODO POST: faz um "insert" de nova instância da entidade no BD =================================================================
 	@PreAuthorize("hasAnyRole('ADMIN')")

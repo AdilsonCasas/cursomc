@@ -47,9 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// implementação em 'SecurityService_UserDetailsServiceImplementacao'
 	private UserDetailsService var_userDetailsService;
 
-	// vetor de endpoints liberados APENAS para readOlny
+	// vetor de endpoints liberados APENAS para readOlny (GET), independentemente de o usuário estar logado no sistema ou não
 	private static final String[] var_PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
+			"/estados/**",
 			"/categorias/**"
 	};
 	

@@ -12,7 +12,7 @@ import com.nelioalves.cursomc.domain.PedidoEntity;
 @Repository
 public interface PedidoRepository extends JpaRepository<PedidoEntity, Integer> {
 	
-	@Transactional
+	@Transactional(readOnly=true)
 	Page <PedidoEntity> findByCliente(ClienteEntity obj_Cliente, Pageable pageRequest);
 
 }

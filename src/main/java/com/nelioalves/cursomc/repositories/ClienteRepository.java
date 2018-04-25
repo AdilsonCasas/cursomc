@@ -14,6 +14,6 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Integer>
 	// 
 	// No "site: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/"   item "4.3. Query methods" tem uma lista dos nomes de método padrão que vc 
 	// pode usar e fazer o próprio Spring montar a consulta JPQL (SQL do JPA) pra vc.
-	@Transactional
+	@Transactional(readOnly=true)
 	ClienteEntity findByEmail(String email);
 }
