@@ -7,18 +7,18 @@ public class REST_exceptionValidationError extends REST_exceptionStandardError {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<REST_exceptionFieldMessage> var_errors = new ArrayList<>();
+	private List<REST_exceptionFieldMessage> errors = new ArrayList<>();
 	
-	public REST_exceptionValidationError(Integer var_status, String var_msg, String var_origem, Long var_timeStamp) {
-		super(var_status, var_msg, var_origem, var_timeStamp);
+	public REST_exceptionValidationError(Long var_timestamp, Integer var_status, String var_error, String var_message, String var_path) {
+		super(var_timestamp, var_status, var_error, var_message, var_path);
 	}
-
+	
 	public List<REST_exceptionFieldMessage> getErrors() {
-		return this.var_errors;
+		return this.errors;
 	}
 
 	public void REST_exceptionValidationError_addError(String var_fieldName, String var_message) {
-		this.var_errors.add(new REST_exceptionFieldMessage(var_fieldName, var_message));
+		this.errors.add(new REST_exceptionFieldMessage(var_fieldName, var_message));
 	}
-	
+
 }

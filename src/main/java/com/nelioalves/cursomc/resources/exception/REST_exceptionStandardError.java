@@ -4,49 +4,60 @@ import java.io.Serializable;
 
 public class REST_exceptionStandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
+	private Long    timestamp;
 	private Integer status;
-	private String msg;
-	private String origem;
-	private Long timeStamp;
-	
-	public REST_exceptionStandardError(Integer var_status, String var_msg, String var_origem, Long var_timeStamp) {
+	private String  error;
+	private String  message;
+	private String  path;
+
+	public REST_exceptionStandardError(Long var_timestamp, Integer var_status, String var_error, String var_message, String var_path) {
 		super();
+		this.timestamp = var_timestamp;
 		this.status = var_status;
-		this.msg = var_msg;
-		this.timeStamp = var_timeStamp;
+		this.error = var_error;
+		this.message = var_message;
+		this.path = var_path;
 	}
-	
+
+	public Long getTimestamp() {
+		return this.timestamp;
+	}
+
+	public void setTimestamp(Long var_timestamp) {
+		this.timestamp = var_timestamp;
+	}
+
 	public Integer getStatus() {
 		return this.status;
 	}
-	
+
 	public void setStatus(Integer var_status) {
 		this.status = var_status;
 	}
-	
-	public String getMsg() {
-		return this.msg;
-	}
-	
-	public void setMsg(String var_msg) {
-		this.msg = var_msg;
-	}
-	
-	public Long getTimeStamp() {
-		return this.timeStamp;
-	}
-	
-	public void setTimeStamp(Long var_timeStamp) {
-		this.timeStamp = var_timeStamp;
+
+	public String getError() {
+		return this.error;
 	}
 
-	public String getOrigem() {
-		return this.origem;
+	public void setError(String var_error) {
+		this.error = var_error;
 	}
 
-	public void setOrigem(String var_origem) {
-		this.origem = var_origem;
+	public String getMessage() {
+		return this.message;
 	}
-	
+
+	public void setMessage(String var_message) {
+		this.message = var_message;
+	}
+
+	public String getPath() {
+		return this.path;
+	}
+
+	public void setPath(String var_path) {
+		this.path = var_path;
+	}
+
 }

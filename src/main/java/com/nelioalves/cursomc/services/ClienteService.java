@@ -58,16 +58,16 @@ public class ClienteService {
 	public ClienteEntity metodoService_findClienteById(Integer var_Id) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId())) {
-			throw new Service_Exception_GenericRuntimeException("Acesso Negado!" + var_Id + ", Tipo: " + ClienteEntity.class.getName());
+			throw new Service_Exception_GenericRuntimeException("Acesso a Cliente (por Id) Negado!" + var_Id + ", Tipo: " + ClienteEntity.class.getName());
 		}
 		Optional<ClienteEntity> var_obj = var_repoCliente.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Email: " + var_Id + ", Tipo: " + ClienteEntity.class.getName()));
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Cliente não encontrado! Id: " + var_Id + ", Tipo: " + ClienteEntity.class.getName()));
 	}	
 	
 	public ClienteEntity metodoService_findClienteByEmail(String var_email) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_email.equals(var_user.getUsername())) {
-			throw new Service_Exception_GenericRuntimeException("Acesso Negado!" + var_email + ", Tipo: " + ClienteEntity.class.getName());
+			throw new Service_Exception_GenericRuntimeException("Acesso a Cliente (por email) Negado!" + var_email + ", Tipo: " + ClienteEntity.class.getName());
 		}
 		ClienteEntity var_obj = var_repoCliente.findByEmail(var_email);
 		if (var_obj == null) {

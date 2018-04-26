@@ -23,7 +23,7 @@ public class CategoriaService {
 	
 	public CategoriaEntity metodoService_findCategoria(Integer var_Id) {
 		Optional<CategoriaEntity> var_obj = var_repoCategoria.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + CategoriaEntity.class.getName()));
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Categoria não encontrada! Id: " + var_Id + ", Tipo: " + CategoriaEntity.class.getName()));
 	}	
 	
 	@Transactional

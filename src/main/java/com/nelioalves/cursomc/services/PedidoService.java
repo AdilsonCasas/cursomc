@@ -72,7 +72,7 @@ public class PedidoService {
 
 	public PedidoEntity metodoService_findPedido(Integer var_Id) {
 		Optional<PedidoEntity> var_obj = var_repoPedido.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Objeto não encontrado! Id: " + var_Id + ", Tipo: " + PedidoEntity.class.getName()));
+		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Pedido não encontrado! Id: " + var_Id + ", Tipo: " + PedidoEntity.class.getName()));
 	}
 	
 	@Transactional
@@ -108,7 +108,7 @@ public class PedidoService {
 	public Page<PedidoEntity> metodoService_findPagePedido(Integer var_page, Integer var_linesPerPage, String var_orderBy, String var_direction) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if (var_user == null) {
-			throw new Service_Exception_GenericRuntimeException("Acesso Negado!");
+			throw new Service_Exception_GenericRuntimeException("Acesso a Pedidos Negado!");
 		}
 		PageRequest var_pageRequest = PageRequest.of(var_page, var_linesPerPage, Direction.valueOf(var_direction), var_orderBy);
 		ClienteEntity var_Cliente =  var_serviceCliente.metodoService_findClienteById(var_user.getId());
