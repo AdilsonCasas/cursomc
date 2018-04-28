@@ -25,6 +25,7 @@ public class REST_Exception_Handler {
 
 	@ExceptionHandler(ObjectNotFoundException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ObjNaoEncontrado(ObjectNotFoundException e, HttpServletRequest var_request) {
+System.out.println("\n\n\n aqui ... No row with the given identifier exists: [Categoria#20], getEntityName:"+e.getEntityName()+" msg:"+e.getMessage());
 		REST_exceptionStandardError var_err = new REST_exceptionStandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),	"Não encontrado!", e.getMessage(), var_request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(var_err);
 	}

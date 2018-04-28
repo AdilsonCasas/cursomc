@@ -7,6 +7,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 	
+	
+	
+	
+	
+// pesquise isso: https://spring.io/guides/gs/spring-boot-docker/
+//		e isso: "docker spring boot example" na pesquisa do googgle
+	
+	
+	
+	
+		
 	// descrição das variáveis no arq 'application.properties':
 	//      default.sender=pp890645@gmail.com --> email usado para enviar os emails do sistema
 	//      default.recipient=adilson.casas@gmail.com

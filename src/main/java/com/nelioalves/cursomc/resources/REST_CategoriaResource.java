@@ -31,7 +31,7 @@ public class REST_CategoriaResource {
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 	@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UMA Categoria
-	public ResponseEntity<CategoriaEntity> metodoREST_findCategoria(@PathVariable Integer paramId) {
+	public ResponseEntity<CategoriaEntity> metodoREST_findCategoria(@PathVariable Integer paramId) throws Exception {
 		CategoriaEntity var_obj = var_serviceCategoria.metodoService_findCategoria(paramId);
 		return ResponseEntity.ok().body(var_obj);
 	}
@@ -73,7 +73,7 @@ public class REST_CategoriaResource {
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{paramId}", method=RequestMethod.PUT)
 	// o "@Valid" abaixo é parte do "Bean Validate" que faz parte od Java EE, ele chama a validação definida nas diretivas incluídas no "domain" da categoria
-	public ResponseEntity<Void> metodoREST_updateCategoria(@Valid @RequestBody DTO_CategoriaEntity var_objDTO, @PathVariable Integer paramId) {
+	public ResponseEntity<Void> metodoREST_updateCategoria(@Valid @RequestBody DTO_CategoriaEntity var_objDTO, @PathVariable Integer paramId) throws Exception {
 		CategoriaEntity var_obj = var_serviceCategoria.metodoService_fromDTO_to_Categoria(var_objDTO);
 		var_obj.setId(paramId);
 		var_obj = var_serviceCategoria.metodoService_updateCategoria(var_obj);
@@ -83,7 +83,7 @@ public class REST_CategoriaResource {
 // ============================= METODO DELETE: faz um "delete" no BD em uma instância da entidade que já existe no BD ============================================ 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{paramId}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> metodoREST_deleteCategoria(@PathVariable Integer paramId) {
+	public ResponseEntity<Void> metodoREST_deleteCategoria(@PathVariable Integer paramId) throws Exception {
 		var_serviceCategoria.metodoService_deleteCategoria(paramId);
 		return ResponseEntity.noContent().build();
 	}
