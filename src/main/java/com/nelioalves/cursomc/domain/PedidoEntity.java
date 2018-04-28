@@ -2,7 +2,6 @@ package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
@@ -19,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nelioalves.cursomc.resources.utils.REST_Utils_URL;
 
 @Entity
 public class PedidoEntity implements Serializable {
@@ -162,12 +162,11 @@ public class PedidoEntity implements Serializable {
 	@Override
 	public String toString() {
 		NumberFormat var_numeroFormatado = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
-		SimpleDateFormat var_simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		StringBuilder var_builder = new StringBuilder();
 		var_builder.append("Pedido Número: ");
 		var_builder.append(getId());
 		var_builder.append(", Instante: ");
-		var_builder.append(var_simpleDateFormat.format(getInstante()));
+		var_builder.append(getInstante());
 		var_builder.append(", Cliente: ");
 		var_builder.append(getCliente().getNome());
 		var_builder.append(", Situação do Pagamento: ");

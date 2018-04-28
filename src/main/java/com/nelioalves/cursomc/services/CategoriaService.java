@@ -1,6 +1,5 @@
 package com.nelioalves.cursomc.services;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,25 +10,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.nelioalves.cursomc.domain.CategoriaEntity;
 import com.nelioalves.cursomc.domain.dto.DTO_CategoriaEntity;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 
 @Service
-public class CategoriaService implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository var_repoCategoria;
 	
-	@ExceptionHandler(ObjectNotFoundException.class)
 	public CategoriaEntity metodoService_findCategoria(Integer var_Id) {
 		Optional<CategoriaEntity> var_obj = var_repoCategoria.findById(var_Id);
 		//return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Categoria não encontrada! Id: " + var_Id + ", Tipo: " + CategoriaEntity.class.getName()));
-		return var_obj.orElseThrow(() -> new ObjectNotFoundException(var_Id, "Categoria"));
+		return var_obj.orElseThrow(() -> new ObjectNotFoundException(var_Id, "Categoria não encontrada, método: metodoService_findCategoria"));
 }
 
 	@Transactional
@@ -38,13 +33,13 @@ public class CategoriaService implements Serializable {
 		return var_repoCategoria.save(var_obj);
 	}
 
-	public CategoriaEntity metodoService_updateCategoria(CategoriaEntity var_ObjAlterado) throws Exception {
+	public CategoriaEntity metodoService_updateCategoria(CategoriaEntity var_ObjAlterado) {
 		CategoriaEntity var_ObjJaExistenteBD = metodoService_findCategoria(var_ObjAlterado.getId());
 		metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(var_ObjJaExistenteBD, var_ObjAlterado);
 		return var_repoCategoria.save(var_ObjJaExistenteBD);
 	}
 	
-	public void metodoService_deleteCategoria(Integer var_Id) throws Exception {
+	public void metodoService_deleteCategoria(Integer var_Id) {
 		metodoService_findCategoria(var_Id);
 		//try {
 			var_repoCategoria.deleteById(var_Id);

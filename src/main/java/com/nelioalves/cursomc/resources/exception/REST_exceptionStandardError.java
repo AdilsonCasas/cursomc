@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class REST_exceptionStandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long    timestamp;
+	private String   timestamp;
 	private Integer status;
 	private String  error;
 	private String  message;
 	private String  path;
 
-	public REST_exceptionStandardError(Long var_timestamp, Integer var_status, String var_error, String var_message, String var_path) {
+	public REST_exceptionStandardError(String var_timestamp, Integer var_status, String var_error, String var_message, String var_path) {
 		super();
 		this.timestamp = var_timestamp;
 		this.status = var_status;
@@ -20,11 +20,11 @@ public class REST_exceptionStandardError implements Serializable {
 		this.path = var_path;
 	}
 
-	public Long getTimestamp() {
+	public String getTimestamp() {
 		return this.timestamp;
 	}
 
-	public void setTimestamp(Long var_timestamp) {
+	public void setTimestamp(String var_timestamp) {
 		this.timestamp = var_timestamp;
 	}
 

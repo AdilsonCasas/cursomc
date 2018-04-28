@@ -3,6 +3,7 @@ package com.nelioalves.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +14,6 @@ import com.nelioalves.cursomc.domain.CategoriaEntity;
 import com.nelioalves.cursomc.domain.ProdutoEntity;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.repositories.ProdutoRepository;
-import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntimeException;
 
 @Service
 public class ProdutoService {
@@ -26,7 +26,8 @@ public class ProdutoService {
 	
 	public ProdutoEntity metodoService_findProduto(Integer var_Id) {
 		Optional<ProdutoEntity> var_obj = var_repoProduto.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Produto não encontrado! Id: " + var_Id + ", Tipo: " + ProdutoEntity.class.getName()));
+		//return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Produto não encontrado! Id: " + var_Id + ", Tipo: " + ProdutoEntity.class.getName()));
+		return var_obj.orElseThrow(() -> new ObjectNotFoundException(var_Id, "Produto não encontrado, método: metodoService_findProduto"));
 	}	
 	
 	public Page<ProdutoEntity> metodoService_searchProduto(String var_nome, List<Integer> var_ids, Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {

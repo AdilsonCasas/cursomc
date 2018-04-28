@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.nelioalves.cursomc.resources.utils.REST_Utils_URL;
 import com.nelioalves.cursomc.services.exception.Service_Exception_FileException;
 
 @ControllerAdvice
@@ -25,20 +26,28 @@ public class REST_Exception_Handler {
 
 	@ExceptionHandler(ObjectNotFoundException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ObjNaoEncontrado(ObjectNotFoundException e, HttpServletRequest var_request) {
-System.out.println("\n\n\n aqui ... No row with the given identifier exists: [Categoria#20], getEntityName:"+e.getEntityName()+" msg:"+e.getMessage());
-		REST_exceptionStandardError var_err = new REST_exceptionStandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),	"Não encontrado!", e.getMessage(), var_request.getRequestURI());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(var_err);
+System.out.println("\n\n\n aqui ... var_dataAtual = new Date(System.currentTimeMillis(): "+System.currentTimeMillis());
+		if (e.getMessage().startsWith("No row with the given identifier exists: [")) {
+			// "No row with the given identifier exists: [Categoria não encontrada, método: metodoService_findCategoria#20]"
+			String var_msg = e.getMessage().substring(e.getMessage().indexOf('[')+1, e.getMessage().indexOf('#'));
+			REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.NOT_FOUND.value(),	"Não encontrado!", var_msg, var_request.getRequestURI());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(var_err);
+		}
+		else {
+			REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.NOT_FOUND.value(),	"Não encontrado!", e.getMessage(), var_request.getRequestURI());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(var_err);
+		}
 	}
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_NaoPodeExcluir(DataIntegrityViolationException e, HttpServletRequest var_request) {
-		REST_exceptionStandardError var_err = new REST_exceptionStandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),	"Integridade de Dados!", e.getMessage(), var_request.getRequestURI());
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.BAD_REQUEST.value(),	"Integridade de Dados!", e.getMessage(), var_request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ErroValidacao(MethodArgumentNotValidException e, HttpServletRequest var_request) {
-		REST_exceptionValidationError var_err = new REST_exceptionValidationError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(),	"Erro de Validação!", e.getMessage(), var_request.getRequestURI());
+		REST_exceptionValidationError var_err = new REST_exceptionValidationError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.UNPROCESSABLE_ENTITY.value(),	"Erro de Validação!", e.getMessage(), var_request.getRequestURI());
 		for(FieldError x: e.getBindingResult().getFieldErrors()) {
 			var_err.REST_exceptionValidationError_addError(x.getField(), x.getDefaultMessage());
 		}
@@ -47,32 +56,32 @@ System.out.println("\n\n\n aqui ... No row with the given identifier exists: [Ca
 	
 	@ExceptionHandler(AuthorizationServiceException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_UsuarioNaoAutorizado(AuthorizationServiceException e, HttpServletRequest var_request) {
-		REST_exceptionStandardError var_err = new REST_exceptionStandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),	"Acesso Negado!", e.getMessage(), var_request.getRequestURI());
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.FORBIDDEN.value(),	"Acesso Negado!", e.getMessage(), var_request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(var_err);
 	}
 
 	@ExceptionHandler(Service_Exception_FileException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_FileException(Service_Exception_FileException e, HttpServletRequest var_request) {
-		REST_exceptionStandardError var_err = new REST_exceptionStandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),	"Objeto (File Exception) não encontrado!", e.getMessage(), var_request.getRequestURI());
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.BAD_REQUEST.value(),	"Objeto (File Exception) não encontrado!", e.getMessage(), var_request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
 	}
 
 	@ExceptionHandler(AmazonServiceException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_AmazonException(AmazonServiceException e, HttpServletRequest var_request) {
 		HttpStatus var_codeStatus = HttpStatus.valueOf(e.getErrorCode());
-		REST_exceptionStandardError var_err = new REST_exceptionStandardError(System.currentTimeMillis(), var_codeStatus.value(), "Objeto(Amazon Service) não encontrado!", e.getMessage(), var_request.getRequestURI());
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), var_codeStatus.value(), "Objeto(Amazon Service) não encontrado!", e.getMessage(), var_request.getRequestURI());
 		return ResponseEntity.status(var_codeStatus).body(var_err);
 	}
 
 	@ExceptionHandler(AmazonClientException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_AmazonClientException(AmazonClientException e, HttpServletRequest var_request) {
-		REST_exceptionStandardError var_err = new REST_exceptionStandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),	"Objeto (Amazon Client) não encontrado!", e.getMessage(), var_request.getRequestURI());
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.BAD_REQUEST.value(),	"Objeto (Amazon Client) não encontrado!", e.getMessage(), var_request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
 	}
 
 	@ExceptionHandler(AmazonS3Exception.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_AmazonClientException(AmazonS3Exception e, HttpServletRequest var_request) {
-		REST_exceptionStandardError var_err = new REST_exceptionStandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),	"Objeto (S3) não encontrado!", e.getMessage(), var_request.getRequestURI());
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.BAD_REQUEST.value(),	"Objeto (S3) não encontrado!", e.getMessage(), var_request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
 	}
 }

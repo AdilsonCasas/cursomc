@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -61,7 +62,8 @@ public class ClienteService {
 			throw new Service_Exception_GenericRuntimeException("Acesso a Cliente (por Id) Negado!" + var_Id + ", Tipo: " + ClienteEntity.class.getName());
 		}
 		Optional<ClienteEntity> var_obj = var_repoCliente.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Cliente não encontrado! Id: " + var_Id + ", Tipo: " + ClienteEntity.class.getName()));
+		//return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Cliente não encontrado! Id: " + var_Id + ", Tipo: " + ClienteEntity.class.getName()));
+		return var_obj.orElseThrow(() -> new ObjectNotFoundException(var_Id, "Cliente não encontrado, método: metodoService_findClienteById"));
 	}	
 	
 	public ClienteEntity metodoService_findClienteByEmail(String var_email) {

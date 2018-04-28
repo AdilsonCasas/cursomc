@@ -3,6 +3,7 @@ package com.nelioalves.cursomc.services;
 import java.util.Date;
 import java.util.Optional;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -72,7 +73,8 @@ public class PedidoService {
 
 	public PedidoEntity metodoService_findPedido(Integer var_Id) {
 		Optional<PedidoEntity> var_obj = var_repoPedido.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Pedido não encontrado! Id: " + var_Id + ", Tipo: " + PedidoEntity.class.getName()));
+		//return var_obj.orElseThrow(() -> new ..Service_Exception_GenericRuntimeException("Pedido não encontrado! Id: " + var_Id + ", Tipo: " + PedidoEntity.class.getName()));
+		return var_obj.orElseThrow(() -> new ObjectNotFoundException(var_Id, "Pedido não encontrado, método: metodoService_findPedido"));
 	}
 	
 	@Transactional
