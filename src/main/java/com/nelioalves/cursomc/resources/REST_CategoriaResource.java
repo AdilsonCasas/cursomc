@@ -31,8 +31,8 @@ public class REST_CategoriaResource {
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 	@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UMA Categoria
-	public ResponseEntity<CategoriaEntity> metodoREST_findCategoria(@PathVariable Integer paramId) {
-		CategoriaEntity var_obj = var_serviceCategoria.metodoService_findCategoria(paramId);
+	public ResponseEntity<CategoriaEntity> metodoREST_findCategoria(@PathVariable Integer paramId) throws Exception {
+		CategoriaEntity var_obj = var_serviceCategoria.metodoService_findCategoriaById(paramId);
 		return ResponseEntity.ok().body(var_obj);
 	}
 		

@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.nelioalves.cursomc.services.exception.Service_Exception_FileException;
 
 @Service
 public class AmazonS3Service {
@@ -27,19 +26,19 @@ public class AmazonS3Service {
 	@Value("${s3.bucket}")
 	private String par_BucketName;
 
-	public URI metodoService_uploadFile(MultipartFile var_multipartFile) { // este tipo 'MultipartFile' é o tipo recebido pelo endpoint da internet
+	public URI metodoService_uploadFile(MultipartFile var_multipartFile) throws Exception { // este tipo 'MultipartFile' é o tipo recebido pelo endpoint da internet
 		try {
 			String var_fileName = var_multipartFile.getOriginalFilename();
 			InputStream var_inputStream = var_multipartFile.getInputStream();
 			String var_contentType = var_multipartFile.getContentType(); // 'tipo' do arquivo, se é uma 'image' ou outro tipo...
 			return metodoService_uploadFile(var_inputStream, var_fileName, var_contentType);
 		} catch (IOException e) {
-			throw new Service_Exception_FileException("Erro de IO: "+e.getMessage());
+			throw new Exception("ERRO_PADRAO#0011@"+"IOException-"+e.getMessage());
 		}
 	}
 
 	// esta é uma "sobrecarga" do método acima recebendo outros parâmetros
-	public URI metodoService_uploadFile(InputStream var_inputStream, String var_fileName, String var_contentType) {
+	public URI metodoService_uploadFile(InputStream var_inputStream, String var_fileName, String var_contentType) throws Exception {
 		try {
 			var_LOG.info("Iniciando upload Amazon S3...");
 			ObjectMetadata var_meta = new ObjectMetadata();
@@ -47,7 +46,7 @@ public class AmazonS3Service {
 			s3client.putObject(par_BucketName, var_fileName, var_inputStream, var_meta);
 			return s3client.getUrl(par_BucketName, var_fileName).toURI();  // o metodo 's3client.getUrl(par_BucketName, var_fileName)' retorna uma URL, mas este método deve retornar um URI, por isso o 'toURI()' no final
 		} catch (URISyntaxException e) {
-			throw new Service_Exception_FileException("Erro ao converter URL em URI");
+			throw new Exception("ERRO_PADRAO#0012@"+"URISyntaxException-"+e.getMessage());
 		}
 	}
 }

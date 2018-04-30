@@ -27,7 +27,7 @@ public class REST_PedidoResource {
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 	@RequestMapping(value="/{paramId}", method=RequestMethod.GET)
-	public ResponseEntity<PedidoEntity> metodoREST_findPedido(@PathVariable Integer paramId) {
+	public ResponseEntity<PedidoEntity> metodoREST_findPedido(@PathVariable Integer paramId) throws Exception {
 		PedidoEntity var_obj = var_servicePedido.metodoService_findPedido(paramId);
 		return ResponseEntity.ok().body(var_obj);
 	}
@@ -37,7 +37,7 @@ public class REST_PedidoResource {
 					@RequestParam(value="NumPage", defaultValue="0") Integer var_NumPage, 
 					@RequestParam(value="LinesPerPage", defaultValue="24") Integer var_LinesPerPage, 
 					@RequestParam(value="orderBy" , defaultValue="instante") String var_orderBy, 
-					@RequestParam(value="directionOrderBy", defaultValue="DESC") String var_directionOrderBy) {
+					@RequestParam(value="directionOrderBy", defaultValue="DESC") String var_directionOrderBy) throws Exception {
 		// os parâmetros do método 'resource_findPage' virão de parâmetros colocados na chamada do recurso na url do app chamador
 		// ex1 de chamada: "http://localhost:8080/pedidos/page?NumPage=0&LinesPerPage=2&orderBy=nome&directionOrderBy=DESC" (NumPage=0, significa primeira página)
 		// ex2 de chamada: "http://localhost:8080/pedidos/page" (sem parâmetros)
@@ -49,7 +49,7 @@ public class REST_PedidoResource {
 // ============================= METODO POST: faz um "insert" de nova instância da entidade no BD ================================================================= 
 	@RequestMapping(method=RequestMethod.POST)
 	// a diretiva '@Valid' abaixo percebe/captura o resultado do método 'isValid' definido na classe 'serviceClienteInsertValidator'
-	public ResponseEntity<Void> metodoREST_insertPedido(@Valid @RequestBody PedidoEntity var_obj) {
+	public ResponseEntity<Void> metodoREST_insertPedido(@Valid @RequestBody PedidoEntity var_obj) throws Exception {
 		var_obj = var_servicePedido.metodoService_insertPedido(var_obj);
 		URI var_uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(var_obj.getId()).toUri();
 		return ResponseEntity.created(var_uri).build();

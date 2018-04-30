@@ -37,7 +37,6 @@ public class DBService {
 	
 	@Autowired
 	private BCryptPasswordEncoder var_bCryptPasswordEncoder;
-
 	@Autowired
 	private CategoriaRepository var_repoCategoria;
 	@Autowired
@@ -120,7 +119,7 @@ public class DBService {
 		
 		ClienteEntity var_cli2 = new ClienteEntity(null, "Ana Costa", "pp890645@gmail.com", "69254717509", enumTipoCliente.PESSOAFISICA, var_bCryptPasswordEncoder.encode("123"));
 		var_cli2.getTelefones().addAll(Arrays.asList("93883321","34252625"));
-		var_cli2.addPerfil(enumPerfilUsuario.ADMIN); // vou assumir como regra de negácio que todo usuário do meu sistema será um "Cliente", dentre estes, alguns, também serão ADMIN
+		var_cli2.addPerfil(enumPerfilUsuario.ADMIN); // vou assumir como regra de negócio que todo usuário do meu sistema será um "Cliente", dentre estes, alguns, também serão ADMIN
 
 		
 		EnderecoEntity var_e1 = new EnderecoEntity(null, "Rua Flores", "300", "Ap 303", "Jardins", "38220830", var_cli1, var_cid1);

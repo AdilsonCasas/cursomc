@@ -30,17 +30,18 @@ public class REST_Utils_URL {
 	}
 	
 	public static String metodoREST_utils_formataData_e_Hora_fromTimeStamp(Long var_dataTimeStamp) {
+		// ex: "28/04/2018 11:14:02"
 		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	    Date dataAtual = new Date(var_dataTimeStamp);
 	    return sd.format(dataAtual);        
 	}
 
-	public String metodoREST_utils_formataHora_fromTimeStamp(String var_dataTimeStamp) {
-		return metodoREST_utils_formataData_e_Hora_fromTimeStamp(var_dataTimeStamp).substring(13);
+	public static String metodoREST_utils_formataHora_fromTimeStamp(Long var_dataTimeStamp) {
+		return metodoREST_utils_formataData_e_Hora_fromTimeStamp(var_dataTimeStamp).substring(10);
 	}
 
-	public String metodoREST_utils_formataData_fromTimeStamp(String var_dataTimeStamp) {
+	public static String metodoREST_utils_formataData_fromTimeStamp(Long var_dataTimeStamp) {
 	    String var_dataFormatada = metodoREST_utils_formataData_e_Hora_fromTimeStamp(var_dataTimeStamp); 
-		return var_dataFormatada.substring(1, 12);
+		return var_dataFormatada.substring(0, 11);
 	}
 }

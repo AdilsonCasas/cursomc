@@ -51,7 +51,6 @@ public class Service_Validator_ClienteInsert implements ConstraintValidator<Serv
 			var_context.disableDefaultConstraintViolation();
 			var_context.buildConstraintViolationWithTemplate(x.getMessage()).addPropertyNode(x.getFieldName()).addConstraintViolation();
 		}
-		return var_list.isEmpty(); // se a lista de erros estiver 'vazia' retornará 'False', indicando que não há
-								// erros de validação
+		return var_list.isEmpty(); // se a lista de erros estiver 'vazia' retornará 'False', indicando que não há erros de validação
 	}
 }

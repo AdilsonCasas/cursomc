@@ -25,7 +25,7 @@ public class REST_ProdutoResource {
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 		@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UM Produto
-		public ResponseEntity<ProdutoEntity> metodoREST_findProduto(@PathVariable Integer paramId) {
+		public ResponseEntity<ProdutoEntity> metodoREST_findProduto(@PathVariable Integer paramId) throws Exception {
 			ProdutoEntity var_obj = var_serviceProduto.metodoService_findProduto(paramId);
 			return ResponseEntity.ok().body(var_obj);
 		}

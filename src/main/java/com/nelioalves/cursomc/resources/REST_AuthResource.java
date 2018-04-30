@@ -49,7 +49,7 @@ public class REST_AuthResource {
 	//	"email": "pp890645@gmail.com"
 	//}
 	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
-	public ResponseEntity<Void> metodoService_forgotSenha(@Valid @RequestBody DTO_EmailForgotSenha var_objDTO) {
+	public ResponseEntity<Void> metodoService_forgotSenha(@Valid @RequestBody DTO_EmailForgotSenha var_objDTO) throws Exception {
 		serviceAuth.metodoService_sendNewPassword(var_objDTO.getEmail());
 		return ResponseEntity.noContent().build();
 	}

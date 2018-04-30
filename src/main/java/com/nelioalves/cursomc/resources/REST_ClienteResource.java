@@ -33,14 +33,14 @@ public class REST_ClienteResource {
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 	@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UM Cliente (busca por Id)
-	public ResponseEntity<ClienteEntity> metodoREST_findClienteById(@PathVariable Integer paramId) {
+	public ResponseEntity<ClienteEntity> metodoREST_findClienteById(@PathVariable Integer paramId) throws Exception {
 		ClienteEntity var_obj = var_serviceCliente.metodoService_findClienteById(paramId);
 		return ResponseEntity.ok().body(var_obj);
 	}
 	
 	@RequestMapping(value="/email", method=RequestMethod.GET) // GET para SOMENTE UM Cliente (busca por email)
 	// a chamada no "postman" deve ser GET para o end : 'localhost:8080/clientes/email?param_email=pp890645@gmail.com'
-	public ResponseEntity<ClienteEntity> metodoREST_findClienteByEmail(@RequestParam(value="param_email") String paramEmail) {
+	public ResponseEntity<ClienteEntity> metodoREST_findClienteByEmail(@RequestParam(value="param_email") String paramEmail) throws Exception {
 		ClienteEntity var_obj = var_serviceCliente.metodoService_findClienteByEmail(paramEmail);
 		return ResponseEntity.ok().body(var_obj);
 	}
@@ -82,7 +82,7 @@ public class REST_ClienteResource {
 // ============================= METODO PUT: faz um "update" no BD em uma instância da entidade que já existe no BD ============================================== 
 	@RequestMapping(value="/{paramId}", method=RequestMethod.PUT)
 	// o "@Valid" abaixo é parte do "Bean Validate" que faz parte od Java EE, ele chama a validação definida nas diretivas incluídas no "domain" do cliente
-	public ResponseEntity<Void> metodoREST_updateCliente(@Valid @RequestBody DTO_ClienteEntity_nome_email var_objDTO, @PathVariable Integer paramId) {
+	public ResponseEntity<Void> metodoREST_updateCliente(@Valid @RequestBody DTO_ClienteEntity_nome_email var_objDTO, @PathVariable Integer paramId) throws Exception {
 		ClienteEntity var_obj = var_serviceCliente.metodoService_fromDTO_to_Cliente(var_objDTO);
 		var_obj.setId(paramId);
 		var_obj = var_serviceCliente.metodoService_updateCliente(var_obj);
@@ -92,13 +92,13 @@ public class REST_ClienteResource {
 // ============================= METODO DELETE: faz um "delete" no BD em uma instância da entidade que já existe no BD ======================================= 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/{paramId}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> metodoREST_deleteCliente(@PathVariable Integer paramId) {
+	public ResponseEntity<Void> metodoREST_deleteCliente(@PathVariable Integer paramId) throws Exception {
 		var_serviceCliente.metodoService_deleteCliente(paramId);
 		return ResponseEntity.noContent().build();
 	}
 // ============================= o METODO POST abaixo processa o endpoint "/clientes/picture que será para enviar arq ao Amazon S3 =========================== 
 	@RequestMapping(value="/picture", method=RequestMethod.POST)
-	public ResponseEntity<Void> metodoREST_uploadProfilePictureToAmazonS3(@RequestParam(name="file") MultipartFile var_multipartFile) {
+	public ResponseEntity<Void> metodoREST_uploadProfilePictureToAmazonS3(@RequestParam(name="file") MultipartFile var_multipartFile) throws Exception {
 		URI var_uri = var_serviceCliente.metodoService_uploadProfilePictureService(var_multipartFile);
 		return ResponseEntity.created(var_uri).build();
 	}

@@ -5,7 +5,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -27,7 +26,6 @@ import com.nelioalves.cursomc.repositories.CidadeRepository;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.repositories.EnderecoRepository;
 import com.nelioalves.cursomc.security.UserSpringSecurity;
-import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntimeException;
 
 @Service
 public class ClienteService {
@@ -56,24 +54,24 @@ public class ClienteService {
 	@Autowired
 	private ImageService var_serviceImage;
 	
-	public ClienteEntity metodoService_findClienteById(Integer var_Id) {
+	public ClienteEntity metodoService_findClienteById(Integer var_Id) throws Exception {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId())) {
-			throw new Service_Exception_GenericRuntimeException("Acesso a Cliente (por Id) Negado!" + var_Id + ", Tipo: " + ClienteEntity.class.getName());
+			throw new Exception("ERRO_PADRAO#0006@"+",,,");
 		}
 		Optional<ClienteEntity> var_obj = var_repoCliente.findById(var_Id);
 		//return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Cliente não encontrado! Id: " + var_Id + ", Tipo: " + ClienteEntity.class.getName()));
-		return var_obj.orElseThrow(() -> new ObjectNotFoundException(var_Id, "Cliente não encontrado, método: metodoService_findClienteById"));
+		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0003@"+",,,"));
 	}	
 	
-	public ClienteEntity metodoService_findClienteByEmail(String var_email) {
+	public ClienteEntity metodoService_findClienteByEmail(String var_email) throws Exception {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_email.equals(var_user.getUsername())) {
-			throw new Service_Exception_GenericRuntimeException("Acesso a Cliente (por email) Negado!" + var_email + ", Tipo: " + ClienteEntity.class.getName());
+			throw new Exception("ERRO_PADRAO#0007@"+",,,");
 		}
 		ClienteEntity var_obj = var_repoCliente.findByEmail(var_email);
 		if (var_obj == null) {
-			throw new Service_Exception_GenericRuntimeException("Email não encontrado, email: " + var_email + ", Tipo: " + ClienteEntity.class.getName());
+			throw new Exception("ERRO_PADRAO#0008@"+",,,");
 		}
 		return var_obj;
 	}	
@@ -96,20 +94,15 @@ public class ClienteService {
 		return var_obj;
 	}
 	
-	public ClienteEntity metodoService_updateCliente(ClienteEntity var_ObjAlterado) {
+	public ClienteEntity metodoService_updateCliente(ClienteEntity var_ObjAlterado) throws Exception {
 		ClienteEntity var_ObjJaExistenteBD = metodoService_findClienteById(var_ObjAlterado.getId());
 		metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(var_ObjJaExistenteBD, var_ObjAlterado);
 		return var_repoCliente.save(var_ObjJaExistenteBD);
 	}
 	
-	public void metodoService_deleteCliente(Integer var_Id) {
+	public void metodoService_deleteCliente(Integer var_Id) throws Exception {
 		metodoService_findClienteById(var_Id);
-		//try {
-			var_repoCliente.deleteById(var_Id);
-		//}
-		//catch (DataIntegrityViolationException e) {
-		//	throw new service_exceptionGenericRuntimeException("kskdj lkj asldfj lkdkfj lasdj flskjf lksjf lksjf lasjflkdjf lkdjf");           
-		//}
+		var_repoCliente.deleteById(var_Id);
 	}
 	
 	public ClienteEntity metodoService_fromDTO_to_Cliente(DTO_ClienteEntity_nome_email var_objDTO) {
@@ -136,10 +129,10 @@ public class ClienteService {
 		var_ObjJaExistenteBD.setEmail(var_ObjAlterado.getEmail());
 	}
 	
-	public URI metodoService_uploadProfilePictureService(MultipartFile var_multipartFile) {
+	public URI metodoService_uploadProfilePictureService(MultipartFile var_multipartFile) throws Exception {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if (var_user == null) {
-			throw new Service_Exception_GenericRuntimeException("Acesso Negado (metodoService_uploadProfilePictureService)");
+			throw new Exception("ERRO_PADRAO#0009@"+",,,");
 		}
 		BufferedImage var_imgPJG = var_serviceImage.metodoService_getJpgImageFromFile(var_multipartFile);
 		var_imgPJG = var_serviceImage.metodoService_cropSquare(var_imgPJG);

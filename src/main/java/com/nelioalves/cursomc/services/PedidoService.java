@@ -3,7 +3,6 @@ package com.nelioalves.cursomc.services;
 import java.util.Date;
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +19,6 @@ import com.nelioalves.cursomc.repositories.ItemPedidoRepository;
 import com.nelioalves.cursomc.repositories.PagamentoRepository;
 import com.nelioalves.cursomc.repositories.PedidoRepository;
 import com.nelioalves.cursomc.security.UserSpringSecurity;
-import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntimeException;
 import com.nelioalves.cursomc.services.utils.Service_Utils_Boleto;
 
 @Service
@@ -71,14 +69,14 @@ public class PedidoService {
 	// como 'EmailService' é uma interface e não uma classe é necessário a instanciação por 'new'
 	private EmailService var_serviceEmail;
 
-	public PedidoEntity metodoService_findPedido(Integer var_Id) {
+	public PedidoEntity metodoService_findPedido(Integer var_Id) throws Exception {
 		Optional<PedidoEntity> var_obj = var_repoPedido.findById(var_Id);
 		//return var_obj.orElseThrow(() -> new ..Service_Exception_GenericRuntimeException("Pedido não encontrado! Id: " + var_Id + ", Tipo: " + PedidoEntity.class.getName()));
-		return var_obj.orElseThrow(() -> new ObjectNotFoundException(var_Id, "Pedido não encontrado, método: metodoService_findPedido"));
+		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0004@"+",,,"));
 	}
 	
 	@Transactional
-	public PedidoEntity metodoService_insertPedido(PedidoEntity var_obj) {
+	public PedidoEntity metodoService_insertPedido(PedidoEntity var_obj) throws Exception {
 		var_obj.setId(null);
 		var_obj.setInstante(new Date());
 		var_obj.setCliente(var_serviceCliente.metodoService_findClienteById(var_obj.getCliente().getId()));
@@ -107,10 +105,10 @@ public class PedidoService {
 		return var_obj;
 	}
 
-	public Page<PedidoEntity> metodoService_findPagePedido(Integer var_page, Integer var_linesPerPage, String var_orderBy, String var_direction) {
+	public Page<PedidoEntity> metodoService_findPagePedido(Integer var_page, Integer var_linesPerPage, String var_orderBy, String var_direction) throws Exception {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if (var_user == null) {
-			throw new Service_Exception_GenericRuntimeException("Acesso a Pedidos Negado!");
+			throw new Exception("ERRO_PADRAO#0010@"+",,,");
 		}
 		PageRequest var_pageRequest = PageRequest.of(var_page, var_linesPerPage, Direction.valueOf(var_direction), var_orderBy);
 		ClienteEntity var_Cliente =  var_serviceCliente.metodoService_findClienteById(var_user.getId());

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.nelioalves.cursomc.enumErroPadrao;
 import com.nelioalves.cursomc.resources.utils.REST_Utils_URL;
-import com.nelioalves.cursomc.services.exception.Service_Exception_FileException;
 
 @ControllerAdvice
 public class REST_Exception_Handler {
@@ -24,19 +24,31 @@ public class REST_Exception_Handler {
 	// Obs geral: o erro 422 (coloque a pesquisa "http 422" no google e veja que é um erro tipo "unprocessable entity" e já está sendo muito usado
 	// para erros de validaçãode formulários. Este erro faz sentido como erro de validação e pode ser usado para validação de formulário
 
-	@ExceptionHandler(ObjectNotFoundException.class)
-	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ObjNaoEncontrado(ObjectNotFoundException e, HttpServletRequest var_request) {
-System.out.println("\n\n\n aqui ... var_dataAtual = new Date(System.currentTimeMillis(): "+System.currentTimeMillis());
-		if (e.getMessage().startsWith("No row with the given identifier exists: [")) {
-			// "No row with the given identifier exists: [Categoria não encontrada, método: metodoService_findCategoria#20]"
-			String var_msg = e.getMessage().substring(e.getMessage().indexOf('[')+1, e.getMessage().indexOf('#'));
-			REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.NOT_FOUND.value(),	"Não encontrado!", var_msg, var_request.getRequestURI());
+
+//new Exception("ERRO_PADRAO#0001")
+	
+
+	@ExceptionHandler(Exception.class) // usada para erro padrão feito manualmente por Adilson
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ErroPadrao(Exception e, HttpServletRequest var_request) {
+		
+        // chamada da função --> throw new Exception("ERRO_PADRAO#0010@,,,");
+		// "ERRO_PADRAO#0001@,,," ---> "Categoria não encontrada"
+
+		if (e.getMessage().startsWith("ERRO_PADRAO#")) {
+			String var_NumErro = e.getMessage().substring(e.getMessage().indexOf('#')+1,e.getMessage().indexOf('@'));
+			REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.NOT_FOUND.value(),	"Não encontrado!", enumErroPadrao.toEnum(Integer.parseInt(var_NumErro)).getDescrExt(), var_request.getRequestURI());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(var_err);
 		}
 		else {
 			REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.NOT_FOUND.value(),	"Não encontrado!", e.getMessage(), var_request.getRequestURI());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(var_err);
 		}
+	}
+
+	@ExceptionHandler(ObjectNotFoundException.class)
+	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_ObjNaoEncontrado(ObjectNotFoundException e, HttpServletRequest var_request) {
+		REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.NOT_FOUND.value(),	"Não encontrado!", e.getMessage(), var_request.getRequestURI());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(var_err);
 	}
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
@@ -60,11 +72,13 @@ System.out.println("\n\n\n aqui ... var_dataAtual = new Date(System.currentTimeM
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(var_err);
 	}
 
+/*
 	@ExceptionHandler(Service_Exception_FileException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_FileException(Service_Exception_FileException e, HttpServletRequest var_request) {
 		REST_exceptionStandardError var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), HttpStatus.BAD_REQUEST.value(),	"Objeto (File Exception) não encontrado!", e.getMessage(), var_request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(var_err);
 	}
+*/
 
 	@ExceptionHandler(AmazonServiceException.class)
 	ResponseEntity<REST_exceptionStandardError> metodoREST_Exception_AmazonException(AmazonServiceException e, HttpServletRequest var_request) {

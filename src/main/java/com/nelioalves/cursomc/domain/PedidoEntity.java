@@ -18,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.nelioalves.cursomc.resources.utils.REST_Utils_URL;
 
 @Entity
 public class PedidoEntity implements Serializable {
@@ -179,6 +178,5 @@ public class PedidoEntity implements Serializable {
 		var_builder.append(var_numeroFormatado.format(getValorTotal()));
 		return var_builder.toString();
 	}
-	
-	
+
 }

@@ -9,6 +9,7 @@ public class Service_Validation_Utils_BR {
 	// CNPJ
 	private static final int[] var_weightTin = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
+
 	private static int calculate(final String var_str, final int[] var_weight) {
 		int sum = 0;
 		for (int i = var_str.length() - 1, digit; i >= 0; i--) {

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.ClienteEntity;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
-import com.nelioalves.cursomc.services.exception.Service_Exception_GenericRuntimeException;
 
 @Service
 public class AuthService {
@@ -26,10 +25,10 @@ public class AuthService {
 	
 	private Random var_rand = new Random(); // 'Random()' é uma classe do java que gera caracteres aleatórios
 
-	public void metodoService_sendNewPassword(String var_email) {
+	public void metodoService_sendNewPassword(String var_email) throws Exception {
 		ClienteEntity var_Cliente = var_repoCliente.findByEmail(var_email);
 		if (var_Cliente == null) {
-			throw new Service_Exception_GenericRuntimeException("Email não encontrado");
+			throw new Exception("ERRO_PADRAO#0005@"+"...");
 		}
 		
 		String var_newPass = metodoService_newPassword();

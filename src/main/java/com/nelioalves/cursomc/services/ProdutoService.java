@@ -3,7 +3,6 @@ package com.nelioalves.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,10 +23,10 @@ public class ProdutoService {
 	@Autowired
 	private CategoriaRepository var_repoCategoria;
 	
-	public ProdutoEntity metodoService_findProduto(Integer var_Id) {
+	public ProdutoEntity metodoService_findProduto(Integer var_Id) throws Exception {
 		Optional<ProdutoEntity> var_obj = var_repoProduto.findById(var_Id);
 		//return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Produto não encontrado! Id: " + var_Id + ", Tipo: " + ProdutoEntity.class.getName()));
-		return var_obj.orElseThrow(() -> new ObjectNotFoundException(var_Id, "Produto não encontrado, método: metodoService_findProduto"));
+		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0002@"+",,,"));
 	}	
 	
 	public Page<ProdutoEntity> metodoService_searchProduto(String var_nome, List<Integer> var_ids, Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {

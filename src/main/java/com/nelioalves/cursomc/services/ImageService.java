@@ -14,18 +14,16 @@ import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.nelioalves.cursomc.services.exception.Service_Exception_FileException;
-
 @Service
 public class ImageService {
 	
 	// este método provê funcionalidades de Imagens
 	
 	// um arquivo 'BufferedImage' é um arquivo no formato '.JPG', este metodo transforma um arq. recebido como parâmetro do tipo 'MultipartFile' e o transforma em JPG
-	public BufferedImage metodoService_getJpgImageFromFile(MultipartFile var_uploadedFile) {
+	public BufferedImage metodoService_getJpgImageFromFile(MultipartFile var_uploadedFile) throws Exception {
 		String var_extensaoArq = FilenameUtils.getExtension(var_uploadedFile.getOriginalFilename());
 		if(!"png".equals(var_extensaoArq) && !"jpg".equals(var_extensaoArq)) {
-			throw new Service_Exception_FileException("Somente imagens .jpg e .png são permitidas (metodoService_getJpgImageFromFile).");
+			throw new Exception("ERRO_PADRAO#0013@"+"...");
 		}
 		try {
 			BufferedImage var_imgBufferedImage = ImageIO.read(var_uploadedFile.getInputStream());
@@ -34,7 +32,7 @@ public class ImageService {
 			}
 			return var_imgBufferedImage;
 		} catch (IOException e) {
-			throw new Service_Exception_FileException("Erro ao ler arquivo imagem (metodoService_getJpgImageFromFile).");
+			throw new Exception("ERRO_PADRAO#0014@"+"IOException-...");
 		}
 	}
 
@@ -44,13 +42,13 @@ public class ImageService {
 		return var_jpgImage;
 	}
 	
-	public InputStream metodoService_getInputStream(BufferedImage var_image, String var_extensaoImage) {
+	public InputStream metodoService_getInputStream(BufferedImage var_image, String var_extensaoImage) throws Exception {
 		try {
 			ByteArrayOutputStream var_os = new ByteArrayOutputStream();
 			ImageIO.write(var_image, var_extensaoImage, var_os);
 			return new ByteArrayInputStream(var_os.toByteArray());
 		} catch (IOException e) {
-			throw new Service_Exception_FileException("Erro ao ler arquivo imagem (metodoService_getInputStream).");
+			throw new Exception("ERRO_PADRAO#0015@"+"IOException-,,,");
 		}
 	}
 
