@@ -1,12 +1,8 @@
 package com.nelioalves.cursomc;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -83,11 +79,14 @@ public class CursomcApplication implements CommandLineRunner {
  *     a anotação '@Bean' torna a classe ou o método um 'Componente' dentro do framework, e que portanto pode ser usado em outra parte qualquer da aplicação
  *
  *
+ * Sobre "infinity scroll":
+ *     é aquela tela nos sites que carregam parte dos dados até prencher a tela, e quando o usuário rola a tela (scroll) até o final da tela mais
+ *     dados são carregados e a tela aumenta (para baixo) para conter os novos dados.
+ *
+ *
 */
 
-	//@Autowired
-	//public static enumErroPadrao var_configEnumErroPadrao;
-	
+
 	public static Integer IndiceMax_no_enumErroPadrao = 100;
 
 
@@ -102,7 +101,7 @@ public class CursomcApplication implements CommandLineRunner {
 		if(!instantiateErrosPadraoDoSistema()) {
 			throw new Exception("\n\n\nxiiiiiiiiiiiiiiiii marquinho...");
 		}
-//System.out.println("\n\n... gl:"+var_configEnumErroPadrao.toEnum(Integer.parseInt("7")).getDescrExt());
+
 	}
 
 	public boolean instantiateErrosPadraoDoSistema() throws Exception {
