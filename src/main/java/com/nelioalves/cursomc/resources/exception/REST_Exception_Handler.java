@@ -41,11 +41,11 @@ public class REST_Exception_Handler {
 		if (var_msgErro.startsWith("ERRO_PADRAO#")) {
 			String var_NumErro = var_msgErro.substring(var_msgErro.indexOf('#')+1,var_msgErro.indexOf('@'));
 			if (enumErroPadrao.toEnum(Integer.parseInt(var_NumErro)).getMsgComplementar().trim().equals("NOT_DISPLAY")) {
-				var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), var_httpStatus.value(),	var_httpStatus.name(), enumErroPadrao.toEnum(Integer.parseInt(var_NumErro)).getMsgPadraoParaErro(), var_request.getRequestURI());
+				var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), var_httpStatus.value(),	"(ERRO_PADRAO "+var_NumErro+") "+ var_httpStatus.name(), enumErroPadrao.toEnum(Integer.parseInt(var_NumErro)).getMsgPadraoParaErro(), var_request.getRequestURI());
 			}
 			else {
 				String var_MsgComplementar = var_msgErro.substring(var_msgErro.indexOf('@')+1);
-				var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), var_httpStatus.value(),	var_httpStatus.name(), enumErroPadrao.toEnum(Integer.parseInt(var_NumErro)).getMsgPadraoParaErro()+" ("+var_MsgComplementar.trim()+")", var_request.getRequestURI());
+				var_err = new REST_exceptionStandardError(REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()), var_httpStatus.value(),	"(ERRO_PADRAO "+var_NumErro+") "+ var_httpStatus.name(), enumErroPadrao.toEnum(Integer.parseInt(var_NumErro)).getMsgPadraoParaErro()+" ("+var_MsgComplementar.trim()+")", var_request.getRequestURI());
 			}
 		}
 		else {

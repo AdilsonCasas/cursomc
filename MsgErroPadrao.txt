@@ -41,6 +41,8 @@
 0028@#$1 Cod Erro Padrao inválido                                  @#$2 IOException.e
 0029@#$1 Problema no decode UTF-8                                  @#$2 IOException.e
 0030@#$1 Problema no Mime Message Helper                           @#$2 IOException.e
+0031@#$1 Acesso Negado! Problemas de Autenticação                  @#$2 NOT_DISPLAY
+0032@#$1 Email ou senha inválidos                                  @#$2 IOException.e
 #
 9999@#$1 Erro genérico                                             @#$2 o que será isso gente???
 #

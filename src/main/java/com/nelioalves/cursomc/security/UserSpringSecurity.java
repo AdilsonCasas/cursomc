@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.nelioalves.cursomc.domain.enums.enumPerfilUsuario;
 
-/* abaixo os 2 exempls de JSon para autenticação no login do sistema --> teste de Spring Secutiry
+/* abaixo os 2 exemplos de JSon para autenticação no login do sistema --> teste de Spring Secutiry
 
 o Email 'adilson.casas' deve dar erro 'Não Autorizado', o email 'pp890645@gmail.com' deve dar certo o login ( ou o inverso kkkkkkk)
 {
@@ -32,8 +32,8 @@ public class UserSpringSecurity implements UserDetails {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer Id;
-	private String email;
-	private String senha;
+	private String  email;
+	private String  senha;
 	private Collection<? extends GrantedAuthority> authorities; // este 'authorities' são os perfis do usuário que o autorizam a fazer POST ou DELETE etc, definidos pelos vetores 'var_PUBLIC_MATCHERS_'
 	
 	public UserSpringSecurity() {
@@ -66,6 +66,14 @@ public class UserSpringSecurity implements UserDetails {
 		return this.email;
 	}
 
+	//====================================== abaixo métodos próprios da classe =======================================================================================
+	public boolean metodo_UserSpringSecurity_hasRole(enumPerfilUsuario var_enumPerfilUsuario) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(var_enumPerfilUsuario.getDescricao()));
+	}
+
+
+	//====================================== abaixo vários "overrides" para métodos da super classe ==================================================================
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -86,7 +94,4 @@ public class UserSpringSecurity implements UserDetails {
 		return true;
 	}
 	
-	public boolean metodoUserSpringSecurity_hasRole(enumPerfilUsuario var_enumPerfilUsuario) {
-		return getAuthorities().contains(new SimpleGrantedAuthority(var_enumPerfilUsuario.getDescricao()));
-	}
 }

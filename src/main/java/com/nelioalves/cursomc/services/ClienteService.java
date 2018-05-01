@@ -57,7 +57,7 @@ public class ClienteService {
 	
 	public ClienteEntity metodoService_findClienteById(Integer var_Id) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
-		if(var_user == null || (!var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId()))) {
+		if(var_user == null || (!var_user.metodo_UserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId()))) {
 			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0006@"+"xiiiiiiii...");
 		}
 		Optional<ClienteEntity> var_obj = var_repoCliente.findById(var_Id);
@@ -66,7 +66,7 @@ public class ClienteService {
 	
 	public ClienteEntity metodoService_findClienteByEmail(String var_email) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
-		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_email.equals(var_user.getUsername())) {
+		if(var_user == null || !var_user.metodo_UserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_email.equals(var_user.getUsername())) {
 			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0007@"+"xiiiiiiii...");
 		}
 		ClienteEntity var_obj = var_repoCliente.findByEmail(var_email);

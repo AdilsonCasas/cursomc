@@ -2,7 +2,6 @@ package com.nelioalves.cursomc.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nelioalves.cursomc.domain.dto.DTO_Credenciais;
+import com.nelioalves.cursomc.resources.utils.REST_Utils_URL;
 
 // o 'extends' abaixo chamado 'UsernamePasswordAuthenticationFilter' é um padrão do Spring Security e ele intercepta o endpoint '/login'
 // enviado pelo Front_End para fazer a autenticação do usuário.
@@ -35,11 +35,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 	
 	@Override
-    public Authentication attemptAuthentication(HttpServletRequest var_req, HttpServletResponse var_res) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest var_request, HttpServletResponse var_response) throws AuthenticationException {
 
 			DTO_Credenciais var_CredenciaisDTO=null;
 			try {
-				var_CredenciaisDTO = new ObjectMapper().readValue(var_req.getInputStream(), DTO_Credenciais.class);
+				var_CredenciaisDTO = new ObjectMapper().readValue(var_request.getInputStream(), DTO_Credenciais.class);
 			} catch (JsonParseException e) {
 				throw new RuntimeException("ERRO_PADRAO#0018@RuntimeException (attemptAuthentication 1): "+e.getMessage());
 			} catch (JsonMappingException e) {
@@ -56,22 +56,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	}
 	
 	@Override
-    protected void successfulAuthentication(HttpServletRequest var_req,
-                                            HttpServletResponse var_res,
+    protected void successfulAuthentication(HttpServletRequest var_request,
+                                            HttpServletResponse var_response,
                                             FilterChain var_chain,
                                             Authentication var_auth) { // throws IOException, ServletException 
 	
 		String var_username = ((UserSpringSecurity) var_auth.getPrincipal()).getUsername();
         String var_token = this.jwtUtil.generateToken(var_username);
-        var_res.addHeader("Authorization", "Bearer " + var_token);
-        var_res.addHeader("access-control-expose-headers", "Authorization");
+        var_response.addHeader("Authorization", "Bearer " + var_token);
+        var_response.addHeader("access-control-expose-headers", "Authorization");
 	}
 	
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 		 
         @Override
         public void onAuthenticationFailure(HttpServletRequest var_request, HttpServletResponse var_response, AuthenticationException var_exception) throws IOException {
-            var_response.setStatus(401);
+        	var_response.setStatus(401);
             var_response.setContentType("application/json"); 
             try {
 				var_response.getWriter().append(json());
@@ -81,12 +81,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
         
         private String json() {
-            long var_date = new Date().getTime();
-            return "{\"timestamp\": " + var_date + ", "
+            //long var_date = new Date().getTime();
+
+        	//abaixo simula o erro padrão 32 --> Exception("ERRO_PADRAO#0032@Exception: "+e.getMessage());
+            return "{\"timestamp \": " + "\""+REST_Utils_URL.metodoREST_utils_formataData_e_Hora_fromTimeStamp(System.currentTimeMillis()) + "\", "
                 + "\"status\": 401, "
-                + "\"error\": \"Não autorizado\", "
+                + "\"error\": \"(ERRO_PADRAO 0032) UNAUTHORIZED\", "
                 + "\"message\": \"Email ou senha inválidos\", "
                 + "\"path\": \"/login\"}";
-        }
+       }
     }
 }

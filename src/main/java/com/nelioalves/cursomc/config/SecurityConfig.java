@@ -40,11 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/h2-console/**"
 	};
 
-	@Autowired
 	// Perceba que o 'UserDetailsService' abaixo é uma inteface definida em 'org.springframework.security.core.userdetails.UserDetailsService'
 	// e o Spring é inteligente o suficiente para procurar aqui no próprio sistema uma imprementação para esta interface e encontra esta 
 	// imprementação em 'SecurityService_UserDetailsServiceImplementacao', então a variável 'var_userDetailsService' aponta para a nossa
 	// implementação em 'SecurityService_UserDetailsServiceImplementacao'
+	@Autowired
 	private UserDetailsService var_userDetailsService;
 
 	// vetor de endpoints liberados APENAS para readOlny (GET), independentemente de o usuário estar logado no sistema ou não
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				throw new Exception("ERRO_PADRAO#0021@Exception: "+e.getMessage());
 			}
 		}
-		try {
+	try {
 			var_http.cors()
 						.and()
 						.csrf().disable();
@@ -79,14 +79,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		}
 		try {
 			var_http.authorizeRequests()
-						.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_POST)
-								.permitAll()
-						.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET)
-								.permitAll()
-						.antMatchers(var_PUBLIC_MATCHERS)
-								.permitAll()
-						.anyRequest()
-								.authenticated();
+						.antMatchers(HttpMethod.POST, var_PUBLIC_MATCHERS_POST).permitAll()
+						.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET).permitAll()
+						.antMatchers(var_PUBLIC_MATCHERS).permitAll()
+						.anyRequest().authenticated();
 		} catch (Exception e) {
 			throw new Exception("ERRO_PADRAO#0023@Exception: "+e.getMessage());
 		}
@@ -110,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	CorsConfigurationSource var_corsConfigurationSource() {
-		CorsConfiguration var_corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+	CorsConfiguration var_corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
 		var_corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS")); // adiciona os métodos que serão permitidos no 'Cors'
 		final UrlBasedCorsConfigurationSource var_source = new UrlBasedCorsConfigurationSource();
 		var_source.registerCorsConfiguration("/**", var_corsConfiguration);

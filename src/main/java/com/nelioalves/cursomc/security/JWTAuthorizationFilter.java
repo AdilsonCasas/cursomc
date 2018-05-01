@@ -38,6 +38,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		
 		// testa o cabeçalho 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcDg5MDY0NUBnbWFpbC5jb20iLCJleHAiOjE1MjM4MDI2NDd9.OUqUW1DQk4hOpcVvlUxhWcOzaNx-UOUWts5te0tAylGJHmuU5dPxEurWU-tHRCCHn3KfS9SX5cTVTqmCJ2KOZg'
 		// o início 'Bearer ' é padrão do framework
+		if(var_header == null || !var_header.startsWith("Bearer ")) {
+			throw new ServletException("ERRO_PADRAO#0031@");
+		}
 		if(var_header != null && var_header.startsWith("Bearer ")) {
 			// pega uma substring a partir do caracter numero 7 (desconta o inicio 'Bearer ') 
 			UsernamePasswordAuthenticationToken var_auth = metodoSecurity_getAuthentication(var_header.substring(7));
