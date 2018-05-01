@@ -26,7 +26,7 @@ public class ProdutoService {
 	public ProdutoEntity metodoService_findProduto(Integer var_Id) throws Exception {
 		Optional<ProdutoEntity> var_obj = var_repoProduto.findById(var_Id);
 		//return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Produto não encontrado! Id: " + var_Id + ", Tipo: " + ProdutoEntity.class.getName()));
-		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0002@"+",,,"));
+		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0002@"+"xiiiiiiii..."));
 	}	
 	
 	public Page<ProdutoEntity> metodoService_searchProduto(String var_nome, List<Integer> var_ids, Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {

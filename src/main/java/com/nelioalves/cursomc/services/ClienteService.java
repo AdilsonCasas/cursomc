@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,24 +55,23 @@ public class ClienteService {
 	@Autowired
 	private ImageService var_serviceImage;
 	
-	public ClienteEntity metodoService_findClienteById(Integer var_Id) throws Exception {
+	public ClienteEntity metodoService_findClienteById(Integer var_Id) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
-		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId())) {
-			throw new Exception("ERRO_PADRAO#0006@"+",,,");
+		if(var_user == null || (!var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId()))) {
+			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0006@"+"xiiiiiiii...");
 		}
 		Optional<ClienteEntity> var_obj = var_repoCliente.findById(var_Id);
-		//return var_obj.orElseThrow(() -> new Service_Exception_GenericRuntimeException("Cliente não encontrado! Id: " + var_Id + ", Tipo: " + ClienteEntity.class.getName()));
-		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0003@"+",,,"));
+		return var_obj.orElseThrow(() -> new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0003@"+"xiiiiiiii..."));
 	}	
 	
-	public ClienteEntity metodoService_findClienteByEmail(String var_email) throws Exception {
+	public ClienteEntity metodoService_findClienteByEmail(String var_email) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if(var_user == null || !var_user.metodoUserSpringSecurity_hasRole(enumPerfilUsuario.ADMIN) && !var_email.equals(var_user.getUsername())) {
-			throw new Exception("ERRO_PADRAO#0007@"+",,,");
+			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0007@"+"xiiiiiiii...");
 		}
 		ClienteEntity var_obj = var_repoCliente.findByEmail(var_email);
 		if (var_obj == null) {
-			throw new Exception("ERRO_PADRAO#0008@"+",,,");
+			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0008@"+"xiiiiiiii...");
 		}
 		return var_obj;
 	}	
@@ -132,7 +132,7 @@ public class ClienteService {
 	public URI metodoService_uploadProfilePictureService(MultipartFile var_multipartFile) throws Exception {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if (var_user == null) {
-			throw new Exception("ERRO_PADRAO#0009@"+",,,");
+			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0009@"+"xiiiiiiii...");
 		}
 		BufferedImage var_imgPJG = var_serviceImage.metodoService_getJpgImageFromFile(var_multipartFile);
 		var_imgPJG = var_serviceImage.metodoService_cropSquare(var_imgPJG);

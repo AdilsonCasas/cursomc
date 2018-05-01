@@ -31,8 +31,7 @@ public enum enumEstadoPagamento {
 				return x;
 			}
 		}
-		
-		throw new IllegalArgumentException("Cod EstadoPagamento inválido: "+var_cod);
+		throw new IllegalArgumentException("ERRO_PADRAO#0026@IllegalArgumentException (enumErroPadrao): "+var_cod);
 	}
 
 }

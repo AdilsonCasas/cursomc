@@ -7,22 +7,40 @@
 #   Este arquivo texto conterá 3 tipos de informação:
 #     Primeiro campo (do início da linha até o primeiro delimitador): Número do Erro,
 #     Segundo  campo (após o primeiro delimitador "@#$1" e até o segundo delimitador): Mensagem do sistema a ser apresentada para o cliente do sistema,
-#     terceiro campo (do segundo delimitador "@#$2" até o fim da linha): Mensagem interna, para o programador do sistema.
+#     terceiro campo (do segundo delimitador "@#$2" até o fim da linha): Mensagem complementar, algum argumento ref. ao segundo campo. Se for igual a 'NOT_DISPLAY' ignore
 #   A ideia com este arquivo de config é facilitar que o sistema possa ter suas mensagens traduzidas para outras linhas, inglês por exemplo.
 #
 #
-001@#$1 Categoria não encontrada                   @#$2 nada...
-002@#$1 Produto não encontrado                     @#$2 nada...
-003@#$1 Cliente não encontrado                     @#$2 nada...
-004@#$1 Pedido não encontrado                      @#$2 nada...
-005@#$1 Email não encontrado                       @#$2 nada...
-006@#$1 Acesso a Cliente Negado                    @#$2 Acesso a Cliente (por Id) Negado!
-007@#$1 Acesso a Cliente Negado!                   @#$2 Acesso a Cliente (por email) Negado!
-008@#$1 Email não encontrado!                      @#$2 nada...
-009@#$1 Acesso Negado ao Profile Picture!          @#$2 nada...
-010@#$1 Acesso a Paginação de Pedidos Negado!      @#$2 nada...
-011@#$1 Erro de IO, Arquivo não encontrado.        @#$2 nada...
-012@#$1 Erro de IO, Arquivo não encontrado.        @#$2 nada...
-013@#$1 Somente imagens .jpg e .png são permitidas @#$2 nada...
-014@#$1 Erro ao ler arquivo imagem.                @#$2 nada...
-015@#$1 Erro ao ler arquivo imagem.                @#$2 nada...
+0001@#$1 Categoria não encontrada                                  @#$2 NOT_DISPLAY
+0002@#$1 Produto não encontrado                                    @#$2 NOT_DISPLAY
+0003@#$1 Cliente não encontrado                                    @#$2 NOT_DISPLAY
+0004@#$1 Pedido não encontrado                                     @#$2 NOT_DISPLAY
+0005@#$1 Email não encontrado                                      @#$2 NOT_DISPLAY
+0006@#$1 Acesso a Cliente Negado                                   @#$2 NOT_DISPLAY
+0007@#$1 Acesso a Cliente Negado!                                  @#$2 NOT_DISPLAY
+0008@#$1 Email não encontrado!                                     @#$2 NOT_DISPLAY
+0009@#$1 Acesso Negado ao Profile Picture!                         @#$2 NOT_DISPLAY
+0010@#$1 Acesso a Paginação de Pedidos Negado!                     @#$2 NOT_DISPLAY
+0011@#$1 Erro de IO, Arquivo não encontrado.                       @#$2 IOException.e
+0012@#$1 Erro de IO, Arquivo não encontrado.                       @#$2 URISyntaxException.e
+0013@#$1 Somente imagens .jpg e .png são permitidas                @#$2 NOT_DISPLAY
+0014@#$1 Erro ao ler arquivo imagem.                               @#$2 IOException.e
+0015@#$1 Erro ao ler arquivo imagem.                               @#$2 IOException.e
+0016@#$1 Email Não Encontrado.                                     @#$2 IOException.e
+0017@#$1 Erro ao processar filtro de autorização                   @#$2 IOException.e
+0018@#$1 Erro ao processar filtro de autenticação                  @#$2 IOException.e
+0019@#$1 Falha autenticação JWT                                    @#$2 IOException.e
+0020@#$1 Cod Erro Padrao inválido                                  @#$2 IOException.e
+0021@#$1 Erro no processamento do http.headers                     @#$2 IOException.e
+0022@#$1 Erro no processamento do http.cors                        @#$2 IOException.e
+0023@#$1 Erro no processamento do authorizeRequests                @#$2 IOException.e
+0024@#$1 Erro no processamento do http Filter                      @#$2 IOException.e
+0025@#$1 Erro no processamento do user Details                     @#$2 IOException.e
+0026@#$1 Cod Erro Padrao inválido                                  @#$2 IOException.e
+0027@#$1 Cod Erro Padrao inválido                                  @#$2 IOException.e
+0028@#$1 Cod Erro Padrao inválido                                  @#$2 IOException.e
+0029@#$1 Problema no decode UTF-8                                  @#$2 IOException.e
+0030@#$1 Problema no Mime Message Helper                           @#$2 IOException.e
+#
+9999@#$1 Erro genérico                                             @#$2 o que será isso gente???
+#

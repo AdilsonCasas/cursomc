@@ -30,7 +30,6 @@ public enum enumTipoCliente {
 				return x;
 			}
 		}
-		
-		throw new IllegalArgumentException("Cod Tipo Cliente inválido: "+var_cod);
+		throw new IllegalArgumentException("ERRO_PADRAO#0028@IllegalArgumentException (enumTipoCliente): "+var_cod);
 	}
 }

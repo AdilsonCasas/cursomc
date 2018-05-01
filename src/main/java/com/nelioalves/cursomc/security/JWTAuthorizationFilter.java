@@ -32,7 +32,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest var_request,
 									HttpServletResponse var_response,
-									FilterChain var_chain) throws IOException, ServletException {
+									FilterChain var_chain) throws IOException, ServletException { 
 		// o param 'var_request' contém o token cryptografado da requisição do endpoint
 		String var_header = var_request.getHeader("Authorization");
 		
@@ -46,7 +46,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 				SecurityContextHolder.getContext().setAuthentication(var_auth);
 			}
 		}
-		var_chain.doFilter(var_request, var_response);
+		try {
+			var_chain.doFilter(var_request, var_response);
+		} catch (IOException | ServletException e) {
+			throw new IOException("ERRO_PADRAO#0017@"+"IOException | ServletException: "+e.getMessage());
+		}
 	}
 
 	private UsernamePasswordAuthenticationToken metodoSecurity_getAuthentication(String var_token) {

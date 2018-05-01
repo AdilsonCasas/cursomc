@@ -30,8 +30,7 @@ public enum enumPerfilUsuario {
 				return x;
 			}
 		}
-		
-		throw new IllegalArgumentException("Cod EstadoPagamento inválido: "+var_cod);
+		throw new IllegalArgumentException("ERRO_PADRAO#0027@IllegalArgumentException (enumPerfilUsuario): "+var_cod);
 	}
 
 }

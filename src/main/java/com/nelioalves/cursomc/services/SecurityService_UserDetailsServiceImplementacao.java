@@ -17,10 +17,10 @@ public class SecurityService_UserDetailsServiceImplementacao implements UserDeta
 	private ClienteRepository var_repo;
 	
 	@Override
-	public UserDetails loadUserByUsername(String var_email) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String var_email) {
 		ClienteEntity cli = var_repo.findByEmail(var_email);
 		if (cli == null) {
-			throw new UsernameNotFoundException(var_email);
+			throw new UsernameNotFoundException("ERRO_PADRAO#0016@"+var_email);
 		}
 		return new UserSpringSecurity(cli.getId(), cli.getEmail(), cli.getSenha(), cli.getPerfis());
 	}

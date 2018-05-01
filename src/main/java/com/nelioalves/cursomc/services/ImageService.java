@@ -23,7 +23,7 @@ public class ImageService {
 	public BufferedImage metodoService_getJpgImageFromFile(MultipartFile var_uploadedFile) throws Exception {
 		String var_extensaoArq = FilenameUtils.getExtension(var_uploadedFile.getOriginalFilename());
 		if(!"png".equals(var_extensaoArq) && !"jpg".equals(var_extensaoArq)) {
-			throw new Exception("ERRO_PADRAO#0013@"+"...");
+			throw new Exception("ERRO_PADRAO#0013@"+"xiiiiiiii...");
 		}
 		try {
 			BufferedImage var_imgBufferedImage = ImageIO.read(var_uploadedFile.getInputStream());
@@ -32,7 +32,7 @@ public class ImageService {
 			}
 			return var_imgBufferedImage;
 		} catch (IOException e) {
-			throw new Exception("ERRO_PADRAO#0014@"+"IOException-...");
+			throw new IOException("ERRO_PADRAO#0014@"+"IOException: "+e.getMessage());
 		}
 	}
 
@@ -42,13 +42,13 @@ public class ImageService {
 		return var_jpgImage;
 	}
 	
-	public InputStream metodoService_getInputStream(BufferedImage var_image, String var_extensaoImage) throws Exception {
+	public InputStream metodoService_getInputStream(BufferedImage var_image, String var_extensaoImage) throws IOException {
 		try {
 			ByteArrayOutputStream var_os = new ByteArrayOutputStream();
 			ImageIO.write(var_image, var_extensaoImage, var_os);
 			return new ByteArrayInputStream(var_os.toByteArray());
 		} catch (IOException e) {
-			throw new Exception("ERRO_PADRAO#0015@"+"IOException-,,,");
+			throw new IOException("ERRO_PADRAO#0015@"+"IOException: "+e.getMessage());
 		}
 	}
 

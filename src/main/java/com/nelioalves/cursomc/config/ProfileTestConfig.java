@@ -25,8 +25,8 @@ public class ProfileTestConfig {
 		return true;
 	}
 	
-	@Bean
 	// o 'Mock' só vai existir no ambiente de 'test', por isso esta instanciação somente aqui neste profile para testes.
+	@Bean
 	public EmailService emailService() {
 		return new EmailMockService();
 	}

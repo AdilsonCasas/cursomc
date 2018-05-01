@@ -22,7 +22,7 @@ public class CategoriaService {
 	
 	public CategoriaEntity metodoService_findCategoriaById(Integer var_Id) throws Exception {
 		Optional<CategoriaEntity> var_obj = var_repoCategoria.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0001@"+"..."));
+		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0001@"+"xiiiiiiii..."));
 	}
 
 	@Transactional
@@ -32,6 +32,12 @@ public class CategoriaService {
 	}
 
 	public CategoriaEntity metodoService_updateCategoria(CategoriaEntity var_ObjAlterado) throws Exception {
+/*
+ * para alterar categoria
+ *      {
+          "nome" : "lalalal"
+        }
+ */
 		CategoriaEntity var_ObjJaExistenteBD = metodoService_findCategoriaById(var_ObjAlterado.getId());
 		metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(var_ObjJaExistenteBD, var_ObjAlterado);
 		return var_repoCategoria.save(var_ObjJaExistenteBD);

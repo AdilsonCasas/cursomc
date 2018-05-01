@@ -72,7 +72,7 @@ public class CursomcApplication implements CommandLineRunner {
  *
  *
  * Sobre GitHub:
- *     no github.com minha área é 'AdilsonCasas'
+ *     no github.com minha área/login é 'AdilsonCasas'
  *
  *
  * Sobre Spring Boot Framework:
@@ -82,6 +82,33 @@ public class CursomcApplication implements CommandLineRunner {
  * Sobre "infinity scroll":
  *     é aquela tela nos sites que carregam parte dos dados até prencher a tela, e quando o usuário rola a tela (scroll) até o final da tela mais
  *     dados são carregados e a tela aumenta (para baixo) para conter os novos dados.
+ *     
+ *     
+ * Exemplos do uso do Try/Catch:
+ *      try {
+ *          Thread.sleep(1000);
+ *          System.out.println(url);
+ *          return getUrlContentPage(url);
+ *      } catch (ParseException | IOException | InterruptedException e) {
+ *          return null;
+ *      } finally {
+ *                  
+ *      }
+ *
+ *		try {
+ *			var_CredenciaisDTO = new ObjectMapper().readValue(var_req.getInputStream(), DTO_Credenciais.class);
+ *		} catch (JsonParseException e) {
+ *			// TODO Auto-generated catch block
+ *			e.printStackTrace();
+ *		} catch (JsonMappingException e) {
+ *			// TODO Auto-generated catch block
+ *			e.printStackTrace();
+ *		} catch (IOException e) {
+ *			// TODO Auto-generated catch block
+ *			e.printStackTrace();
+ *		}
+ *     
+ *     
  *
  *
 */
@@ -116,10 +143,18 @@ public class CursomcApplication implements CommandLineRunner {
         while (var_scanner.hasNext()&&(i<IndiceMax_no_enumErroPadrao)) {
         	var_strLinha = var_scanner.next();
         	if (var_strLinha.trim().indexOf('#') != 0) { // se a linha não começa com '#'
+
+        		// Numero do Erro Padrao
                 var_NumErro = var_strLinha.substring(0,var_strLinha.indexOf("@#$1"));
                 var_enumErroPadrao = enumErroPadrao.toEnum(Integer.parseInt(var_NumErro));
+
+        		// Mensagem Padrao do Erro
                 var_auxStr = var_strLinha.substring(var_strLinha.indexOf("@#$1")+4, var_strLinha.indexOf("@#$2"));
-                var_enumErroPadrao.setDescrExt(var_auxStr.trim());
+                var_enumErroPadrao.setMsgPadraoParaErro(var_auxStr.trim());
+
+        		// Numero Complementar para o Erro
+                var_auxStr = var_strLinha.substring(var_strLinha.indexOf("@#$2")+4);
+                var_enumErroPadrao.setMsgComplementar(var_auxStr.trim());
                 i++;
         	}
         }

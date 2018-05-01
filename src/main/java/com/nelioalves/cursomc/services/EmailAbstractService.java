@@ -60,12 +60,17 @@ public abstract class EmailAbstractService implements EmailService {
 
 	protected MimeMessage metodoService_prepareMimeMessageFromPedido(PedidoEntity var_obj) throws MessagingException {
 		MimeMessage var_mimeMessage = var_javaMailSender.createMimeMessage();
-		MimeMessageHelper var_mmh = new MimeMessageHelper(var_mimeMessage,true);
-		var_mmh.setTo(var_obj.getCliente().getEmail());
-		var_mmh.setFrom(var_sender);
-		var_mmh.setSubject("Pedido confirmado! Código: "+var_obj.getId());
-		var_mmh.setSentDate(new Date(System.currentTimeMillis()));
-		var_mmh.setText(metodoService_htmlFromTemplatePedido(var_obj),true);
+		MimeMessageHelper var_mmh;
+		try {
+			var_mmh = new MimeMessageHelper(var_mimeMessage,true);
+			var_mmh.setTo(var_obj.getCliente().getEmail());
+			var_mmh.setFrom(var_sender);
+			var_mmh.setSubject("Pedido confirmado! Código: "+var_obj.getId());
+			var_mmh.setSentDate(new Date(System.currentTimeMillis()));
+			var_mmh.setText(metodoService_htmlFromTemplatePedido(var_obj),true);
+		} catch (MessagingException e) {
+			throw new MessagingException("ERRO_PADRAO#0030@MessagingException: "+e.getMessage());
+		}
 		return var_mimeMessage;
 	}
 

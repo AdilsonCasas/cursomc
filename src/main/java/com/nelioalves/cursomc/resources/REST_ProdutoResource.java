@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.resources;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class REST_ProdutoResource {
 						@RequestParam(value="NumPage", defaultValue="0") Integer var_NumPage, 
 						@RequestParam(value="LinesPerPage", defaultValue="24") Integer var_LinesPerPage, 
 						@RequestParam(value="orderBy" , defaultValue="nome") String var_orderBy, 
-						@RequestParam(value="directionOrderBy", defaultValue="ASC") String var_directionOrderBy) {
+						@RequestParam(value="directionOrderBy", defaultValue="ASC") String var_directionOrderBy) throws UnsupportedEncodingException {
 
 			// a URL de chamada deste GET terá o seguinte formato: 'http://localhost:8080/produtos/nome=computador&categorias=1,3,4'
 			// observe as categorias separadas por vírgulas

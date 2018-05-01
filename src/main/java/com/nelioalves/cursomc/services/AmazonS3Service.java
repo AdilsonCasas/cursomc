@@ -33,7 +33,7 @@ public class AmazonS3Service {
 			String var_contentType = var_multipartFile.getContentType(); // 'tipo' do arquivo, se é uma 'image' ou outro tipo...
 			return metodoService_uploadFile(var_inputStream, var_fileName, var_contentType);
 		} catch (IOException e) {
-			throw new Exception("ERRO_PADRAO#0011@"+"IOException-"+e.getMessage());
+			throw new IOException("ERRO_PADRAO#0011@IOException:"+e.getMessage());
 		}
 	}
 
@@ -46,7 +46,7 @@ public class AmazonS3Service {
 			s3client.putObject(par_BucketName, var_fileName, var_inputStream, var_meta);
 			return s3client.getUrl(par_BucketName, var_fileName).toURI();  // o metodo 's3client.getUrl(par_BucketName, var_fileName)' retorna uma URL, mas este método deve retornar um URI, por isso o 'toURI()' no final
 		} catch (URISyntaxException e) {
-			throw new Exception("ERRO_PADRAO#0012@"+"URISyntaxException-"+e.getMessage());
+			throw new Exception("ERRO_PADRAO#0012@URISyntaxException:"+e.getMessage());
 		}
 	}
 }

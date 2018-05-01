@@ -28,7 +28,7 @@ public class AuthService {
 	public void metodoService_sendNewPassword(String var_email) throws Exception {
 		ClienteEntity var_Cliente = var_repoCliente.findByEmail(var_email);
 		if (var_Cliente == null) {
-			throw new Exception("ERRO_PADRAO#0005@"+"...");
+			throw new Exception("ERRO_PADRAO#0005@"+"xiiiiiiii...");
 		}
 		
 		String var_newPass = metodoService_newPassword();

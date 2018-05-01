@@ -103,16 +103,16 @@ public enum enumErroPadrao {
 	ERRO_PADRAO_0099( 99, "", ""),
 	ERRO_PADRAO_0100(100, "", ""),
 
-	ERRO_PADRAO_9999(9999, "Erro não Cadastrado.", "");
+	ERRO_PADRAO_9999(9999, "", "");
 
 	private int cod;
-	private String descrExt;
-	private String descrDev;
+	private String MsgPadraoParaErro;
+	private String MsgComplementar;
 
-	private enumErroPadrao(int var_cod, String var_descrExt, String var_descrDev) {
+	private enumErroPadrao(int var_cod, String var_MsgPadraoParaErro, String var_MsgComplementar) {
 		this.cod = var_cod;
-		this.descrExt = var_descrExt; // Descrição do erro a ser apresentada ao cliente final, em ambiente de produção
-		this.descrDev = var_descrDev; // Descrição interna, para o desenvolvedor, em ambiente de desenvolvimento
+		this.MsgPadraoParaErro = var_MsgPadraoParaErro; // Mensagem do erro a ser apresentada ao cliente/usuário do sistema.
+		this.MsgComplementar = var_MsgComplementar;
 	}
 	
 	
@@ -126,23 +126,23 @@ public enum enumErroPadrao {
 	}
 
 
-	public String getDescrExt() {
-		return this.descrExt;
+	public String getMsgPadraoParaErro() {
+		return this.MsgPadraoParaErro;
 	}
 
 
-	public void setDescrExt(String var_descrExt) {
-		this.descrExt = var_descrExt;
+	public void setMsgPadraoParaErro(String var_MsgPadraoParaErro) {
+		this.MsgPadraoParaErro = var_MsgPadraoParaErro;
 	}
 
 
-	public String getDescrDev() {
-		return this.descrDev;
+	public String getMsgComplementar() {
+		return this.MsgComplementar;
 	}
 
 
-	public void setDescrDev(String var_descrDev) {
-		this.descrDev = var_descrDev;
+	public void setMsgComplementar(String var_MsgComplementar) {
+		this.MsgComplementar = var_MsgComplementar;
 	}
 
 	public static enumErroPadrao toEnum(Integer var_cod) {
@@ -154,6 +154,6 @@ public enum enumErroPadrao {
 				return x;
 			}
 		}
-		throw new IllegalArgumentException("Cod Erro Padrao inválido: "+var_cod);
+		throw new IllegalArgumentException("ERRO_PADRAO#0020@IllegalArgumentException (enumErroPadrao): "+var_cod);
 	}
 }

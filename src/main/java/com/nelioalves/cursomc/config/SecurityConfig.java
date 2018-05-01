@@ -64,34 +64,56 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity var_http) throws Exception {
 		// se os profiles do sistema tem "test" significa que eu estou tentando acessar o bd "h2"
 		if(Arrays.asList(var_env.getActiveProfiles()).contains("test")) {
-			var_http.headers().frameOptions().disable();
+			try {
+				var_http.headers().frameOptions().disable();
+			} catch (Exception e) {
+				throw new Exception("ERRO_PADRAO#0021@Exception: "+e.getMessage());
+			}
 		}
-		var_http.cors()
-					.and()
-					.csrf().disable();
-		var_http.authorizeRequests()
-					.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_POST)
-							.permitAll()
-					.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET)
-							.permitAll()
-					.antMatchers(var_PUBLIC_MATCHERS)
-							.permitAll()
-					.anyRequest()
-							.authenticated();
-		var_http.addFilter(new JWTAuthenticationFilter(authenticationManager(), var_jwtUtil));
-		var_http.addFilter(new JWTAuthorizationFilter(authenticationManager(), var_jwtUtil, var_userDetailsService));
-		var_http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		try {
+			var_http.cors()
+						.and()
+						.csrf().disable();
+		} catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0022@Exception: "+e.getMessage());
+		}
+		try {
+			var_http.authorizeRequests()
+						.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_POST)
+								.permitAll()
+						.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET)
+								.permitAll()
+						.antMatchers(var_PUBLIC_MATCHERS)
+								.permitAll()
+						.anyRequest()
+								.authenticated();
+		} catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0023@Exception: "+e.getMessage());
+		}
+		try {
+			var_http.addFilter(new JWTAuthenticationFilter(authenticationManager(), var_jwtUtil));
+			var_http.addFilter(new JWTAuthorizationFilter(authenticationManager(), var_jwtUtil, var_userDetailsService));
+			var_http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		} catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0024@Exception: "+e.getMessage());
+		}
 	}
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder var_auth) throws Exception {
-		var_auth.userDetailsService(var_userDetailsService).passwordEncoder(metodoConfig_bCryptPasswordEncoder());
+		try {
+			var_auth.userDetailsService(var_userDetailsService).passwordEncoder(metodoConfig_bCryptPasswordEncoder());
+		} catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0025@Exception: "+e.getMessage());
+		}
 	}
 	
 	@Bean
 	CorsConfigurationSource var_corsConfigurationSource() {
+		CorsConfiguration var_corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+		var_corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS")); // adiciona os métodos que serão permitidos no 'Cors'
 		final UrlBasedCorsConfigurationSource var_source = new UrlBasedCorsConfigurationSource();
-		var_source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		var_source.registerCorsConfiguration("/**", var_corsConfiguration);
 		return var_source;
 	}
 	

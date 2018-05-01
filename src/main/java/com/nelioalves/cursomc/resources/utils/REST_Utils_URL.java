@@ -9,11 +9,11 @@ import java.util.List;
 
 public class REST_Utils_URL {
 	
-	public static String metodoREST_utils_decodeParam(String var_str) {
+	public static String metodoREST_utils_decodeParam(String var_str) throws UnsupportedEncodingException {
 		try {
 			return URLDecoder.decode(var_str, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			return "";
+			throw new UnsupportedEncodingException("ERRO_PADRAO#0029@UnsupportedEncodingException: "+e.getMessage());
 		}
 	}
 
@@ -31,7 +31,7 @@ public class REST_Utils_URL {
 	
 	public static String metodoREST_utils_formataData_e_Hora_fromTimeStamp(Long var_dataTimeStamp) {
 		// ex: "28/04/2018 11:14:02"
-		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); // usar "dd/MM/yyyy", não "dd/mm/yyyy" (MM = mês, mm = minuto)
 	    Date dataAtual = new Date(var_dataTimeStamp);
 	    return sd.format(dataAtual);        
 	}

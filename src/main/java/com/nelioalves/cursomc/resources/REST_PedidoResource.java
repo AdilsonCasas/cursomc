@@ -24,11 +24,11 @@ public class REST_PedidoResource {
 
 	@Autowired
 	public PedidoService var_servicePedido;
-	
+
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 	@RequestMapping(value="/{paramId}", method=RequestMethod.GET)
 	public ResponseEntity<PedidoEntity> metodoREST_findPedido(@PathVariable Integer paramId) throws Exception {
-		PedidoEntity var_obj = var_servicePedido.metodoService_findPedido(paramId);
+		PedidoEntity var_obj = var_servicePedido.metodoService_findPedidoById(paramId);
 		return ResponseEntity.ok().body(var_obj);
 	}
 

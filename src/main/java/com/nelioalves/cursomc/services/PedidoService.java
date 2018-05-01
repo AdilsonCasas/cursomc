@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,15 +65,28 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository var_repoItemPedido;
 
-	@Autowired
-	// a var 'serviceEmail' abaixo é instanciada no arq. de configuração 'ProfileTestConfig', sempre que uso um '@Autowired' há uma instanciação do componente do sistema citado.
+	// sempre que uso um '@Autowired' há uma instanciação do componente do sistema citado.
 	// como 'EmailService' é uma interface e não uma classe é necessário a instanciação por 'new'
-	private EmailService var_serviceEmail;
+/*
+ *		@Autowired
+ *		private EmailService var_serviceEmail;
+ *
+ * 
+ * coloque as linhas abaixo dentro de um método para enviar email: 
+ * 		//var_serviceEmail.sendOrderConfirmationHtmlEmail(obj);
+ * 		//var_serviceEmail.sendOrderConfirmationEmail(obj);
+ * 		// from=adilson.casas@gmail.com
+ * 		// to=maria@gmail.com; cc=; bcc=; 
+ * 		// sentDate=Mon Apr 09 21:54:50 BRT 2018; 
+ * 		// subject=Pedido confirmado! Código: 3; 
+ * 		// text=Pedido Número: 3, Instante: 09/04/2018 21:54:50, Cliente: Maria Silva, Situação do Pagamento: Pendente ...
+ * 
+ */
+	
 
-	public PedidoEntity metodoService_findPedido(Integer var_Id) throws Exception {
+	public PedidoEntity metodoService_findPedidoById(Integer var_Id) throws Exception {
 		Optional<PedidoEntity> var_obj = var_repoPedido.findById(var_Id);
-		//return var_obj.orElseThrow(() -> new ..Service_Exception_GenericRuntimeException("Pedido não encontrado! Id: " + var_Id + ", Tipo: " + PedidoEntity.class.getName()));
-		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0004@"+",,,"));
+		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0004@"+"xiiiiiiii..."));
 	}
 	
 	@Transactional
@@ -95,20 +109,13 @@ public class PedidoService {
 			var_ip.setPedido(var_obj);
 		}
 		var_repoItemPedido.saveAll(var_obj.getItens());
-		//var_serviceEmail.sendOrderConfirmationHtmlEmail(obj);
-		//var_serviceEmail.sendOrderConfirmationEmail(obj);
-		// from=adilson.casas@gmail.com
-		// to=maria@gmail.com; cc=; bcc=; 
-		// sentDate=Mon Apr 09 21:54:50 BRT 2018; 
-		// subject=Pedido confirmado! Código: 3; 
-		// text=Pedido Número: 3, Instante: 09/04/2018 21:54:50, Cliente: Maria Silva, Situação do Pagamento: Pendente ...
 		return var_obj;
 	}
 
-	public Page<PedidoEntity> metodoService_findPagePedido(Integer var_page, Integer var_linesPerPage, String var_orderBy, String var_direction) throws Exception {
+	public Page<PedidoEntity> metodoService_findPagePedido(Integer var_page, Integer var_linesPerPage, String var_orderBy, String var_direction) {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if (var_user == null) {
-			throw new Exception("ERRO_PADRAO#0010@"+",,,");
+			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0010@"+"xiiiiiiii...");
 		}
 		PageRequest var_pageRequest = PageRequest.of(var_page, var_linesPerPage, Direction.valueOf(var_direction), var_orderBy);
 		ClienteEntity var_Cliente =  var_serviceCliente.metodoService_findClienteById(var_user.getId());

@@ -210,7 +210,6 @@ public class DBService {
 		var_cli2.getTelefones().addAll(Arrays.asList("93883321","34252625"));
 		var_cli2.addPerfil(enumPerfilUsuario.ADMIN); // vou assumir como regra de negócio que todo usuário do meu sistema será um "Cliente", dentre estes, alguns, também serão ADMIN
 
-		
 		EnderecoEntity var_e1 = new EnderecoEntity(null, "Rua Flores", "300", "Ap 303", "Jardins", "38220830", var_cli1, var_cid1);
 		EnderecoEntity var_e2 = new EnderecoEntity(null, "Av. Matos", "105", "Sala 800", "Centro", "38777012", var_cli1, var_cid2);
 		EnderecoEntity var_e3 = new EnderecoEntity(null, "Av. Floriano", "2106", null, "Centro", "28177012", var_cli2, var_cid2);
@@ -221,14 +220,29 @@ public class DBService {
 		var_repoCliente.saveAll(Arrays.asList(var_cli1,var_cli2));
 		var_repoEndereco.saveAll(Arrays.asList(var_e1,var_e2,var_e3));
 		
-		SimpleDateFormat var_simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		PedidoEntity var_ped1 = new PedidoEntity(null, var_simpleDateFormat.parse("30/09/2017 10:32"),var_cli1, var_e1);
-		PedidoEntity var_ped2 = new PedidoEntity(null, var_simpleDateFormat.parse("10/10/2017 19:35"),var_cli1, var_e2);
+		SimpleDateFormat var_simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm"); // usar "dd/MM/yyyy", não "dd/mm/yyyy" (MM = mês, mm = minuto)
+		PedidoEntity var_ped1;
+		try {
+			var_ped1 = new PedidoEntity(null, var_simpleDateFormat.parse("30/09/2017 10:32"),var_cli1, var_e1);
+		} catch (ParseException e) {
+			throw new ParseException("ERRO_PADRAO#9999@Processando Data Ped_1: "+e.getMessage(),1);
+		}
+		PedidoEntity var_ped2;
+		try {
+			var_ped2 = new PedidoEntity(null, var_simpleDateFormat.parse("10/10/2017 19:35"),var_cli1, var_e2);
+		} catch (ParseException e) {
+			throw new ParseException("ERRO_PADRAO#9999@Processando Data Ped_2: "+e.getMessage(),1);
+		}
 		
 		PagamentoEntity var_pagto1 = new PagamentoComCartaoEntity(null, enumEstadoPagamento.QUITADO, var_ped1, 6);
 		var_ped1.setPagamento(var_pagto1);
 		
-		PagamentoEntity var_pagto2 = new PagamentoComBoletoEntity(null, enumEstadoPagamento.PENDENTE, var_ped2, var_simpleDateFormat.parse("20/10/2017 00:99"), null);
+		PagamentoEntity var_pagto2=null;
+		try {
+			var_pagto2 = new PagamentoComBoletoEntity(null, enumEstadoPagamento.PENDENTE, var_ped2, var_simpleDateFormat.parse("20/10/2017 00:99"), null);
+		} catch (ParseException e) {
+			throw new ParseException("ERRO_PADRAO#9999@Processando Data Pagto 2: "+e.getMessage(),1);
+		}
 		var_ped2.setPagamento(var_pagto2);
 		
 		var_cli1.getPedidos().addAll(Arrays.asList(var_ped1,var_ped2));
