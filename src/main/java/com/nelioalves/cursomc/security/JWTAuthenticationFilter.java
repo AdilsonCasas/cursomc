@@ -64,7 +64,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String var_username = ((UserSpringSecurity) var_auth.getPrincipal()).getUsername();
         String var_token = this.jwtUtil.generateToken(var_username);
         var_response.addHeader("Authorization", "Bearer " + var_token);
-        var_response.addHeader("access-control-expose-headers", "Authorization");
+        var_response.addHeader("access-control-expose-headers", "Authorization"); // este comando "expõe" a informação do token "Bearer" para o Postman, veja uma melhor descrição sobre isto na classe "FilterExposicaoDeHeader"
 	}
 	
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
