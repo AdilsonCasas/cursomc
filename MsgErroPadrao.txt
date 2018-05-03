@@ -11,6 +11,9 @@
 #   A ideia com este arquivo de config é facilitar que o sistema possa ter suas mensagens traduzidas para outras linhas, inglês por exemplo.
 #
 #
+# a var 'desativarSeguranca' é um flag para a aplicação, indica um desligamento momentâneo do sistema de segurança para testes. Pode conter os valores SIM ou NAO
+desativarSeguranca=SIM
+#
 0001@#$1 Categoria não encontrada                                  @#$2 NOT_DISPLAY
 0002@#$1 Produto não encontrado                                    @#$2 NOT_DISPLAY
 0003@#$1 Cliente não encontrado                                    @#$2 NOT_DISPLAY

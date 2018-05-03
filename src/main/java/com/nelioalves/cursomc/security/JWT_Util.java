@@ -5,6 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.nelioalves.cursomc.CursomcApplication;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,7 +14,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component // define um componente que pode ser injetado em outras classes.
 public class JWT_Util {
 	
-	// as duas variáveis abaixo estão definidas no arq. 'application.properties'
+	// as variáveis 'jwt' abaixo estão definidas no arq. 'application.properties'
 	@Value("${jwt.segredo}")
 	private String var_secret;
 
@@ -28,6 +30,10 @@ public class JWT_Util {
 	}
 	
 	public boolean tokenValido(String var_token) {
+		if(CursomcApplication.desativarSeguranca.equals("SIM")) {
+			return true;
+		}
+
 		// o 'Claims' abaixo é um tipo do JWT que armazena as reinvicações do token
 		Claims var_claims = metodoSecurity_getClaims(var_token);
 		if (var_claims != null) {

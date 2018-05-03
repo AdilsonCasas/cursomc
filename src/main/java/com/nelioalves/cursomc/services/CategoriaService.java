@@ -25,6 +25,15 @@ public class CategoriaService {
 		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0001@"+"xiiiiiiii..."));
 	}
 
+	public List<CategoriaEntity> metodoService_findAllCategoria() {
+		return var_repoCategoria.findAll();
+	}
+	
+	public Page<CategoriaEntity> metodoService_findPageCategoria(Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {
+		PageRequest var_service_pageRequest = PageRequest.of(var_NumPage, var_LinesPerPage, Direction.valueOf(var_directionOrderBy), var_orderBy);
+		return var_repoCategoria.findAll(var_service_pageRequest);
+	}
+	
 	@Transactional
 	public CategoriaEntity metodoService_insertCategoria(CategoriaEntity var_obj) {
 		var_obj.setId(null);
@@ -51,15 +60,6 @@ public class CategoriaService {
 		//catch (DataIntegrityViolationException e) {
 		//	throw new service_exceptionGenericRuntimeException("Não é possível Excluir uma Categoria que possui produtos associados");           
 		//}
-	}
-	
-	public List<CategoriaEntity> metodoService_findAllCategoria() {
-		return var_repoCategoria.findAll();
-	}
-	
-	public Page<CategoriaEntity> metodoService_findPageCategoria(Integer var_NumPage, Integer var_LinesPerPage, String var_orderBy, String var_directionOrderBy) {
-		PageRequest var_service_pageRequest = PageRequest.of(var_NumPage, var_LinesPerPage, Direction.valueOf(var_directionOrderBy), var_orderBy);
-		return var_repoCategoria.findAll(var_service_pageRequest);
 	}
 	
 	public CategoriaEntity metodoService_fromDTO_to_Categoria(DTO_CategoriaEntity var_objDTO) {

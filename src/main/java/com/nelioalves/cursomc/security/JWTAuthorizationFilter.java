@@ -14,8 +14,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import com.nelioalves.cursomc.CursomcApplication;
+
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	
+	// as variáveis 'jwt' abaixo estão definidas no arq. 'application.properties'
+//	@Value("${jwt.desativar.seguranca}") // var criada por Adilson para desabilitar momentaneamente a segurança para testes
+//	private String var_desativarSeguranca;
+
 	private JWT_Util jwtUtil;
 	
 	// Este campo será usado para recuperar o "username" de dentro to token cryptografado passado como argumento de autenticação do user
@@ -33,9 +39,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 	protected void doFilterInternal(HttpServletRequest var_request,
 									HttpServletResponse var_response,
 									FilterChain var_chain) throws IOException, ServletException { 
-		// o param 'var_request' contém o token cryptografado da requisição do endpoint
-		String var_header = var_request.getHeader("Authorization");
+		// seta um token qualquer, só pra não deixar a var vazia...
+		String var_header = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcDg5MDY0NUBnbWFpbC5jb20iLCJleHAiOjE1MjM4MDI2NDd9.OUqUW1DQk4hOpcVvlUxhWcOzaNx-UOUWts5te0tAylGJHmuU5dPxEurWU-tHRCCHn3KfS9SX5cTVTqmCJ2KOZg";
+		if(!CursomcApplication.desativarSeguranca.equals("SIM")) {
+			var_header = var_request.getHeader("Authorization");
+		}
 		
+		// o param 'var_request' contém o token cryptografado da requisição do endpoint
 		// testa o cabeçalho 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcDg5MDY0NUBnbWFpbC5jb20iLCJleHAiOjE1MjM4MDI2NDd9.OUqUW1DQk4hOpcVvlUxhWcOzaNx-UOUWts5te0tAylGJHmuU5dPxEurWU-tHRCCHn3KfS9SX5cTVTqmCJ2KOZg'
 		// o início 'Bearer ' é padrão do framework
 		if(var_header == null || !var_header.startsWith("Bearer ")) {

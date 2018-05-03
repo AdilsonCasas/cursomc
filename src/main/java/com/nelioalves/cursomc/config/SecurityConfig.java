@@ -50,8 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// vetor de endpoints liberados APENAS para readOlny (GET), independentemente de o usuário estar logado no sistema ou não
 	private static final String[] var_PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
-			"/estados/**",
-			"/categorias/**"
+			"/categorias/**",
+			"/estados/**"
 	};
 	
 	private static final String[] var_PUBLIC_MATCHERS_POST = {
@@ -105,8 +105,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	CorsConfigurationSource var_corsConfigurationSource() {
-		CorsConfiguration var_corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration var_corsConfiguration = new CorsConfiguration();
+		var_corsConfiguration.applyPermitDefaultValues();
+		var_corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
 		var_corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS")); // adiciona os métodos que serão permitidos no 'Cors'
 		final UrlBasedCorsConfigurationSource var_source = new UrlBasedCorsConfigurationSource();
 		var_source.registerCorsConfiguration("/**", var_corsConfiguration);

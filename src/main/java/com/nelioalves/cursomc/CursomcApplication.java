@@ -115,6 +115,7 @@ public class CursomcApplication implements CommandLineRunner {
 
 
 	public static Integer IndiceMax_no_enumErroPadrao = 100;
+	public static String desativarSeguranca = "NAO";
 
 
 	public static void main(String[] args) {
@@ -144,18 +145,23 @@ public class CursomcApplication implements CommandLineRunner {
         	var_strLinha = var_scanner.next();
         	if (var_strLinha.trim().indexOf('#') != 0) { // se a linha não começa com '#'
 
-        		// Numero do Erro Padrao
-                var_NumErro = var_strLinha.substring(0,var_strLinha.indexOf("@#$1"));
-                var_enumErroPadrao = enumErroPadrao.toEnum(Integer.parseInt(var_NumErro));
-
-        		// Mensagem Padrao do Erro
-                var_auxStr = var_strLinha.substring(var_strLinha.indexOf("@#$1")+4, var_strLinha.indexOf("@#$2"));
-                var_enumErroPadrao.setMsgPadraoParaErro(var_auxStr.trim());
-
-        		// Numero Complementar para o Erro
-                var_auxStr = var_strLinha.substring(var_strLinha.indexOf("@#$2")+4);
-                var_enumErroPadrao.setMsgComplementar(var_auxStr.trim());
-                i++;
+            	if (var_strLinha.startsWith("desativarSeguranca")) { // se a linha não começa com 'desativarSeguranca'
+            		desativarSeguranca = var_strLinha.substring(var_strLinha.indexOf("=")+1);
+            	}
+            	else {
+	        		// Numero do Erro Padrao
+	                var_NumErro = var_strLinha.substring(0,var_strLinha.indexOf("@#$1"));
+	                var_enumErroPadrao = enumErroPadrao.toEnum(Integer.parseInt(var_NumErro));
+	
+	        		// Mensagem Padrao do Erro
+	                var_auxStr = var_strLinha.substring(var_strLinha.indexOf("@#$1")+4, var_strLinha.indexOf("@#$2"));
+	                var_enumErroPadrao.setMsgPadraoParaErro(var_auxStr.trim());
+	
+	        		// Numero Complementar para o Erro
+	                var_auxStr = var_strLinha.substring(var_strLinha.indexOf("@#$2")+4);
+	                var_enumErroPadrao.setMsgComplementar(var_auxStr.trim());
+	                i++;
+            	}
         	}
         }
 		var_scanner.close();
