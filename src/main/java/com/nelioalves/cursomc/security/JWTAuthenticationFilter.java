@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nelioalves.cursomc.domain.dto.DTO_Credenciais;
 import com.nelioalves.cursomc.resources.utils.REST_Utils_URL;
 
-// o 'extends' abaixo chamado 'UsernamePasswordAuthenticationFilter' é um padrão do Spring Security e ele intercepta o endpoint '/login'
+// o 'extends' abaixo chamado 'UsernamePasswordAuthenticationFilter' é um padrão do Spring Security e ele é um filtro que intercepta o endpoint '/login'
 // enviado pelo Front_End para fazer a autenticação do usuário.
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -49,7 +50,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			}
 	
 			// o token abaixo não é do JWT, mas sim do Spring Security
-	        UsernamePasswordAuthenticationToken var_authToken = new UsernamePasswordAuthenticationToken(var_CredenciaisDTO.getEmail(), var_CredenciaisDTO.getSenha(), new ArrayList<>());
+	        UsernamePasswordAuthenticationToken var_authToken = new UsernamePasswordAuthenticationToken(var_CredenciaisDTO.getEmail(), 
+	        																							var_CredenciaisDTO.getSenha(), 
+	        																							new ArrayList<>());
 	        
 	        Authentication var_auth = this.authenticationManager.authenticate(var_authToken);
 	        return var_auth;
@@ -59,7 +62,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest var_request,
                                             HttpServletResponse var_response,
                                             FilterChain var_chain,
-                                            Authentication var_auth) { // throws IOException, ServletException 
+                                            Authentication var_auth) // esta 'var_auth' é a que foi gerada e retornada pelo método acima (attemptAuthentication)
+                                            		throws IOException, ServletException { 
 	
 		String var_username = ((UserSpringSecurity) var_auth.getPrincipal()).getUsername();
         String var_token = this.jwtUtil.generateToken(var_username);

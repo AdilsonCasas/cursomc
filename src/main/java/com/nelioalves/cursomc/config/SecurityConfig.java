@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JWT_Util var_jwtUtil;
 
 	// vetor de endpoints liberados não apenas para readOlny, mas também com alterações no bd autorizadas
-	private static final String[] var_PUBLIC_MATCHERS = {
+	private static final String[] PUBLIC_MATCHERS = {
 			"/h2-console/**"
 	};
 
@@ -45,19 +45,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// imprementação em 'SecurityService_UserDetailsServiceImplementacao', então a variável 'var_userDetailsService' aponta para a nossa
 	// implementação em 'SecurityService_UserDetailsServiceImplementacao'
 	@Autowired
-	private UserDetailsService var_userDetailsService;
+	private UserDetailsService userDetailsService;
 
 	// vetor de endpoints liberados APENAS para readOlny (GET), independentemente de o usuário estar logado no sistema ou não
-	private static final String[] var_PUBLIC_MATCHERS_GET = {
+	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/produtos/**",
 			"/categorias/**",
 			"/estados/**"
 	};
 	
-	private static final String[] var_PUBLIC_MATCHERS_POST = {
+	private static final String[] PUBLIC_MATCHERS_POST = {
 			"/clientes/**",
 //			"/clientes/picture/**", // se validar esta linha todo POST no endpoint '/clientes/picture' é autorizado, se tirar esta linha daqui uma autenticação de usuário será requerida 
-			"/auth/forgot/**" // email com nova senha quando o cliente "esqueci a senha"
+			"/auth/forgot/**" 		// email com nova senha quando o cliente "esqueci a senha"
 	};
 	
 	@Override
@@ -65,31 +65,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// se os profiles do sistema tem "test" significa que eu estou tentando acessar o bd "h2"
 		if(Arrays.asList(var_env.getActiveProfiles()).contains("test")) {
 			try {
-				var_http.headers().frameOptions().disable();
+				var_http.headers().frameOptions().disable(); // este comando desabilita proteção sobre o BD h2 (em ambiente de 'test')
 			} catch (Exception e) {
 				throw new Exception("ERRO_PADRAO#0021@Exception: "+e.getMessage());
 			}
 		}
 	try {
-			var_http.cors()
+			var_http.cors() /* habilita o "cors" básico executado pelo método 'corsConfigurationSource()' abaixo*/
 						.and()
-						.csrf().disable();
+							.csrf().disable(); /* desabilita proteção contra atques tipo CSRF porque nossa aplicação backend é do tipo 'Stateless' (não armazena sessão)*/
 		} catch (Exception e) {
 			throw new Exception("ERRO_PADRAO#0022@Exception: "+e.getMessage());
 		}
 		try {
 			var_http.authorizeRequests()
-						.antMatchers(HttpMethod.POST, var_PUBLIC_MATCHERS_POST).permitAll()
-						.antMatchers(HttpMethod.GET, var_PUBLIC_MATCHERS_GET).permitAll()
-						.antMatchers(var_PUBLIC_MATCHERS).permitAll()
-						.anyRequest().authenticated();
+						.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+						.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+						.antMatchers(PUBLIC_MATCHERS).permitAll()
+						.anyRequest().authenticated()
+						;
 		} catch (Exception e) {
 			throw new Exception("ERRO_PADRAO#0023@Exception: "+e.getMessage());
 		}
 		try {
 			var_http.addFilter(new JWTAuthenticationFilter(authenticationManager(), var_jwtUtil));
-			var_http.addFilter(new JWTAuthorizationFilter(authenticationManager(), var_jwtUtil, var_userDetailsService));
-			var_http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			var_http.addFilter(new JWTAuthorizationFilter(authenticationManager(), var_jwtUtil, userDetailsService));
+			var_http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); /* explicita que o nosso API backend será do tipo STATELESS, ou seja, não vai criar sessão de usuário */
 		} catch (Exception e) {
 			throw new Exception("ERRO_PADRAO#0024@Exception: "+e.getMessage());
 		}
@@ -98,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(AuthenticationManagerBuilder var_auth) throws Exception {
 		try {
-			var_auth.userDetailsService(var_userDetailsService).passwordEncoder(metodoConfig_bCryptPasswordEncoder());
+			var_auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 		} catch (Exception e) {
 			throw new Exception("ERRO_PADRAO#0025@Exception: "+e.getMessage());
 		}
@@ -116,7 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public BCryptPasswordEncoder metodoConfig_bCryptPasswordEncoder() {
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 

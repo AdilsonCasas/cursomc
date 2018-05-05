@@ -41,9 +41,9 @@ public class UserSpringSecurity implements UserDetails {
 	
 	public UserSpringSecurity(Integer var_Id, String var_email, String var_senha, Set<enumPerfilUsuario> var_perfis) {
 		super();
-		this.Id = var_Id;
-		this.email = var_email;
-		this.senha = var_senha;
+		this.Id 		 = var_Id;
+		this.email 		 = var_email;
+		this.senha 		 = var_senha;
 		this.authorities = var_perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
 	}
 
@@ -67,7 +67,8 @@ public class UserSpringSecurity implements UserDetails {
 	}
 
 	//====================================== abaixo métodos próprios da classe =======================================================================================
-	public boolean metodo_UserSpringSecurity_hasRole(enumPerfilUsuario var_enumPerfilUsuario) {
+	//public boolean metodo_UserSpringSecurity_hasRole(enumPerfilUsuario var_enumPerfilUsuario) {
+	public boolean hasRole(enumPerfilUsuario var_enumPerfilUsuario) {
 		return getAuthorities().contains(new SimpleGrantedAuthority(var_enumPerfilUsuario.getDescricao()));
 	}
 

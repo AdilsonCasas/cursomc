@@ -29,7 +29,7 @@ public class FilterExposicaoDeHeader implements Filter {
 		HttpServletResponse var_response = (HttpServletResponse) par_response;
         var_response.addHeader("access-control-expose-headers", "location");
         // esta função "doFilter" interrompe o ciclo normal da execução da requisição ao backend, captura o "ServeletResponse", depois este "chain" 
-        // volta ao ciclo normal de execução, com novos valores, que foram transformados por este metodo.
+        // faz voltar ao ciclo normal de execução, com novos valores, que foram transformados por este metodo.
         // Esta exposição deste header "location" se faz necessário para ser usado pelo "Angular" no frontend.
         chain.doFilter(par_request, var_response);
 	}

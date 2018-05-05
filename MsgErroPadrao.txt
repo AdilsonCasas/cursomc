@@ -12,7 +12,7 @@
 #
 #
 # a var 'desativarSeguranca' é um flag para a aplicação, indica um desligamento momentâneo do sistema de segurança para testes. Pode conter os valores SIM ou NAO
-desativarSeguranca=SIM
+desativarSeguranca=NAO
 #
 0001@#$1 Categoria não encontrada                                  @#$2 NOT_DISPLAY
 0002@#$1 Produto não encontrado                                    @#$2 NOT_DISPLAY

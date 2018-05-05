@@ -22,10 +22,10 @@ public class JWT_Util {
 	private Long var_expiration;
 	
 	public String generateToken(String var_username) {
-		return Jwts.builder()
+		return Jwts.builder() /* este método cria um token a partir da palavra secreta + email usuário + tempo de expiração */
 				.setSubject(var_username)
 				.setExpiration(new Date(System.currentTimeMillis() + var_expiration))
-				.signWith(SignatureAlgorithm.HS512, var_secret.getBytes())
+				.signWith(SignatureAlgorithm.HS512, var_secret.getBytes()) /* escolhe qual o algoritmo usado na geração do token, o 'HS512' é um poderoso altoritmo de encryptação*/
 				.compact();
 	}
 	
@@ -35,7 +35,7 @@ public class JWT_Util {
 		}
 
 		// o 'Claims' abaixo é um tipo do JWT que armazena as reinvicações do token
-		Claims var_claims = metodoSecurity_getClaims(var_token);
+		Claims var_claims = getClaims(var_token);
 		if (var_claims != null) {
 			String var_userName = var_claims.getSubject();
 			Date var_expirationDate = var_claims.getExpiration();
@@ -47,16 +47,16 @@ public class JWT_Util {
 		return false;
 	}
 	
-	public String metodoSecurity_getUserName(String var_token) {
+	public String getUserName(String var_token) {
 		// o 'Claims' abaixo é um tipo do JWT que armazena as reinvicações do token
-		Claims var_claims = metodoSecurity_getClaims(var_token);
+		Claims var_claims = getClaims(var_token);
 		if (var_claims != null) {
 			return(var_claims.getSubject());
 		}
 		return null;
 	}
 
-	private Claims metodoSecurity_getClaims(String var_token) {
+	private Claims getClaims(String var_token) {
 		try {
 			return Jwts.parser().setSigningKey(var_secret.getBytes()).parseClaimsJws(var_token).getBody();
 		}
