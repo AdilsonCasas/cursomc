@@ -14,8 +14,12 @@ public class CidadeService {
 	@Autowired
 	private CidadeRepository var_repoCidade;
 	
-	public List<CidadeEntity> metodoService_findAllCidade(Integer var_EstadoId) {
-		return var_repoCidade.metodoRepo_findCidades(var_EstadoId);
+	public List<CidadeEntity> metodoService_findAllCidade(Integer var_EstadoId) throws Exception {
+		try {
+			return var_repoCidade.metodoRepo_findCidades(var_EstadoId);
+		} catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0050@Exception: "+e.getMessage());
+		}
 	}
 
 }

@@ -14,7 +14,7 @@
 # a var 'desativarSeguranca' é um flag para a aplicação, indica um desligamento momentâneo do sistema de segurança para testes. Pode conter os valores SIM ou NAO
 desativarSeguranca=NAO
 #
-0001@#$1 Categoria de Produto não encontrada                       @#$2 IOException.e
+0001@#$1 Categoria de Produto não encontrada                       @#$2 NOT_DISPLAY
 0002@#$1 Produto não encontrado                                    @#$2 NOT_DISPLAY
 0003@#$1 Cliente não encontrado                                    @#$2 NOT_DISPLAY
 0004@#$1 Pedido não encontrado                                     @#$2 NOT_DISPLAY
@@ -47,10 +47,31 @@ desativarSeguranca=NAO
 0031@#$1 Acesso Negado! Problemas de Autenticação                  @#$2 NOT_DISPLAY
 0032@#$1 Email ou senha inválidos                                  @#$2 IOException.e
 0033@#$1 Problema ao Acessar Lista de Categorias de Produto        @#$2 IOException.e
-0034@#$1 Problema ao Acessar Páginas de Categorias de Produto      @#$2 IOException.e
+0034@#$1 Problema ao Acessar Categorias de Produto Paginadas       @#$2 IOException.e
 0035@#$1 Problema ao Inserir Categoria de Produto                  @#$2 IOException.e
 0036@#$1 Problema ao Alterar Categoria de Produto                  @#$2 IOException.e
 0037@#$1 Problema ao Apagar Categoria de Produto                   @#$2 IOException.e
+0038@#$1 Problema ao Acessar Lista de Cidades de um Estado         @#$2 IOException.e
+0039@#$1 Problema ao Acessar Lista de Clientes                     @#$2 IOException.e
+0040@#$1 Problema ao Acessar Clientes Paginados                    @#$2 IOException.e
+0041@#$1 Problema ao Inserir Cliente                               @#$2 IOException.e
+0042@#$1 Problema ao Alterar Cliente                               @#$2 IOException.e
+0043@#$1 Problema ao Apagar Cliente                                @#$2 IOException.e
+0044@#$1 Problema ao Carregr Foto Perfil do Cliente                @#$2 IOException.e
+0045@#$1 Problema ao Acessar Lista de Estados                      @#$2 IOException.e
+0046@#$1 Problema ao Acessar Pedidos Paginados                     @#$2 IOException.e
+0047@#$1 Problema ao Inserir Pedido                                @#$2 IOException.e
+0048@#$1 Problema ao Acessar Produtos Paginados                    @#$2 IOException.e
+0049@#$1 Problem ao Pesquisar Categoria por ID                     @#$2 IOException.e
+0050@#$1 Problem ao Pesquisar Cidade por ID                        @#$2 IOException.e
+0051@#$1 Problem ao Pesquisar Cliente por ID                       @#$2 IOException.e
+0052@#$1 Problem ao Pesquisar Cliente por email                    @#$2 IOException.e
+0053@#$1 Problem ao Pesquisar Cliente por email                    @#$2 IOException.e
+0054@#$1 Problem ao Pesquisar Cliente por email                    @#$2 IOException.e
+0055@#$1 Problem ao Pesquisar Cliente por email                    @#$2 IOException.e
+0056@#$1 Problem ao Pesquisar Cliente por email                    @#$2 IOException.e
+0057@#$1 Problem ao Pesquisar Pedido por ID                        @#$2 IOException.e
+0058@#$1 Problem ao Pesquisar Produto por ID                       @#$2 IOException.e
 #
 9999@#$1 Erro genérico                                             @#$2 o que será isso gente???
 #

@@ -35,8 +35,20 @@ public class Service_Validator_ClienteInsert implements ConstraintValidator<Serv
 			var_list.add(new REST_exceptionFieldMessage("CpfOuCnpj", "CNPJ inválido."));
 		}
 
-		ClienteEntity auxCli = var_repoCliente.findByEmail(var_objDTO.getEmail());
-		if ( auxCli != null  ) {
+		ClienteEntity var_auxCli = null;
+		try {
+			var_auxCli = var_repoCliente.metodoRepo_findClienteByEmail(var_objDTO.getEmail());
+		}
+		catch (Exception e) {
+			try {
+				throw new Exception("ERRO_PADRAO#0055@Exception: "+e.getMessage());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				//e1.printStackTrace();
+			}
+		}
+
+		if ( var_auxCli != null  ) {
 			var_list.add(new REST_exceptionFieldMessage("email", "Email já cadastrado."));
 		}
 

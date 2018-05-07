@@ -22,14 +22,15 @@ public class REST_EstadoResource {
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 	@RequestMapping(method=RequestMethod.GET) // GET para TODAS AS Estados, SEM paginação
-	public ResponseEntity<List<DTO_Estado>> metodoREST_findAllEstado() {
-		List<EstadoEntity> var_list = var_serviceEstado.metodoService_findAllEstado();
-		List<DTO_Estado> var_listDto = var_list.stream().map(obj -> new DTO_Estado(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<DTO_Estado>> metodoREST_findAllEstado() throws Exception {
+		List<EstadoEntity> var_list = null;
 		try {
+			var_list = var_serviceEstado.metodoService_findAllEstado();
 		}
 		catch (Exception e) {
-			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+			throw new Exception("ERRO_PADRAO#0045@Exception: "+e.getMessage());
 		}
+		List<DTO_Estado> var_listDto = var_list.stream().map(obj -> new DTO_Estado(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(var_listDto);
 	}
 }

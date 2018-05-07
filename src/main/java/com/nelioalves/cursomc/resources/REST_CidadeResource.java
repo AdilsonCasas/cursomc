@@ -23,14 +23,15 @@ public class REST_CidadeResource {
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
 	@RequestMapping(method=RequestMethod.GET) // GET para TODAS AS Cidades, SEM paginação
-	public ResponseEntity<List<DTO_Cidade>> metodoREST_findAllCidade(@PathVariable Integer param_EstadoId) {
-		List<CidadeEntity> var_list = var_serviceCidade.metodoService_findAllCidade(param_EstadoId);
-		List<DTO_Cidade> var_listDto = var_list.stream().map(obj -> new DTO_Cidade(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<DTO_Cidade>> metodoREST_findAllCidade(@PathVariable Integer param_EstadoId) throws Exception {
+		List<CidadeEntity> var_list = null;
 		try {
+			var_list = var_serviceCidade.metodoService_findAllCidade(param_EstadoId);
 		}
 		catch (Exception e) {
-			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+			throw new Exception("ERRO_PADRAO#0038@Exception: "+e.getMessage());
 		}
+		List<DTO_Cidade> var_listDto = var_list.stream().map(obj -> new DTO_Cidade(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(var_listDto);
 	}
 }

@@ -26,11 +26,17 @@ public class AuthService {
 	private Random var_rand = new Random(); // 'Random()' é uma classe do java que gera caracteres aleatórios
 
 	public void metodoService_sendNewPassword(String var_email) throws Exception {
-		ClienteEntity var_Cliente = var_repoCliente.findByEmail(var_email);
+		ClienteEntity var_Cliente = null;
+		try {
+			var_Cliente = var_repoCliente.metodoRepo_findClienteByEmail(var_email);
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0053@Exception: "+e.getMessage());
+		}
 		if (var_Cliente == null) {
 			throw new Exception("ERRO_PADRAO#0005@"+"xiiiiiiii...");
 		}
-		
+
 		String var_newPass = metodoService_newPassword();
 		var_Cliente.setSenha(var_bCryptPasswordEncoder.encode(var_newPass));
 		var_repoCliente.save(var_Cliente);

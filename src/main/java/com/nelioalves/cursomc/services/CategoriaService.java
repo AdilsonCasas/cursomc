@@ -1,7 +1,6 @@
 package com.nelioalves.cursomc.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,14 +20,16 @@ public class CategoriaService {
 	private CategoriaRepository var_repoCategoria;
 	
 	public CategoriaEntity metodoService_findCategoriaById(Integer var_Id) throws Exception {
-		Optional<CategoriaEntity> var_obj = null;
+		CategoriaEntity var_obj = null;
 		try {
-			var_obj = var_repoCategoria.findById(var_Id);
+			var_obj = var_repoCategoria.metodoRepo_findCategoriaById(var_Id);
+		} catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0049@Exception: "+e.getMessage());
 		}
-		catch (Exception e) {
-			throw new Exception("ERRO_PADRAO#0001@Exception: "+e.getMessage());
+		if(var_obj == null) {
+			throw new Exception("ERRO_PADRAO#0001@xiiiiiiii");
 		}
-		return var_obj.get();
+		return var_obj;
 	}
 
 	public List<CategoriaEntity> metodoService_findAllCategoria() {
@@ -47,12 +48,6 @@ public class CategoriaService {
 	}
 
 	public CategoriaEntity metodoService_updateCategoria(CategoriaEntity var_ObjAlterado) throws Exception {
-/*
- * para alterar categoria
- *      {
-          "nome" : "lalalal"
-        }
- */
 		CategoriaEntity var_ObjJaExistenteBD = metodoService_findCategoriaById(var_ObjAlterado.getId());
 		metodoService_UpdateObjJaExistenteBD_from_ObjAlterado(var_ObjJaExistenteBD, var_ObjAlterado);
 		return var_repoCategoria.save(var_ObjJaExistenteBD);

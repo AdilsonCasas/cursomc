@@ -3,7 +3,6 @@ package com.nelioalves.cursomc.services;
 import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -55,23 +54,50 @@ public class ClienteService {
 	@Autowired
 	private ImageService var_serviceImage;
 	
-	public ClienteEntity metodoService_findClienteById(Integer var_Id) {
+	public ClienteEntity metodoService_findClienteById(Integer var_Id) throws Exception {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if(var_user == null || (!var_user.hasRole(enumPerfilUsuario.ADMIN) && !var_Id.equals(var_user.getId()))) {
 			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0006@"+"xiiiiiiii...");
 		}
-		Optional<ClienteEntity> var_obj = var_repoCliente.findById(var_Id);
-		return var_obj.orElseThrow(() -> new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0003@"+"xiiiiiiii..."));
+
+		ClienteEntity var_obj = null;
+		try {
+			var_obj = var_repoCliente.metodoRepo_findClienteById(var_Id);
+		} catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0051@Exception: "+e.getMessage());
+		}
+		if(var_obj == null) {
+			throw new Exception("ERRO_PADRAO#0003@xiiiiiiii");
+		}
+		return var_obj;
+
+		/*
+		Optional<ClienteEntity> var_obj = null;
+		try {
+			var_obj = var_repoCliente.findById(var_Id);
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0003@Exception: "+e.getMessage());
+		}
+		return var_obj.get();
+		*/
 	}	
 	
-	public ClienteEntity metodoService_findClienteByEmail(String var_email) {
+	public ClienteEntity metodoService_findClienteByEmail(String var_email) throws Exception {
 		UserSpringSecurity var_user = UserService.metodoService_authenticaded();
 		if(var_user == null || !var_user.hasRole(enumPerfilUsuario.ADMIN) && !var_email.equals(var_user.getUsername())) {
 			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0007@"+"xiiiiiiii...");
 		}
-		ClienteEntity var_obj = var_repoCliente.findByEmail(var_email);
-		if (var_obj == null) {
-			throw new AuthenticationCredentialsNotFoundException("ERRO_PADRAO#0008@"+"xiiiiiiii...");
+
+		ClienteEntity var_obj = null;
+		try {
+			var_obj = var_repoCliente.metodoRepo_findClienteByEmail(var_email);
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0052@Exception: "+e.getMessage());
+		}
+		if(var_obj == null) {
+			throw new Exception("ERRO_PADRAO#0008@xiiiiiii");
 		}
 		return var_obj;
 	}	

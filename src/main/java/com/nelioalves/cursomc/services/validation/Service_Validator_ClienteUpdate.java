@@ -38,7 +38,18 @@ public class Service_Validator_ClienteUpdate implements ConstraintValidator<Serv
 		Integer var_uriId = Integer.parseInt(var_map.get("Id"));
 
 		List<REST_exceptionFieldMessage> var_list = new ArrayList<>();
-		ClienteEntity var_auxCli = var_repoCliente.findByEmail(var_objDTO.getEmail());
+
+		ClienteEntity var_auxCli = null;
+		try {
+			var_auxCli = var_repoCliente.metodoRepo_findClienteByEmail(var_objDTO.getEmail());
+		} catch (Exception e) {
+			try {
+				throw new Exception("ERRO_PADRAO#0054@Exception: "+e.getMessage());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				// e1.printStackTrace();
+			}
+		}
 		if ( var_auxCli != null && !var_auxCli.getId().equals(var_uriId)  ) { /// este if verifica se a alteração no BD tenta alterar um email que já existe em outro cliente que não o mesmo pesquisado
 			var_list.add(new REST_exceptionFieldMessage("email", "Email já cadastrado."));
 		}

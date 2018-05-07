@@ -1,6 +1,5 @@
 package com.nelioalves.cursomc.resources;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +24,9 @@ public class REST_ProdutoResource {
 	public ProdutoService var_serviceProduto;
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
-		@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UM Produto
-		public ResponseEntity<ProdutoEntity> metodoREST_findProduto(@PathVariable Integer paramId) throws Exception {
-			ProdutoEntity var_obj = var_serviceProduto.metodoService_findProduto(paramId);
-			try {
-			}
-			catch (Exception e) {
-				throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
-			}
+		@RequestMapping(value="/{param_Id}", method=RequestMethod.GET) // GET para SOMENTE UM Produto
+		public ResponseEntity<ProdutoEntity> metodoREST_findProdutoById(@PathVariable Integer param_Id) throws Exception {
+			ProdutoEntity var_obj = var_serviceProduto.metodoService_findProdutoById(param_Id);
 			return ResponseEntity.ok().body(var_obj);
 		}
 	
@@ -43,7 +37,7 @@ public class REST_ProdutoResource {
 						@RequestParam(value="NumPage", defaultValue="0") Integer var_NumPage, 
 						@RequestParam(value="LinesPerPage", defaultValue="24") Integer var_LinesPerPage, 
 						@RequestParam(value="orderBy" , defaultValue="nome") String var_orderBy, 
-						@RequestParam(value="directionOrderBy", defaultValue="ASC") String var_directionOrderBy) throws UnsupportedEncodingException {
+						@RequestParam(value="directionOrderBy", defaultValue="ASC") String var_directionOrderBy) throws Exception {
 
 			// a URL de chamada deste GET terá o seguinte formato: 'http://localhost:8080/produtos/nome=computador&categorias=1,3,4'
 			// observe as categorias separadas por vírgulas
@@ -55,13 +49,14 @@ public class REST_ProdutoResource {
 			// O método 'REST_utils_decodeParam' descodifica a string no parâmetro
 			String var_nomeDecoded = REST_Utils_URL.metodoREST_utils_decodeParam(var_nome);
 		
-			Page<ProdutoEntity> var_list = var_serviceProduto.metodoService_searchProduto(var_nomeDecoded, var_ids, var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
-			Page<DTO_ProdutoEntity> var_listDto = var_list.map(var_obj -> new DTO_ProdutoEntity(var_obj));
+			Page<ProdutoEntity> var_list = null;
 			try {
+				var_list = var_serviceProduto.metodoService_searchProduto(var_nomeDecoded, var_ids, var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
 			}
 			catch (Exception e) {
-				throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+				throw new Exception("ERRO_PADRAO#0048@Exception: "+e.getMessage());
 			}
+			Page<DTO_ProdutoEntity> var_listDto = var_list.map(var_obj -> new DTO_ProdutoEntity(var_obj));
 			return ResponseEntity.ok().body(var_listDto);
 		}
 		
