@@ -29,6 +29,11 @@ public class REST_PedidoResource {
 	@RequestMapping(value="/{paramId}", method=RequestMethod.GET)
 	public ResponseEntity<PedidoEntity> metodoREST_findPedido(@PathVariable Integer paramId) throws Exception {
 		PedidoEntity var_obj = var_servicePedido.metodoService_findPedidoById(paramId);
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.ok().body(var_obj);
 	}
 
@@ -43,6 +48,11 @@ public class REST_PedidoResource {
 		// ex2 de chamada: "http://localhost:8080/pedidos/page" (sem parâmetros)
 		// ex3 de chamada: "http://localhost:8080/pedidos/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
 		Page<PedidoEntity> var_list = var_servicePedido.metodoService_findPagePedido(var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.ok().body(var_list);
 	}
 
@@ -52,6 +62,11 @@ public class REST_PedidoResource {
 	public ResponseEntity<Void> metodoREST_insertPedido(@Valid @RequestBody PedidoEntity var_obj) throws Exception {
 		var_obj = var_servicePedido.metodoService_insertPedido(var_obj);
 		URI var_uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(var_obj.getId()).toUri();
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.created(var_uri).build();
 	}
 	

@@ -14,7 +14,7 @@
 # a var 'desativarSeguranca' é um flag para a aplicação, indica um desligamento momentâneo do sistema de segurança para testes. Pode conter os valores SIM ou NAO
 desativarSeguranca=NAO
 #
-0001@#$1 Categoria não encontrada                                  @#$2 NOT_DISPLAY
+0001@#$1 Categoria de Produto não encontrada                       @#$2 IOException.e
 0002@#$1 Produto não encontrado                                    @#$2 NOT_DISPLAY
 0003@#$1 Cliente não encontrado                                    @#$2 NOT_DISPLAY
 0004@#$1 Pedido não encontrado                                     @#$2 NOT_DISPLAY
@@ -46,6 +46,11 @@ desativarSeguranca=NAO
 0030@#$1 Problema no Mime Message Helper                           @#$2 IOException.e
 0031@#$1 Acesso Negado! Problemas de Autenticação                  @#$2 NOT_DISPLAY
 0032@#$1 Email ou senha inválidos                                  @#$2 IOException.e
+0033@#$1 Problema ao Acessar Lista de Categorias de Produto        @#$2 IOException.e
+0034@#$1 Problema ao Acessar Páginas de Categorias de Produto      @#$2 IOException.e
+0035@#$1 Problema ao Inserir Categoria de Produto                  @#$2 IOException.e
+0036@#$1 Problema ao Alterar Categoria de Produto                  @#$2 IOException.e
+0037@#$1 Problema ao Apagar Categoria de Produto                   @#$2 IOException.e
 #
 9999@#$1 Erro genérico                                             @#$2 o que será isso gente???
 #

@@ -32,16 +32,26 @@ public class REST_ClienteResource {
 	public ClienteService var_serviceCliente;
 	
 // ============================= METODO GET: faz uma busca get/find no BD por uma instância da entidade que já existe no BD ======================================= 
-	@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UM Cliente (busca por Id)
-	public ResponseEntity<ClienteEntity> metodoREST_findClienteById(@PathVariable Integer paramId) throws Exception {
-		ClienteEntity var_obj = var_serviceCliente.metodoService_findClienteById(paramId);
+	@RequestMapping(value="/{param_Id}", method=RequestMethod.GET) // GET para SOMENTE UM Cliente (busca por Id)
+	public ResponseEntity<ClienteEntity> metodoREST_findClienteById(@PathVariable Integer param_Id) throws Exception {
+		try {
+			ClienteEntity var_obj = var_serviceCliente.metodoService_findClienteById(param_Id);
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.ok().body(var_obj);
 	}
 	
 	@RequestMapping(value="/email", method=RequestMethod.GET) // GET para SOMENTE UM Cliente (busca por email)
 	// a chamada no "postman" deve ser GET para o end : 'localhost:8080/clientes/email?param_email=pp890645@gmail.com'
-	public ResponseEntity<ClienteEntity> metodoREST_findClienteByEmail(@RequestParam(value="param_email") String paramEmail) throws Exception {
-		ClienteEntity var_obj = var_serviceCliente.metodoService_findClienteByEmail(paramEmail);
+	public ResponseEntity<ClienteEntity> metodoREST_findClienteByEmail(@RequestParam(value="param_email") String param_Email) throws Exception {
+		try {
+			ClienteEntity var_obj = var_serviceCliente.metodoService_findClienteByEmail(param_Email);
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.ok().body(var_obj);
 	}
 	
@@ -50,6 +60,11 @@ public class REST_ClienteResource {
 	public ResponseEntity<List<DTO_ClienteEntity_nome_email>> metodoREST_findAllCliente() {
 		List<ClienteEntity> var_list = var_serviceCliente.metodoService_findAllCliente();
 		List<DTO_ClienteEntity_nome_email> var_listDto = var_list.stream().map(var_obj -> new DTO_ClienteEntity_nome_email(var_obj)).collect(Collectors.toList());
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.ok().body(var_listDto);
 	}
 		
@@ -66,6 +81,11 @@ public class REST_ClienteResource {
 		// ex3 de chamada: "http://localhost:8080/clientes/page?LinesPerPage=2" (somente parâmetro 'LinesPerPage' informado, o resto pega o default)
 		Page<ClienteEntity> var_list = var_serviceCliente.metodoService_findPageCliente(var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
 		Page<DTO_ClienteEntity_nome_email> var_listDto = var_list.map(var_obj -> new DTO_ClienteEntity_nome_email(var_obj));
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.ok().body(var_listDto);
 	}
 		
@@ -76,30 +96,50 @@ public class REST_ClienteResource {
 		ClienteEntity var_obj = var_serviceCliente.metodoService_fromDTO_to_Cliente(var_objDTO);
 		var_obj = var_serviceCliente.metodoService_insertCliente(var_obj);
 		URI var_uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(var_obj.getId()).toUri();
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.created(var_uri).build();
 	}
 	
 // ============================= METODO PUT: faz um "update" no BD em uma instância da entidade que já existe no BD ============================================== 
-	@RequestMapping(value="/{paramId}", method=RequestMethod.PUT)
+	@RequestMapping(value="/{param_Id}", method=RequestMethod.PUT)
 	// o "@Valid" abaixo é parte do "Bean Validate" que faz parte od Java EE, ele chama a validação definida nas diretivas incluídas no "domain" do cliente
-	public ResponseEntity<Void> metodoREST_updateCliente(@Valid @RequestBody DTO_ClienteEntity_nome_email var_objDTO, @PathVariable Integer paramId) throws Exception {
+	public ResponseEntity<Void> metodoREST_updateCliente(@Valid @RequestBody DTO_ClienteEntity_nome_email var_objDTO, @PathVariable Integer param_Id) throws Exception {
 		ClienteEntity var_obj = var_serviceCliente.metodoService_fromDTO_to_Cliente(var_objDTO);
-		var_obj.setId(paramId);
+		var_obj.setId(param_Id);
 		var_obj = var_serviceCliente.metodoService_updateCliente(var_obj);
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.noContent().build();
 	}
 	
 // ============================= METODO DELETE: faz um "delete" no BD em uma instância da entidade que já existe no BD ======================================= 
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value="/{paramId}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> metodoREST_deleteCliente(@PathVariable Integer paramId) throws Exception {
-		var_serviceCliente.metodoService_deleteCliente(paramId);
+	@RequestMapping(value="/{param_Id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> metodoREST_deleteCliente(@PathVariable Integer param_Id) throws Exception {
+		var_serviceCliente.metodoService_deleteCliente(param_Id);
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.noContent().build();
 	}
 // ============================= o METODO POST abaixo processa o endpoint "/clientes/picture que será para enviar arq ao Amazon S3 =========================== 
 	@RequestMapping(value="/picture", method=RequestMethod.POST)
 	public ResponseEntity<Void> metodoREST_uploadProfilePictureToAmazonS3(@RequestParam(name="file") MultipartFile var_multipartFile) throws Exception {
 		URI var_uri = var_serviceCliente.metodoService_uploadProfilePictureService(var_multipartFile);
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.created(var_uri).build();
 	}
 }

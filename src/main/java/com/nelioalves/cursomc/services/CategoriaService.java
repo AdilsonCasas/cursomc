@@ -21,8 +21,14 @@ public class CategoriaService {
 	private CategoriaRepository var_repoCategoria;
 	
 	public CategoriaEntity metodoService_findCategoriaById(Integer var_Id) throws Exception {
-		Optional<CategoriaEntity> var_obj = var_repoCategoria.findById(var_Id);
-		return var_obj.orElseThrow(() -> new Exception("ERRO_PADRAO#0001@"+"xiiiiiiii..."));
+		Optional<CategoriaEntity> var_obj = null;
+		try {
+			var_obj = var_repoCategoria.findById(var_Id);
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#0001@Exception: "+e.getMessage());
+		}
+		return var_obj.get();
 	}
 
 	public List<CategoriaEntity> metodoService_findAllCategoria() {
@@ -54,12 +60,7 @@ public class CategoriaService {
 	
 	public void metodoService_deleteCategoria(Integer var_Id) throws Exception {
 		metodoService_findCategoriaById(var_Id);
-		//try {
-			var_repoCategoria.deleteById(var_Id);
-		//}
-		//catch (DataIntegrityViolationException e) {
-		//	throw new service_exceptionGenericRuntimeException("Não é possível Excluir uma Categoria que possui produtos associados");           
-		//}
+		var_repoCategoria.deleteById(var_Id);
 	}
 	
 	public CategoriaEntity metodoService_fromDTO_to_Categoria(DTO_CategoriaEntity var_objDTO) {

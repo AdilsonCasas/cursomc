@@ -28,6 +28,11 @@ public class REST_ProdutoResource {
 		@RequestMapping(value="/{paramId}", method=RequestMethod.GET) // GET para SOMENTE UM Produto
 		public ResponseEntity<ProdutoEntity> metodoREST_findProduto(@PathVariable Integer paramId) throws Exception {
 			ProdutoEntity var_obj = var_serviceProduto.metodoService_findProduto(paramId);
+			try {
+			}
+			catch (Exception e) {
+				throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+			}
 			return ResponseEntity.ok().body(var_obj);
 		}
 	
@@ -52,6 +57,11 @@ public class REST_ProdutoResource {
 		
 			Page<ProdutoEntity> var_list = var_serviceProduto.metodoService_searchProduto(var_nomeDecoded, var_ids, var_NumPage, var_LinesPerPage, var_orderBy, var_directionOrderBy);
 			Page<DTO_ProdutoEntity> var_listDto = var_list.map(var_obj -> new DTO_ProdutoEntity(var_obj));
+			try {
+			}
+			catch (Exception e) {
+				throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+			}
 			return ResponseEntity.ok().body(var_listDto);
 		}
 		

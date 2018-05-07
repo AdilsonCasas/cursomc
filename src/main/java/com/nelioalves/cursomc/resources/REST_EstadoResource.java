@@ -25,6 +25,11 @@ public class REST_EstadoResource {
 	public ResponseEntity<List<DTO_Estado>> metodoREST_findAllEstado() {
 		List<EstadoEntity> var_list = var_serviceEstado.metodoService_findAllEstado();
 		List<DTO_Estado> var_listDto = var_list.stream().map(obj -> new DTO_Estado(obj)).collect(Collectors.toList());
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.ok().body(var_listDto);
 	}
 }

@@ -26,6 +26,11 @@ public class REST_CidadeResource {
 	public ResponseEntity<List<DTO_Cidade>> metodoREST_findAllCidade(@PathVariable Integer param_EstadoId) {
 		List<CidadeEntity> var_list = var_serviceCidade.metodoService_findAllCidade(param_EstadoId);
 		List<DTO_Cidade> var_listDto = var_list.stream().map(obj -> new DTO_Cidade(obj)).collect(Collectors.toList());
+		try {
+		}
+		catch (Exception e) {
+			throw new Exception("ERRO_PADRAO#00??@Exception: "+e.getMessage())?;
+		}
 		return ResponseEntity.ok().body(var_listDto);
 	}
 }
